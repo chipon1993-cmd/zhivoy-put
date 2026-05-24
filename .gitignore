@@ -3,3 +3,5 @@ node_modules/
 Thumbs.db
 *.url
 .claude/
+
+.vercel

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://4-alpha-woad.vercel.app/sitemap.xml

@@ -66,8 +66,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
-    // EmailJS will be initialized when the user provides their keys.
-    // For now, save messages to Supabase as a fallback.
+    emailjs.init('-c5OIUiJ6yBHCU7Uz');
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var btn = document.getElementById('contactSubmitBtn');
@@ -80,7 +80,6 @@
       btn.disabled = true;
       btn.textContent = 'Отправка...';
 
-      // Save to Supabase
       var msgData = {
         name: name,
         email: email,
@@ -89,37 +88,37 @@
         date: new Date().toISOString()
       };
 
+      var emailPromise = emailjs.send('service_fs4gmqo', 'template_8s177db', {
+        from_name: name,
+        from_email: email,
+        subject: subject,
+        message: message
+      });
+
+      var supabasePromise = Promise.resolve(true);
       if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
-        // Get existing messages, append new one
-        window.SupabaseClient.get('contact_messages').then(function(existing) {
+        supabasePromise = window.SupabaseClient.get('contact_messages').then(function(existing) {
           var messages = (existing && Array.isArray(existing)) ? existing : [];
           messages.push(msgData);
           return window.SupabaseClient.set('contact_messages', messages);
-        }).then(function(ok) {
-          if (ok) {
-            status.style.display = 'block';
-            status.style.background = 'rgba(143, 240, 182, 0.15)';
-            status.style.color = '#8ff0b6';
-            status.textContent = '✓ Сообщение отправлено! Спасибо.';
-            document.getElementById('contactForm').reset();
-          } else {
-            status.style.display = 'block';
-            status.style.background = 'rgba(248, 81, 73, 0.15)';
-            status.style.color = '#f85149';
-            status.textContent = 'Ошибка отправки. Попробуйте позже.';
-          }
-          btn.disabled = false;
-          btn.textContent = 'Отправить сообщение';
         });
-      } else {
-        // Fallback: just show success (no backend)
+      }
+
+      Promise.all([emailPromise, supabasePromise]).then(function() {
+        status.style.display = 'block';
+        status.style.background = 'rgba(143, 240, 182, 0.15)';
+        status.style.color = '#8ff0b6';
+        status.textContent = '✓ Сообщение отправлено! Спасибо.';
+        document.getElementById('contactForm').reset();
+      }).catch(function(err) {
         status.style.display = 'block';
         status.style.background = 'rgba(248, 81, 73, 0.15)';
         status.style.color = '#f85149';
-        status.textContent = 'Нет подключения к серверу. Попробуйте позже.';
+        status.textContent = 'Ошибка отправки. Попробуйте позже.';
+      }).finally(function() {
         btn.disabled = false;
         btn.textContent = 'Отправить сообщение';
-      }
+      });
     });
   </script>
 

@@ -2,6 +2,8 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/admin/(.*)", "destination": "/admin/index.html" }
   ]

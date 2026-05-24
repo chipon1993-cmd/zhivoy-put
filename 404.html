@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Страница не найдена | Живой путь</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #05070d;
+      color: #f0ebe1;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 480px;
+    }
+
+    .code {
+      font-size: 6rem;
+      font-weight: 800;
+      color: #f2c96d;
+      line-height: 1;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #f0ebe1;
+    }
+
+    p {
+      font-size: 1rem;
+      color: rgba(240, 235, 225, 0.6);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid #f2c96d;
+      color: #f2c96d;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: #f2c96d;
+      color: #05070d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="code">404</div>
+    <h1>Страница не найдена</h1>
+    <p>Этот путь ещё не проложен. Вернитесь на главную и продолжите движение.</p>
+    <a href="/" class="back-link">На главную</a>
+  </div>
+</body>
+</html>
