@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Живой путь — Панель управления</title>
+  <base href="/admin/" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin-vars.css" />
+  <link rel="stylesheet" href="css/admin-layout.css" />
+  <link rel="stylesheet" href="css/admin-forms.css" />
+  <link rel="stylesheet" href="css/admin-components.css" />
+  <link rel="stylesheet" href="css/admin-utils.css" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Mobile sidebar toggle button -->
+  <button class="sidebar-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="mark">✦</div>
+      Живой путь
+      <span>CMS</span>
+    </div>
+    <div id="sidebar-nav-container"></div>
+    <div class="sidebar-footer">
+      <a href="../index.html" target="_blank">↗ Открыть сайт</a>
+    </div>
+  </aside>
+
+  <!-- Main content area -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="topbarTitle">Загрузка...</h1>
+      <div class="topbar-actions">
+        <button class="btn-sm" id="btn-reset">↺ Сбросить</button>
+        <button class="btn-sm primary" id="btn-save">💾 Сохранить</button>
+      </div>
+    </div>
+    <div class="content" id="panels-container"></div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast">✓ Сохранено</div>
+
+  <!-- Quill.js -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+
+  <!-- Core modules -->
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/utils/drag-sort.js"></script>
+  <script src="js/router.js"></script>
+
+  <!-- Panel modules -->
+  <script src="js/panels/panel-hero.js"></script>
+  <script src="js/panels/panel-triptych.js"></script>
+  <script src="js/panels/panel-atlas.js"></script>
+  <script src="js/panels/panel-triggers.js"></script>
+  <script src="js/panels/panel-navigator.js"></script>
+  <script src="js/panels/panel-roadmap.js"></script>
+  <script src="js/panels/panel-menu.js"></script>
+  <script src="js/panels/panel-pages.js"></script>
+  <script src="js/panels/panel-typography.js"></script>
+  <script src="js/panels/panel-theme.js"></script>
+  <script src="js/panels/panel-preview.js"></script>
+  <script src="js/panels/panel-messages.js"></script>
+
+  <!-- Boot -->
+  <script>
+    AdminRouter.init();
+    AdminStore.loadFromCloud();
+  </script>
+
+</body>
+</html>

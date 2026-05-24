@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Триггеры и выходы — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/atmosphere.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="atmosphere"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <!-- ═══════════ TRIGGERS ═══════════ -->
+      <section id="triggers">
+        <div class="section-head" data-aos="fade-up">
+          <div>
+            <div class="section-label">Механизмы</div>
+            <h2>Триггеры и выходы</h2>
+          </div>
+          <p>Карта должна показывать не только мечту, но и механизмы: что включает, что выключает и как возвращаться.</p>
+        </div>
+
+        <div class="cards-3">
+          <article class="glass info-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="card-icon">🔥</div>
+            <h3>Включает</h3>
+            <ul>
+              <li>Живая беседа и точное отражение</li>
+              <li>Большая картина вместо сухого пункта</li>
+              <li>Образ, смысл, метафора, путь</li>
+              <li>Реальное действие, ощутимое в теле</li>
+            </ul>
+          </article>
+
+          <article class="glass info-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="card-icon">❄️</div>
+            <h3>Замораживает</h3>
+            <ul>
+              <li>Списки без внутреннего отклика</li>
+              <li>Слишком много пунктов сразу</li>
+              <li>«Надо» без связи со смыслом</li>
+              <li>Чужая форма, которую надо выучить</li>
+            </ul>
+          </article>
+
+          <article class="glass info-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-icon">🚪</div>
+            <h3>Выводит</h3>
+            <ul>
+              <li>Проговорить хаос голосом</li>
+              <li>Снять один маленький «камень»</li>
+              <li>Вернуться к телу и месту</li>
+              <li>Выбрать один живой следующий шаг</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/starfield.js"></script>
+  <script src="../js/scroll-effects.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

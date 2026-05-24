@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Путь: До / Во время / После — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/atmosphere.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="atmosphere"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <!-- ═══════════ STATS ═══════════ -->
+      <div class="stats-bar" data-aos="fade-up">
+        <div class="glass stat">
+          <div class="stat-num" data-count="7">0</div>
+          <div class="stat-label">территорий жизни</div>
+        </div>
+        <div class="glass stat">
+          <div class="stat-num" data-count="3">0</div>
+          <div class="stat-label">состояния пути</div>
+        </div>
+        <div class="glass stat">
+          <div class="stat-num" data-count="4">0</div>
+          <div class="stat-label">типа триггеров</div>
+        </div>
+        <div class="glass stat">
+          <div class="stat-num" data-count="1">0</div>
+          <div class="stat-label">живой следующий шаг</div>
+        </div>
+      </div>
+
+      <!-- ═══════════ TRIPTYCH ═══════════ -->
+      <section id="triptych">
+        <div class="section-head" data-aos="fade-up">
+          <div>
+            <div class="section-label">Три состояния</div>
+            <h2>До · Во время · После</h2>
+          </div>
+          <p>Одна жизнь, три состояния. Не резкий скачок, а путь от тумана к присутствию: через выбор, движение и внутреннюю сборку.</p>
+        </div>
+
+        <div class="triptych">
+          <article class="glass stage st-before" data-aos="fade-up" data-aos-delay="100">
+            <div>
+              <div class="stage-num">01</div>
+              <h3>ДО</h3>
+              <p class="stage-desc">Тяжесть, ступор, прошлое, страх и ощущение, что жизнь как будто висит огромным списком без живого смысла.</p>
+              <div class="tags">
+                <span class="tag">страх</span>
+                <span class="tag">сомнения</span>
+                <span class="tag">туман</span>
+                <span class="tag">ступор</span>
+                <span class="tag">прошлое</span>
+              </div>
+            </div>
+            <div class="figure-area">
+              <div class="stage-glow"></div>
+              <div class="chain-icon">⛓</div>
+              <div class="human-fig">
+                <div class="h-head"></div>
+                <div class="h-body"></div>
+                <div class="h-legs"><span></span><span></span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass stage st-during" data-aos="fade-up" data-aos-delay="250">
+            <div>
+              <div class="stage-num">02</div>
+              <h3>ВО ВРЕМЯ</h3>
+              <p class="stage-desc">Ты не «исправляешь себя». Ты учишься видеть свой механизм: состояния, триггеры, петли, опоры и живой следующий шаг.</p>
+              <div class="tags">
+                <span class="tag">выбор</span>
+                <span class="tag">путь</span>
+                <span class="tag">голос</span>
+                <span class="tag">дисциплина</span>
+                <span class="tag">рост</span>
+              </div>
+            </div>
+            <div class="figure-area">
+              <div class="stage-glow"></div>
+              <div class="human-fig">
+                <div class="h-head"></div>
+                <div class="h-body"></div>
+                <div class="h-legs"><span></span><span></span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass stage st-after" data-aos="fade-up" data-aos-delay="400">
+            <div>
+              <div class="stage-num">03</div>
+              <h3>ПОСЛЕ</h3>
+              <p class="stage-desc">Больше ясности, опоры и своего голоса. Жизнь не становится лёгкой навсегда, но появляется карта, по которой можно возвращаться.</p>
+              <div class="tags">
+                <span class="tag">свобода</span>
+                <span class="tag">мастерство</span>
+                <span class="tag">смысл</span>
+                <span class="tag">опора</span>
+                <span class="tag">служение</span>
+              </div>
+            </div>
+            <div class="figure-area">
+              <div class="stage-glow"></div>
+              <div class="human-fig">
+                <div class="h-head"></div>
+                <div class="h-body"></div>
+                <div class="h-legs"><span></span><span></span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/starfield.js"></script>
+  <script src="../js/scroll-effects.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+  <script src="../js/counters.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

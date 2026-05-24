@@ -1,0 +1,30 @@
+/* ═══ CSS CUSTOM PROPERTIES ═══ */
+
+:root {
+  --bg: #05070d;
+  --bg2: #0b1020;
+  --card: rgba(255,255,255,0.07);
+  --card-hover: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.12);
+  --border-hover: rgba(242,201,109,0.4);
+  --text: #f0ebe1;
+  --muted: #a8a196;
+  --gold: #f2c96d;
+  --gold-dim: rgba(242,201,109,0.15);
+  --amber: #ffae55;
+  --blue: #81c7ff;
+  --green: #8ff0b6;
+  --red: #ff8989;
+  --violet: #caa8ff;
+  --cyan: #6ee7e7;
+  --shadow: 0 40px 120px rgba(0,0,0,0.55);
+  --radius: 28px;
+  --radius-sm: 18px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Typography */
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-accent: var(--font-heading);
+}

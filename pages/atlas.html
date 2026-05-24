@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Атлас территорий — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/atmosphere.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="atmosphere"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <!-- ═══════════ ATLAS MAP ═══════════ -->
+      <section id="map">
+        <div class="section-head" data-aos="fade-up">
+          <div>
+            <div class="section-label">Карта территорий</div>
+            <h2>Атлас жизни</h2>
+          </div>
+          <p>Вместо «целей» — живые области. Входишь не через давление, а через отклик, необходимость и состояние дня.</p>
+        </div>
+
+        <div class="map-grid">
+          <div class="glass atlas" data-aos="fade-right" data-aos-duration="1000">
+            <div class="atlas-inner"></div>
+            <svg class="map-svg" viewBox="0 0 850 720" preserveAspectRatio="none">
+              <path d="M135 155 C270 245, 340 115, 430 345 C525 555, 695 245, 735 155" stroke="rgba(242,201,109,0.40)" stroke-width="2.5" stroke-dasharray="8 12" fill="none"/>
+              <path d="M155 555 C265 425, 355 535, 430 345 C525 185, 595 495, 735 555" stroke="rgba(129,199,255,0.28)" stroke-width="2.5" stroke-dasharray="6 10" fill="none"/>
+              <path d="M430 345 C365 280, 270 325, 195 405" stroke="rgba(143,240,182,0.35)" stroke-width="3" fill="none"/>
+              <path d="M430 345 C535 375, 575 435, 620 520" stroke="rgba(202,168,255,0.30)" stroke-width="3" fill="none"/>
+              <circle cx="430" cy="345" r="6" fill="rgba(242,201,109,0.50)"/>
+            </svg>
+
+            <div class="territory t-center">
+              <div class="t-icon">🧭</div>
+              <strong>Я в центре</strong>
+              <p>Не объект системы, а живой человек, который ищет форму для своего движения.</p>
+            </div>
+            <div class="territory t-work">
+              <div class="t-icon">🏠</div>
+              <strong>Опора</strong>
+              <p>Работа, деньги, документы, быт, стабильность. Земля под ногами.</p>
+            </div>
+            <div class="territory t-body">
+              <div class="t-icon">🫁</div>
+              <strong>Тело</strong>
+              <p>Энергия, усталость, напряжение, сон, дыхание, движение.</p>
+            </div>
+            <div class="territory t-voice">
+              <div class="t-icon">🗣️</div>
+              <strong>Голос</strong>
+              <p>Язык, сообщения, звонки, способность звучать в мире.</p>
+            </div>
+            <div class="territory t-growth">
+              <div class="t-icon">🛠️</div>
+              <strong>Рост</strong>
+              <p>Профессия, практика, техническая уверенность, мастерство.</p>
+            </div>
+            <div class="territory t-expression">
+              <div class="t-icon">✨</div>
+              <strong>Выражение</strong>
+              <p>Сайт, тексты, философия, идеи, собственная система видения.</p>
+            </div>
+            <div class="territory t-connection">
+              <div class="t-icon">🤝</div>
+              <strong>Связь</strong>
+              <p>Люди, отношения, тепло, контакт, принадлежность.</p>
+            </div>
+          </div>
+
+          <aside class="glass side-panel" data-aos="fade-left" data-aos-duration="1000">
+            <div class="weather-card">
+              <h3>Погода состояния</h3>
+              <p>Сначала понять: внутри туман, перегруз, живой интерес или точка входа?</p>
+              <div class="meter"><div class="meter-fill" style="width:0%" data-target="44"></div></div>
+              <div class="chips">
+                <span class="chip active">🌫 туман</span>
+                <span class="chip">🪨 тяжесть</span>
+                <span class="chip">🔥 искра</span>
+                <span class="chip">🚪 выход</span>
+              </div>
+            </div>
+
+            <div class="weather-card">
+              <h3>Вопрос дня</h3>
+              <p>Что сейчас во мне живое, что давит, и какой один шаг вернёт мне хотя бы 5% движения?</p>
+            </div>
+
+            <div class="weather-card">
+              <h3>Метрика</h3>
+              <p>Не «сколько задач закрыто», а стало ли яснее, легче или живее после действия.</p>
+            </div>
+
+            <div class="weather-card">
+              <h3>Фокус</h3>
+              <p>Один шаг. Одно территория. Один живой импульс. Не план на месяц — действие на сейчас.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/starfield.js"></script>
+  <script src="../js/scroll-effects.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+  <script src="../js/counters.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

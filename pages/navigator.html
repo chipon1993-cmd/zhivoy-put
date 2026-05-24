@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Навигатор состояния — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/atmosphere.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="atmosphere"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <!-- ═══════════ NAVIGATOR / AGENT ═══════════ -->
+      <section id="agent">
+        <div class="section-head" data-aos="fade-up">
+          <div>
+            <div class="section-label">Инструмент</div>
+            <h2>Навигатор состояния</h2>
+          </div>
+          <p>Ты пишешь поток, а система возвращает не список, а отражение и один живой ход.</p>
+        </div>
+
+        <div class="agent-grid">
+          <div class="glass principles" data-aos="fade-right" data-aos-duration="1000">
+            <h3>Принцип работы</h3>
+            <p>Сначала сырой поток. Потом отражение. Потом один шаг. Не наоборот.</p>
+            <div class="principles-list">
+              <div class="principle">
+                <strong>1. Хаос — это сырьё</strong>
+                <span>Не нужно красиво формулировать. Пиши как есть — туман, обрывки и честность.</span>
+              </div>
+              <div class="principle">
+                <strong>2. Смысл важнее списка</strong>
+                <span>Система ищет, что на самом деле происходит, а не что «надо сделать».</span>
+              </div>
+              <div class="principle">
+                <strong>3. Один шаг лучше плана</strong>
+                <span>Действие должно вернуть контакт с собой, а не задавить ещё больше.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass agent-panel" data-aos="fade-left" data-aos-duration="1000">
+            <h3>Запиши состояние</h3>
+            <p>Например: «сегодня тяжесть, список задач бесит, но я хочу немного сдвинуть жизнь».</p>
+            <textarea id="stateInput" placeholder="Пиши потоком: что чувствуешь, что давит, где туман, где есть маленькая искра..."></textarea>
+            <div class="button-row">
+              <button onclick="reflectState()">Показать отражение</button>
+              <button class="secondary" onclick="clearState()">Очистить</button>
+            </div>
+            <div id="answer" style="display:none"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/starfield.js"></script>
+  <script src="../js/scroll-effects.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+  <script src="../js/navigator-engine.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

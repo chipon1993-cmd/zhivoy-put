@@ -1,0 +1,67 @@
+/* ═══ CTA SECTION ═══ */
+
+.cta-section {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.cta-section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.cta-section p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 32px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ═══ FOOTER ═══ */
+
+footer {
+  padding: 40px 0 60px;
+  text-align: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.footer-brand .brand-mark {
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+}
+
+footer p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.footer-note {
+  margin-top: 28px;
+  color: rgba(255,255,255,0.20);
+  font-size: 12px;
+}

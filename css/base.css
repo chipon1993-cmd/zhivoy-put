@@ -1,0 +1,32 @@
+/* ═══ RESET & BASE STYLES ═══ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(242,201,109,0.3) transparent;
+}
+
+body {
+  color: var(--text);
+  font-family: var(--font-body);
+  background: var(--bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══ SELECTION ═══ */
+
+::selection {
+  background: rgba(242,201,109,0.30);
+  color: var(--text);
+}
+
+/* ═══ SCROLLBAR ═══ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(242,201,109,0.25); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(242,201,109,0.45); }

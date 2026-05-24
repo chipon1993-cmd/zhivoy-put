@@ -1,0 +1,48 @@
+/* ============================================
+   Admin Panel — CSS Variables
+   Global design tokens and theme configuration
+   ============================================ */
+
+:root {
+  /* Background Colors */
+  --bg: #0e1117;
+  --bg2: #161b22;
+  --bg3: #1c2129;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
+
+  /* Text */
+  --text: #e6e1d8;
+  --muted: #8b8680;
+
+  /* Accent Colors */
+  --gold: #f2c96d;
+  --gold-dim: rgba(242, 201, 109, 0.12);
+  --blue: #58a6ff;
+  --green: #56d364;
+  --red: #f85149;
+  --violet: #bc8cff;
+
+  /* Spacing */
+  --admin-gap: 16px;
+  --admin-gap-lg: 28px;
+
+  /* Radius */
+  --radius: 12px;
+  --admin-radius-sm: 8px;
+  --admin-radius-lg: 16px;
+
+  /* Layout */
+  --sidebar-w: 260px;
+
+  /* Motion */
+  --admin-transition: 0.15s ease;
+
+  /* Elevation */
+  --admin-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+
+  /* Typography */
+  --admin-font: 'Inter', system-ui, sans-serif;
+}

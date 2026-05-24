@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Регистрация — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <section class="auth-container">
+        <div class="glass auth-card">
+          <h2 class="auth-title">Регистрация</h2>
+          <p class="auth-subtitle">Создайте свой личный атлас жизни</p>
+          <form class="auth-form" id="registerForm">
+            <div class="form-field">
+              <label for="reg-name">Имя</label>
+              <input type="text" id="reg-name" required placeholder="Ваше имя" />
+            </div>
+            <div class="form-field">
+              <label for="reg-email">Email</label>
+              <input type="email" id="reg-email" required placeholder="you@example.com" />
+            </div>
+            <div class="form-field">
+              <label for="reg-password">Пароль</label>
+              <input type="password" id="reg-password" required minlength="6" placeholder="Минимум 6 символов" />
+            </div>
+            <div class="form-field">
+              <label for="reg-password2">Подтвердите пароль</label>
+              <input type="password" id="reg-password2" required placeholder="Повторите пароль" />
+            </div>
+            <div id="register-error" class="auth-error" style="display:none"></div>
+            <button type="submit" class="btn primary" style="width:100%;justify-content:center">Создать аккаунт</button>
+          </form>
+          <p class="auth-link">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/auth.js"></script>
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name = document.getElementById('reg-name').value;
+      var email = document.getElementById('reg-email').value;
+      var password = document.getElementById('reg-password').value;
+      var password2 = document.getElementById('reg-password2').value;
+      var errorEl = document.getElementById('register-error');
+      errorEl.style.display = 'none';
+
+      if (password !== password2) {
+        errorEl.textContent = 'Пароли не совпадают';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      ZhivoyAuth.register(email, name, password).then(function(result) {
+        if (result.success) {
+          window.location.href = '../index.html';
+        } else {
+          errorEl.textContent = result.error;
+          errorEl.style.display = 'block';
+        }
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

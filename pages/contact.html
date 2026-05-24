@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Связаться — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <section class="auth-container">
+        <div class="glass auth-card" style="max-width:520px" data-aos="fade-up">
+          <h2 class="auth-title">Связаться</h2>
+          <p class="auth-subtitle">Напишите, и я отвечу в ближайшее время</p>
+          <form class="auth-form" id="contactForm">
+            <div class="form-field">
+              <label for="contact-name">Имя</label>
+              <input type="text" id="contact-name" name="from_name" required placeholder="Ваше имя" />
+            </div>
+            <div class="form-field">
+              <label for="contact-email">Email</label>
+              <input type="email" id="contact-email" name="from_email" required placeholder="you@example.com" />
+            </div>
+            <div class="form-field">
+              <label for="contact-subject">Тема</label>
+              <input type="text" id="contact-subject" name="subject" placeholder="О чём хотите поговорить?" />
+            </div>
+            <div class="form-field">
+              <label for="contact-message">Сообщение</label>
+              <textarea id="contact-message" name="message" required rows="5" placeholder="Ваше сообщение..." style="width:100%;padding:10px 14px;background:var(--bg-card,rgba(255,255,255,0.05));border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:15px;font-family:inherit;resize:vertical;"></textarea>
+            </div>
+            <div id="contact-status" style="display:none;font-size:14px;margin-top:8px;padding:10px;border-radius:8px;text-align:center;"></div>
+            <button type="submit" class="btn primary" style="width:100%;justify-content:center" id="contactSubmitBtn">Отправить сообщение</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script>
+    // EmailJS will be initialized when the user provides their keys.
+    // For now, save messages to Supabase as a fallback.
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('contactSubmitBtn');
+      var status = document.getElementById('contact-status');
+      var name = document.getElementById('contact-name').value;
+      var email = document.getElementById('contact-email').value;
+      var subject = document.getElementById('contact-subject').value;
+      var message = document.getElementById('contact-message').value;
+
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+
+      // Save to Supabase
+      var msgData = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+        date: new Date().toISOString()
+      };
+
+      if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
+        // Get existing messages, append new one
+        window.SupabaseClient.get('contact_messages').then(function(existing) {
+          var messages = (existing && Array.isArray(existing)) ? existing : [];
+          messages.push(msgData);
+          return window.SupabaseClient.set('contact_messages', messages);
+        }).then(function(ok) {
+          if (ok) {
+            status.style.display = 'block';
+            status.style.background = 'rgba(143, 240, 182, 0.15)';
+            status.style.color = '#8ff0b6';
+            status.textContent = '✓ Сообщение отправлено! Спасибо.';
+            document.getElementById('contactForm').reset();
+          } else {
+            status.style.display = 'block';
+            status.style.background = 'rgba(248, 81, 73, 0.15)';
+            status.style.color = '#f85149';
+            status.textContent = 'Ошибка отправки. Попробуйте позже.';
+          }
+          btn.disabled = false;
+          btn.textContent = 'Отправить сообщение';
+        });
+      } else {
+        // Fallback: just show success (no backend)
+        status.style.display = 'block';
+        status.style.background = 'rgba(248, 81, 73, 0.15)';
+        status.style.color = '#f85149';
+        status.textContent = 'Нет подключения к серверу. Попробуйте позже.';
+        btn.disabled = false;
+        btn.textContent = 'Отправить сообщение';
+      }
+    });
+  </script>
+
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    var lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>

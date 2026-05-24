@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Дорожная карта — Живой путь</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/atmosphere.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="atmosphere"></div>
+  <div class="grid-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="page">
+    <div id="site-header"></div>
+
+    <main>
+
+      <!-- ═══════════ ROADMAP ═══════════ -->
+      <section id="build">
+        <div class="section-head" data-aos="fade-up">
+          <div>
+            <div class="section-label">Развитие</div>
+            <h2>Как это станет AI-системой</h2>
+          </div>
+          <p>Сначала зеркало. Потом — память, дневник, карта повторений и агент, который подстраивается.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="step" data-aos="fade-up" data-aos-delay="100">
+            <div class="step-num">01</div>
+            <h3>Сайт-атлас</h3>
+            <p>Визуальная карта: территории жизни, триггеры, состояния, переходы между ними.</p>
+          </div>
+          <div class="step" data-aos="fade-up" data-aos-delay="200">
+            <div class="step-num">02</div>
+            <h3>Дневник состояний</h3>
+            <p>Каждый день короткий поток: что происходит внутри и снаружи, без обязательства на формат.</p>
+          </div>
+          <div class="step" data-aos="fade-up" data-aos-delay="300">
+            <div class="step-num">03</div>
+            <h3>AI-зеркало</h3>
+            <p>Модель распознаёт петли, темы, перегруз, живые импульсы и точки выхода из ступора.</p>
+          </div>
+          <div class="step" data-aos="fade-up" data-aos-delay="400">
+            <div class="step-num">04</div>
+            <h3>Живой агент</h3>
+            <p>Он помнит карту, предлагает один шаг, готовит тексты и маршруты без давления.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ TESTIMONIALS SLIDER ═══════════ -->
+      <section class="testimonials-section" data-aos="fade-up">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Отклики</div>
+            <h2>Что говорят участники</h2>
+          </div>
+        </div>
+
+        <div class="swiper testimonials-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="glass testimonial-card">
+                <p class="testimonial-text">«Впервые ощутил, что карта жизни — это не про задачи, а про то, где я сейчас нахожусь. Это изменило мой подход ко всему.»</p>
+                <div class="testimonial-author">
+                  <div class="testimonial-avatar">А</div>
+                  <div>
+                    <div class="testimonial-name">Андрей</div>
+                    <div class="testimonial-role">Предприниматель</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="glass testimonial-card">
+                <p class="testimonial-text">«Навигатор состояния помог мне выйти из ступора. Я писала поток, и впервые за месяцы увидела, что на самом деле происходит внутри.»</p>
+                <div class="testimonial-author">
+                  <div class="testimonial-avatar">М</div>
+                  <div>
+                    <div class="testimonial-name">Мария</div>
+                    <div class="testimonial-role">Дизайнер</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="glass testimonial-card">
+                <p class="testimonial-text">«Не продуктивность, а присутствие. Эта система дала мне язык, которым я могу описать своё движение, без давления и чужих рамок.»</p>
+                <div class="testimonial-author">
+                  <div class="testimonial-avatar">Д</div>
+                  <div>
+                    <div class="testimonial-name">Дмитрий</div>
+                    <div class="testimonial-role">Разработчик</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="glass testimonial-card">
+                <p class="testimonial-text">«Один живой шаг вместо плана на год. Звучит просто, но именно это вернуло мне ощущение движения.»</p>
+                <div class="testimonial-author">
+                  <div class="testimonial-avatar">Е</div>
+                  <div>
+                    <div class="testimonial-name">Елена</div>
+                    <div class="testimonial-role">Психолог</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- ═══════════ CTA ═══════════ -->
+      <section class="cta-section" data-aos="zoom-in" data-aos-duration="1000">
+        <h2>Это не контроль над собой.<br>Это <span class="accent">возвращение к себе</span>.</h2>
+        <p>Карта, по которой можно снова и снова находить своё направление — через состояние, не через давление.</p>
+        <div class="cta-buttons">
+          <a class="btn primary" href="navigator.html">Записать состояние</a>
+          <a class="btn" href="../index.html">На главную</a>
+        </div>
+      </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../js/components.js"></script>
+  <script src="../js/starfield.js"></script>
+  <script src="../js/scroll-effects.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/cms-loader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    new Swiper('.testimonials-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 24,
+      loop: true,
+      autoplay: { delay: 5000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1100: { slidesPerView: 3 }
+      }
+    });
+    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+</body>
+</html>
