@@ -86,12 +86,8 @@
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
   <script src="../js/navigator-engine.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    const lenis = new Lenis({ duration: 1.2, easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
     AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
   </script>
 </body>
