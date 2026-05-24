@@ -7,9 +7,8 @@ header {
   margin: 12px auto 0;
   padding: 8px 8px 8px 20px;
   border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(5,7,13,0.72);
-  backdrop-filter: blur(28px) saturate(1.6);
-  -webkit-backdrop-filter: blur(28px) saturate(1.6);
+  background: rgba(5,7,13,0.92);
+  transform: translateZ(0);
   border-radius: 999px;
   box-shadow: 0 20px 70px rgba(0,0,0,0.35);
   display: flex;

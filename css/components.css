@@ -1,12 +1,11 @@
 /* ═══ GLASS CARD ═══ */
 
 .glass {
-  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  background: linear-gradient(145deg, rgba(20,22,30,0.85), rgba(15,17,25,0.9));
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  transform: translateZ(0);
 }
 
 /* ═══ BUTTONS ═══ */
