@@ -1,6 +1,6 @@
-/* ═══ NAVIGATOR PAGE — Interactive Practice Environment ═══ */
+/* ═══ NAVIGATOR — Practice Environment ═══ */
 
-.nav-page { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+.nav-page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
 /* ─── Streak Bar ─── */
 .streak-bar {
@@ -17,272 +17,407 @@
   color: var(--muted);
 }
 .streak-bar .streak-fire { font-size: 20px; }
-.streak-bar .streak-count {
-  font-weight: 700;
-  color: var(--gold);
-  font-size: 18px;
-}
-.streak-bar .streak-label { opacity: 0.7; }
+.streak-bar .streak-count { font-weight: 700; color: var(--gold); font-size: 18px; }
 
-/* ─── Section Tabs ─── */
-.nav-tabs {
-  display: flex;
-  gap: 4px;
-  background: rgba(255,255,255,0.04);
-  border-radius: 16px;
-  padding: 4px;
+/* ─── Practice Library Grid ─── */
+.practices-header {
+  text-align: center;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255,255,255,0.06);
 }
-.nav-tab {
-  flex: 1;
-  padding: 12px 16px;
-  border: none;
-  background: none;
+.practices-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.practices-header p { font-size: 15px; color: var(--muted); }
+
+.practices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+
+.practice-card {
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.practice-card:hover {
+  border-color: rgba(242,201,109,0.25);
+  background: rgba(242,201,109,0.04);
+  transform: translateY(-2px);
+}
+.practice-card-icon { font-size: 2.2rem; margin-bottom: 12px; }
+.practice-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.practice-card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.practice-card-duration {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.06);
+  font-size: 11px;
   color: var(--muted);
+}
+
+/* ─── Practice View (full screen overlay) ─── */
+.practice-view {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--bg, #05070d);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow-y: auto;
+}
+.practice-view.active { opacity: 1; visibility: visible; }
+
+.practice-view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.practice-view-title { font-size: 16px; font-weight: 600; color: var(--text); }
+.practice-close {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.practice-close:hover { background: rgba(255,255,255,0.1); }
+
+.practice-view-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ─── Practice: Intro Screen ─── */
+.practice-intro { text-align: center; }
+.practice-intro-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+.practice-intro h3 {
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  font-family: 'Playfair Display', serif;
+}
+.practice-intro-description {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+.practice-instructions {
+  text-align: left;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.practice-instructions h4 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.practice-instructions ol, .practice-instructions ul {
+  padding-left: 20px;
   font-size: 14px;
-  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.8;
+}
+.practice-instructions li { margin-bottom: 4px; }
+.practice-warning {
+  background: rgba(248,81,73,0.08);
+  border: 1px solid rgba(248,81,73,0.2);
   border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: rgba(248,81,73,0.9);
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.practice-start-btn {
+  padding: 16px 40px;
+  border-radius: 99px;
+  border: none;
+  background: var(--gold);
+  color: #0a0c14;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
 }
-.nav-tab:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-.nav-tab.active {
-  background: rgba(242,201,109,0.12);
+.practice-start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(242,201,109,0.3); }
+
+/* ─── Practice: Active State ─── */
+.practice-active { display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+.practice-timer-display {
+  font-size: 3rem;
+  font-weight: 300;
   color: var(--gold);
-  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+.practice-phase-text {
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 2rem;
+  min-height: 28px;
 }
 
-/* ─── Tab Panels ─── */
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
-
-/* ─── Breathing Exercise ─── */
-.breath-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3rem 1rem;
-}
+/* Breathing circle */
 .breath-circle {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   border: 3px solid var(--gold);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  transition: transform 4s ease-in-out, box-shadow 4s ease-in-out;
+  margin-bottom: 2rem;
+  transition: transform 4s ease-in-out, box-shadow 4s ease-in-out, border-color 0.5s ease;
 }
 .breath-circle.inhale {
-  transform: scale(1.4);
-  box-shadow: 0 0 60px rgba(242,201,109,0.3), inset 0 0 40px rgba(242,201,109,0.1);
+  transform: scale(1.5);
+  box-shadow: 0 0 80px rgba(242,201,109,0.3), inset 0 0 50px rgba(242,201,109,0.08);
+}
+.breath-circle.hold {
+  transform: scale(1.5);
+  border-color: rgba(129,199,255,0.6);
+  box-shadow: 0 0 60px rgba(129,199,255,0.2);
 }
 .breath-circle.exhale {
   transform: scale(1);
   box-shadow: 0 0 20px rgba(242,201,109,0.1);
 }
-.breath-text {
-  font-size: 18px;
+.breath-circle-text {
+  font-size: 20px;
   font-weight: 600;
   color: var(--gold);
+}
+
+/* Focus dot */
+.focus-dot-container {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 2rem;
+}
+.focus-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 20px rgba(242,201,109,0.6), 0 0 60px rgba(242,201,109,0.2);
+  animation: focus-pulse 3s ease-in-out infinite;
+}
+@keyframes focus-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(242,201,109,0.6), 0 0 60px rgba(242,201,109,0.2); }
+  50% { box-shadow: 0 0 30px rgba(242,201,109,0.8), 0 0 80px rgba(242,201,109,0.3); }
+}
+
+/* Meditation rings */
+.meditation-visual {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.meditation-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(242,201,109,0.2);
+  animation: meditation-breathe 6s ease-in-out infinite;
+}
+.meditation-ring:nth-child(1) { width: 100%; height: 100%; animation-delay: 0s; }
+.meditation-ring:nth-child(2) { width: 75%; height: 75%; animation-delay: 1s; }
+.meditation-ring:nth-child(3) { width: 50%; height: 50%; animation-delay: 2s; }
+.meditation-ring-center {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.8;
+}
+@keyframes meditation-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+/* Grounding */
+.grounding-step {
   text-align: center;
+  padding: 2rem;
 }
-.breath-timer {
-  margin-top: 2rem;
-  font-size: 14px;
-  color: var(--muted);
-}
-.breath-btn {
-  margin-top: 1.5rem;
-  padding: 12px 32px;
-  border-radius: 99px;
-  border: 1px solid var(--gold);
-  background: rgba(242,201,109,0.1);
+.grounding-number {
+  font-size: 5rem;
+  font-weight: 800;
   color: var(--gold);
+  opacity: 0.3;
+  line-height: 1;
+}
+.grounding-sense {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin: 0.5rem 0;
+}
+.grounding-prompt {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.grounding-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto 1.5rem;
+}
+.grounding-input {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+}
+.grounding-input:focus { outline: none; border-color: rgba(242,201,109,0.4); }
+.grounding-input::placeholder { color: rgba(255,255,255,0.2); }
+
+/* ─── Control Buttons ─── */
+.practice-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 1rem;
+}
+.practice-btn {
+  padding: 12px 28px;
+  border-radius: 99px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
 }
-.breath-btn:hover { background: rgba(242,201,109,0.2); }
-.breath-btn.active { background: var(--gold); color: #0a0c14; }
+.practice-btn-primary {
+  border: none;
+  background: var(--gold);
+  color: #0a0c14;
+}
+.practice-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(242,201,109,0.3); }
+.practice-btn-secondary {
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+}
+.practice-btn-secondary:hover { border-color: rgba(255,255,255,0.3); }
 
-/* ─── Check-in ─── */
-.checkin-section { padding: 1rem 0; }
+/* ─── Completion Screen ─── */
+.practice-complete { text-align: center; }
+.practice-complete-icon { font-size: 4rem; margin-bottom: 1rem; }
+.practice-complete h3 { font-size: 1.5rem; color: var(--gold); margin-bottom: 0.5rem; }
+.practice-complete p { font-size: 15px; color: var(--muted); margin-bottom: 2rem; }
+
+/* ─── Check-in section (embedded) ─── */
+.checkin-card {
+  grid-column: 1 / -1;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(242,201,109,0.15);
+  background: rgba(242,201,109,0.03);
+}
 .mood-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
-  margin-bottom: 1.5rem;
+  gap: 8px;
+  margin: 1rem 0;
 }
 .mood-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 16px 8px;
-  border-radius: 16px;
+  gap: 4px;
+  padding: 14px 6px;
+  border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.03);
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
 }
-.mood-btn:hover { border-color: rgba(242,201,109,0.3); background: rgba(242,201,109,0.06); }
+.mood-btn:hover { border-color: rgba(242,201,109,0.3); }
 .mood-btn.selected { border-color: var(--gold); background: rgba(242,201,109,0.12); }
-.mood-btn .mood-emoji { font-size: 28px; }
-.mood-btn .mood-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+.mood-btn .mood-emoji { font-size: 24px; }
+.mood-btn .mood-label { font-size: 10px; color: var(--muted); }
 
 .checkin-textarea {
   width: 100%;
-  min-height: 120px;
-  padding: 16px;
-  border-radius: 16px;
+  min-height: 80px;
+  padding: 14px;
+  border-radius: 14px;
   border: 1px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.03);
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   font-family: inherit;
   line-height: 1.6;
   resize: vertical;
-  transition: border-color 0.3s ease;
 }
-.checkin-textarea:focus {
-  outline: none;
-  border-color: rgba(242,201,109,0.4);
-}
-.checkin-textarea::placeholder { color: rgba(255,255,255,0.25); }
+.checkin-textarea:focus { outline: none; border-color: rgba(242,201,109,0.4); }
+.checkin-textarea::placeholder { color: rgba(255,255,255,0.2); }
 
-.checkin-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 1rem;
-}
-.checkin-submit {
-  padding: 12px 28px;
-  border-radius: 99px;
-  border: none;
-  background: var(--gold);
-  color: #0a0c14;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-.checkin-submit:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(242,201,109,0.3); }
-.checkin-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-.reflect-btn {
-  padding: 12px 28px;
-  border-radius: 99px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.05);
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-.reflect-btn:hover { border-color: rgba(255,255,255,0.3); }
-
-/* ─── Reflection Answer ─── */
-.reflection-box {
-  margin-top: 1.5rem;
-  padding: 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(242,201,109,0.2);
-  background: rgba(242,201,109,0.04);
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text);
-  display: none;
-}
-.reflection-box.visible { display: block; }
-.reflection-box strong { color: var(--gold); }
-.reflection-box em { color: var(--blue); font-style: normal; }
-
-/* ─── Journal / History ─── */
-.journal-section { padding: 1rem 0; }
-.journal-empty {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: var(--muted);
-}
-.journal-empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
-.journal-list { display: flex; flex-direction: column; gap: 12px; }
-.journal-entry {
-  padding: 16px 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.03);
-  transition: border-color 0.3s ease;
-}
-.journal-entry:hover { border-color: rgba(255,255,255,0.12); }
-.journal-entry-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-.journal-entry-date { font-size: 12px; color: var(--muted); }
-.journal-entry-mood { font-size: 20px; }
-.journal-entry-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.8);
-  white-space: pre-wrap;
-}
-
-/* ─── Mood Chart ─── */
-.mood-chart {
-  margin-top: 2rem;
-  padding: 20px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
-}
-.mood-chart-title {
-  font-size: 13px;
-  color: var(--muted);
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-.mood-chart-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 6px;
-  height: 80px;
-}
-.mood-chart-bar {
-  flex: 1;
-  border-radius: 4px 4px 0 0;
-  background: rgba(242,201,109,0.4);
-  min-height: 4px;
-  transition: height 0.3s ease;
-}
-.mood-chart-bar.today { background: var(--gold); }
-.mood-chart-labels {
-  display: flex;
-  gap: 6px;
-  margin-top: 6px;
-}
-.mood-chart-label {
-  flex: 1;
-  text-align: center;
-  font-size: 10px;
-  color: var(--muted);
-}
+.checkin-actions { display: flex; gap: 10px; margin-top: 12px; }
 
 /* ─── Responsive ─── */
 @media (max-width: 600px) {
+  .practices-grid { grid-template-columns: 1fr; }
   .mood-grid { grid-template-columns: repeat(3, 1fr); }
-  .nav-tabs { flex-wrap: wrap; }
-  .nav-tab { font-size: 13px; padding: 10px 12px; }
-  .breath-circle { width: 140px; height: 140px; }
+  .breath-circle { width: 160px; height: 160px; }
+  .focus-dot-container { width: 220px; height: 220px; }
+  .practice-view-body { padding: 1.5rem; }
 }

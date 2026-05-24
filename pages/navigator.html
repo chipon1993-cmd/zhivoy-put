@@ -34,100 +34,80 @@
       <div class="streak-bar reveal">
         <span class="streak-fire">🔥</span>
         <span class="streak-count" id="streak-count">0</span>
-        <span class="streak-label">дней подряд</span>
+        <span>дней подряд</span>
       </div>
 
-      <!-- ═══ Tabs ═══ -->
-      <div class="nav-tabs reveal">
-        <button class="nav-tab active" data-tab="checkin">📝 Чекин</button>
-        <button class="nav-tab" data-tab="breathe">🫁 Дыхание</button>
-        <button class="nav-tab" data-tab="journal">📖 Дневник</button>
+      <!-- ═══ Header ═══ -->
+      <div class="practices-header reveal">
+        <h2>Пространство практик</h2>
+        <p>Выбери практику — от дыхания до медитации. Каждый день на шаг ближе к себе.</p>
       </div>
 
-      <!-- ═══════════ TAB: CHECK-IN ═══════════ -->
-      <div class="tab-panel active" id="panel-checkin">
-        <div class="checkin-section">
+      <!-- ═══ Practice Cards Grid ═══ -->
+      <div class="practices-grid">
 
-          <h3 style="font-size:18px;margin-bottom:6px;color:var(--text);">Как ты сейчас?</h3>
-          <p style="font-size:14px;color:var(--muted);margin-bottom:1.5rem;">Выбери состояние и/или напиши потоком</p>
-
-          <!-- Mood selector -->
-          <div class="mood-grid">
-            <button class="mood-btn" data-mood="heavy">
-              <span class="mood-emoji">😔</span>
-              <span class="mood-label">Тяжесть</span>
-            </button>
-            <button class="mood-btn" data-mood="anxious">
-              <span class="mood-emoji">😰</span>
-              <span class="mood-label">Тревога</span>
-            </button>
-            <button class="mood-btn" data-mood="fog">
-              <span class="mood-emoji">🌫️</span>
-              <span class="mood-label">Туман</span>
-            </button>
-            <button class="mood-btn" data-mood="spark">
-              <span class="mood-emoji">✨</span>
-              <span class="mood-label">Искра</span>
-            </button>
-            <button class="mood-btn" data-mood="calm">
-              <span class="mood-emoji">😌</span>
-              <span class="mood-label">Спокойствие</span>
-            </button>
-          </div>
-
-          <!-- Text input -->
-          <textarea class="checkin-textarea" id="checkin-text" placeholder="Пиши потоком: что чувствуешь, что давит, где туман, где есть маленькая искра..."></textarea>
-
-          <!-- Actions -->
-          <div class="checkin-actions">
-            <button class="checkin-submit" id="checkin-submit">Сохранить запись</button>
-            <button class="reflect-btn" id="checkin-reflect">✦ Отражение</button>
-          </div>
-
-          <!-- Reflection output -->
-          <div class="reflection-box" id="reflection-box"></div>
-
+        <!-- Daily Check-in (special card) -->
+        <div class="practice-card checkin-card" data-practice="checkin">
+          <div class="practice-card-icon">📝</div>
+          <div class="practice-card-title">Ежедневный чекин</div>
+          <div class="practice-card-desc">Отметь настроение и запиши состояние. Система отразит, что происходит.</div>
+          <div class="practice-card-duration">2–5 мин</div>
         </div>
-      </div>
 
-      <!-- ═══════════ TAB: BREATHING ═══════════ -->
-      <div class="tab-panel" id="panel-breathe">
-        <div class="breath-container">
-
-          <h3 style="font-size:18px;margin-bottom:8px;color:var(--text);">Дыхательная практика</h3>
-          <p style="font-size:14px;color:var(--muted);margin-bottom:2rem;text-align:center;">4 секунды вдох · 2 задержка · 4 выдох<br>6 циклов = 1 минута присутствия</p>
-
-          <div class="breath-circle" id="breath-circle">
-            <span class="breath-text" id="breath-text">Готов</span>
-          </div>
-
-          <div class="breath-timer" id="breath-timer">Нажми для начала</div>
-          <button class="breath-btn" id="breath-start">Начать дыхание</button>
-
+        <!-- Box Breathing -->
+        <div class="practice-card" data-practice="box-breathing">
+          <div class="practice-card-icon">🫁</div>
+          <div class="practice-card-title">Бокс-дыхание</div>
+          <div class="practice-card-desc">4-4-4-4. Ровное дыхание по квадрату для спокойствия и фокуса.</div>
+          <div class="practice-card-duration">~3 мин</div>
         </div>
-      </div>
 
-      <!-- ═══════════ TAB: JOURNAL ═══════════ -->
-      <div class="tab-panel" id="panel-journal">
-        <div class="journal-section">
-
-          <!-- Mood chart -->
-          <div class="mood-chart">
-            <div class="mood-chart-title">Настроение за 7 дней</div>
-            <div class="mood-chart-bars" id="mood-chart-bars"></div>
-            <div class="mood-chart-labels" id="mood-chart-labels"></div>
-          </div>
-
-          <!-- Entries list -->
-          <h3 style="font-size:16px;margin:1.5rem 0 1rem;color:var(--text);">История записей</h3>
-          <div class="journal-list" id="journal-list"></div>
-
+        <!-- Holotropic -->
+        <div class="practice-card" data-practice="holotropic">
+          <div class="practice-card-icon">🌀</div>
+          <div class="practice-card-title">Холотропное дыхание</div>
+          <div class="practice-card-desc">Интенсивная практика с фазами ускорения. Для опытных.</div>
+          <div class="practice-card-duration">~12 мин</div>
         </div>
+
+        <!-- Focus -->
+        <div class="practice-card" data-practice="focus">
+          <div class="practice-card-icon">🔴</div>
+          <div class="practice-card-title">Фокус на точке</div>
+          <div class="practice-card-desc">Удерживай взгляд на точке. Тренировка устойчивого внимания.</div>
+          <div class="practice-card-duration">3 мин</div>
+        </div>
+
+        <!-- Meditation -->
+        <div class="practice-card" data-practice="meditation">
+          <div class="practice-card-icon">🧘</div>
+          <div class="practice-card-title">Медитация</div>
+          <div class="practice-card-desc">Управляемая медитация: погружение → фокус → открытость → завершение.</div>
+          <div class="practice-card-duration">7 мин</div>
+        </div>
+
+        <!-- Grounding -->
+        <div class="practice-card" data-practice="grounding">
+          <div class="practice-card-icon">🌍</div>
+          <div class="practice-card-title">Заземление 5-4-3-2-1</div>
+          <div class="practice-card-desc">Возвращение в настоящий момент через 5 органов чувств.</div>
+          <div class="practice-card-duration">3–5 мин</div>
+        </div>
+
       </div>
 
     </main>
 
     <div id="site-footer"></div>
+  </div>
+
+  <!-- ═══ Practice View Overlay ═══ -->
+  <div class="practice-view" id="practice-view">
+    <div class="practice-view-header">
+      <span class="practice-view-title" id="practice-view-title"></span>
+      <button class="practice-close" onclick="closePractice()">&times;</button>
+    </div>
+    <div class="practice-view-body" id="practice-view-body"></div>
   </div>
 
   <script src="../js/scroll-perf.js"></script>
