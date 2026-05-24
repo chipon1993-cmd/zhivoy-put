@@ -31,7 +31,7 @@
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 })();
 
 /* ═══════════ NAV ACTIVE STATE ═══════════ */

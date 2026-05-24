@@ -69,7 +69,7 @@
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   // ─── Fire event so auth.js and other scripts know components are ready ────

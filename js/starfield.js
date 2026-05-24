@@ -1,47 +1,66 @@
 /**
- * starfield.js — Canvas starfield background animation
- * Self-initializing IIFE; runs on load, exports nothing.
+ * starfield.js — CSS-based starfield (no continuous animation loop)
+ * Creates star elements once, CSS handles the twinkle animation.
+ * Zero impact on scroll performance.
  */
 (function() {
   const canvas = document.getElementById('starfield');
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  let w, h;
+  if (!canvas) return;
 
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+  // Replace canvas with a div container for CSS stars
+  const container = document.createElement('div');
+  container.id = 'starfield';
+  container.style.cssText = canvas.style.cssText || '';
+  container.setAttribute('class', canvas.getAttribute('class') || '');
+  canvas.parentNode.replaceChild(container, canvas);
+
+  Object.assign(container.style, {
+    position: 'fixed',
+    inset: '0',
+    zIndex: '0',
+    pointerEvents: 'none',
+    overflow: 'hidden'
+  });
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const count = Math.min(Math.floor(w * h / 4000), 200);
+
+  // Create stars as small divs with CSS animation
+  const fragment = document.createDocumentFragment();
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    const size = Math.random() * 2.5 + 0.5;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const delay = Math.random() * 4;
+    const duration = Math.random() * 3 + 2;
+
+    star.style.cssText = `
+      position:absolute;
+      left:${x}%;
+      top:${y}%;
+      width:${size}px;
+      height:${size}px;
+      border-radius:50%;
+      background:rgba(255,248,230,${Math.random() * 0.6 + 0.2});
+      animation:star-twinkle ${duration}s ease-in-out ${delay}s infinite;
+      will-change:opacity;
+    `;
+    fragment.appendChild(star);
   }
+  container.appendChild(fragment);
 
-  function init() {
-    resize();
-    stars = [];
-    const count = Math.min(Math.floor(w * h / 3200), 300);
-    for (let i = 0; i < count; i++) {
-      stars.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.4 + 0.3,
-        a: Math.random(),
-        speed: Math.random() * 0.0008 + 0.0003,
-        phase: Math.random() * Math.PI * 2
-      });
-    }
+  // Add keyframes if not already present
+  if (!document.getElementById('starfield-keyframes')) {
+    const style = document.createElement('style');
+    style.id = 'starfield-keyframes';
+    style.textContent = `
+      @keyframes star-twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
   }
-
-  function draw(t) {
-    ctx.clearRect(0, 0, w, h);
-    for (const s of stars) {
-      const alpha = s.a * (0.4 + 0.6 * Math.sin(t * s.speed + s.phase));
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 248, 230, ${alpha})`;
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-
-  init();
-  requestAnimationFrame(draw);
-  window.addEventListener('resize', init);
 })();
