@@ -29,3 +29,20 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(242,201,109,0.25); border-radius: 99px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(242,201,109,0.45); }
+
+/* ═══ SCROLL REVEAL ANIMATIONS ═══ */
+
+.reveal, .reveal-left, .reveal-right, .reveal-scale {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal { transform: translateY(30px); }
+.reveal-left { transform: translateX(-30px); }
+.reveal-right { transform: translateX(30px); }
+.reveal-scale { transform: scale(0.95); }
+
+.reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-scale.visible {
+  opacity: 1;
+  transform: none;
+}

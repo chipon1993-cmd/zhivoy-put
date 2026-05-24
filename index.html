@@ -25,7 +25,6 @@
   <link rel="stylesheet" href="css/header.css" />
   <link rel="stylesheet" href="css/footer.css" />
   <link rel="stylesheet" href="css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
   <style>
     /* ═══════════ LANDING-SPECIFIC STYLES ═══════════ */
@@ -192,9 +191,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(8, 10, 18, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(8, 10, 18, 0.95);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -302,7 +299,6 @@
       width: 200%;
       height: 300px;
       border-radius: 50%;
-      filter: blur(80px);
       opacity: 0.12;
       pointer-events: none;
       z-index: 1;
@@ -376,7 +372,7 @@
   <div class="landing-center">
 
     <!-- Compass -->
-    <div class="compass" id="compass" role="button" aria-label="Открыть меню навигации" tabindex="0" data-aos="fade-up" data-aos-duration="1200">
+    <div class="compass reveal" id="compass" role="button" aria-label="Открыть меню навигации" tabindex="0">
       <div class="compass-ring"></div>
       <div class="compass-ray cardinal n"></div>
       <div class="compass-ray cardinal e"></div>
@@ -393,8 +389,8 @@
     </div>
 
     <!-- Title -->
-    <h1 class="landing-title" data-aos="fade-up" data-aos-delay="300">Живой путь</h1>
-    <p class="landing-tagline" data-aos="fade-up" data-aos-delay="500">Персональная карта жизни, состояний и движения</p>
+    <h1 class="landing-title reveal">Живой путь</h1>
+    <p class="landing-tagline reveal">Персональная карта жизни, состояний и движения</p>
   </div>
 
   <!-- ═══════════ FULLSCREEN OVERLAY MENU ═══════════ -->
@@ -440,6 +436,7 @@
   </div>
 
   <!-- ═══════════ SCRIPTS ═══════════ -->
+  <script src="js/scroll-perf.js"></script>
   <script src="js/starfield.js"></script>
   <script src="js/components.js"></script>
   <script src="js/auth.js"></script>
@@ -483,10 +480,7 @@
       }
     });
   </script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
-  </script>
+  <script src="js/scroll-effects.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js');

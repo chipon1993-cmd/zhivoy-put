@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
   <canvas id="starfield"></canvas>
@@ -31,7 +30,7 @@
     <main>
 
       <!-- ═══════════ STATS ═══════════ -->
-      <div class="stats-bar" data-aos="fade-up">
+      <div class="stats-bar reveal">
         <div class="glass stat">
           <div class="stat-num" data-count="7">0</div>
           <div class="stat-label">территорий жизни</div>
@@ -52,7 +51,7 @@
 
       <!-- ═══════════ TRIPTYCH ═══════════ -->
       <section id="triptych">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head reveal">
           <div>
             <div class="section-label">Три состояния</div>
             <h2>До · Во время · После</h2>
@@ -61,7 +60,7 @@
         </div>
 
         <div class="triptych">
-          <article class="glass stage st-before" data-aos="fade-up" data-aos-delay="100">
+          <article class="glass stage st-before reveal">
             <div>
               <div class="stage-num">01</div>
               <h3>ДО</h3>
@@ -85,7 +84,7 @@
             </div>
           </article>
 
-          <article class="glass stage st-during" data-aos="fade-up" data-aos-delay="250">
+          <article class="glass stage st-during reveal">
             <div>
               <div class="stage-num">02</div>
               <h3>ВО ВРЕМЯ</h3>
@@ -108,7 +107,7 @@
             </div>
           </article>
 
-          <article class="glass stage st-after" data-aos="fade-up" data-aos-delay="400">
+          <article class="glass stage st-after reveal">
             <div>
               <div class="stage-num">03</div>
               <h3>ПОСЛЕ</h3>
@@ -138,6 +137,7 @@
     <div id="site-footer"></div>
   </div>
 
+  <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
   <script src="../js/scroll-effects.js"></script>
@@ -146,9 +146,5 @@
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
   <script src="../js/counters.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
-  </script>
 </body>
 </html>

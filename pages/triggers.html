@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
   <canvas id="starfield"></canvas>
@@ -32,7 +31,7 @@
 
       <!-- ═══════════ TRIGGERS ═══════════ -->
       <section id="triggers">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head reveal">
           <div>
             <div class="section-label">Механизмы</div>
             <h2>Триггеры и выходы</h2>
@@ -41,7 +40,7 @@
         </div>
 
         <div class="cards-3">
-          <article class="glass info-card" data-aos="fade-up" data-aos-delay="100">
+          <article class="glass info-card reveal">
             <div class="card-icon">🔥</div>
             <h3>Включает</h3>
             <ul>
@@ -52,7 +51,7 @@
             </ul>
           </article>
 
-          <article class="glass info-card" data-aos="fade-up" data-aos-delay="200">
+          <article class="glass info-card reveal">
             <div class="card-icon">❄️</div>
             <h3>Замораживает</h3>
             <ul>
@@ -63,7 +62,7 @@
             </ul>
           </article>
 
-          <article class="glass info-card" data-aos="fade-up" data-aos-delay="300">
+          <article class="glass info-card reveal">
             <div class="card-icon">🚪</div>
             <h3>Выводит</h3>
             <ul>
@@ -81,6 +80,7 @@
     <div id="site-footer"></div>
   </div>
 
+  <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
   <script src="../js/scroll-effects.js"></script>
@@ -88,9 +88,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
-  </script>
 </body>
 </html>

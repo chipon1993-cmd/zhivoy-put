@@ -16,12 +16,10 @@
   width: 100%;
   max-width: 440px;
   padding: 48px 40px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  background: rgba(15,17,25,0.92);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   animation: auth-card-in 0.6s var(--ease) both;
 }
 

@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
   <canvas id="starfield"></canvas>
@@ -32,7 +31,7 @@
 
       <!-- ═══════════ NAVIGATOR / AGENT ═══════════ -->
       <section id="agent">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head reveal">
           <div>
             <div class="section-label">Инструмент</div>
             <h2>Навигатор состояния</h2>
@@ -41,7 +40,7 @@
         </div>
 
         <div class="agent-grid">
-          <div class="glass principles" data-aos="fade-right" data-aos-duration="1000">
+          <div class="glass principles reveal-right">
             <h3>Принцип работы</h3>
             <p>Сначала сырой поток. Потом отражение. Потом один шаг. Не наоборот.</p>
             <div class="principles-list">
@@ -60,7 +59,7 @@
             </div>
           </div>
 
-          <div class="glass agent-panel" data-aos="fade-left" data-aos-duration="1000">
+          <div class="glass agent-panel reveal-left">
             <h3>Запиши состояние</h3>
             <p>Например: «сегодня тяжесть, список задач бесит, но я хочу немного сдвинуть жизнь».</p>
             <textarea id="stateInput" placeholder="Пиши потоком: что чувствуешь, что давит, где туман, где есть маленькая искра..."></textarea>
@@ -78,6 +77,7 @@
     <div id="site-footer"></div>
   </div>
 
+  <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
   <script src="../js/scroll-effects.js"></script>
@@ -86,9 +86,5 @@
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
   <script src="../js/navigator-engine.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
-  </script>
 </body>
 </html>

@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 </head>
 <body>
   <canvas id="starfield"></canvas>
@@ -32,7 +31,7 @@
 
       <!-- ═══════════ ATLAS MAP ═══════════ -->
       <section id="map">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head reveal">
           <div>
             <div class="section-label">Карта территорий</div>
             <h2>Атлас жизни</h2>
@@ -41,7 +40,7 @@
         </div>
 
         <div class="map-grid">
-          <div class="glass atlas" data-aos="fade-right" data-aos-duration="1000">
+          <div class="glass atlas reveal-right">
             <div class="atlas-inner"></div>
             <svg class="map-svg" viewBox="0 0 850 720" preserveAspectRatio="none">
               <path d="M135 155 C270 245, 340 115, 430 345 C525 555, 695 245, 735 155" stroke="rgba(242,201,109,0.40)" stroke-width="2.5" stroke-dasharray="8 12" fill="none"/>
@@ -88,7 +87,7 @@
             </div>
           </div>
 
-          <aside class="glass side-panel" data-aos="fade-left" data-aos-duration="1000">
+          <aside class="glass side-panel reveal-left">
             <div class="weather-card">
               <h3>Погода состояния</h3>
               <p>Сначала понять: внутри туман, перегруз, живой интерес или точка входа?</p>
@@ -124,6 +123,7 @@
     <div id="site-footer"></div>
   </div>
 
+  <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
   <script src="../js/scroll-effects.js"></script>
@@ -132,9 +132,5 @@
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
   <script src="../js/counters.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
-  </script>
 </body>
 </html>

@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
@@ -33,7 +32,7 @@
 
       <!-- ═══════════ ROADMAP ═══════════ -->
       <section id="build">
-        <div class="section-head" data-aos="fade-up">
+        <div class="section-head reveal">
           <div>
             <div class="section-label">Развитие</div>
             <h2>Как это станет AI-системой</h2>
@@ -42,22 +41,22 @@
         </div>
 
         <div class="timeline">
-          <div class="step" data-aos="fade-up" data-aos-delay="100">
+          <div class="step reveal">
             <div class="step-num">01</div>
             <h3>Сайт-атлас</h3>
             <p>Визуальная карта: территории жизни, триггеры, состояния, переходы между ними.</p>
           </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="200">
+          <div class="step reveal">
             <div class="step-num">02</div>
             <h3>Дневник состояний</h3>
             <p>Каждый день короткий поток: что происходит внутри и снаружи, без обязательства на формат.</p>
           </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="300">
+          <div class="step reveal">
             <div class="step-num">03</div>
             <h3>AI-зеркало</h3>
             <p>Модель распознаёт петли, темы, перегруз, живые импульсы и точки выхода из ступора.</p>
           </div>
-          <div class="step" data-aos="fade-up" data-aos-delay="400">
+          <div class="step reveal">
             <div class="step-num">04</div>
             <h3>Живой агент</h3>
             <p>Он помнит карту, предлагает один шаг, готовит тексты и маршруты без давления.</p>
@@ -66,7 +65,7 @@
       </section>
 
       <!-- ═══════════ TESTIMONIALS SLIDER ═══════════ -->
-      <section class="testimonials-section" data-aos="fade-up">
+      <section class="testimonials-section reveal">
         <div class="section-head">
           <div>
             <div class="section-label">Отклики</div>
@@ -130,7 +129,7 @@
       </section>
 
       <!-- ═══════════ CTA ═══════════ -->
-      <section class="cta-section" data-aos="zoom-in" data-aos-duration="1000">
+      <section class="cta-section reveal-scale">
         <h2>Это не контроль над собой.<br>Это <span class="accent">возвращение к себе</span>.</h2>
         <p>Карта, по которой можно снова и снова находить своё направление — через состояние, не через давление.</p>
         <div class="cta-buttons">
@@ -144,6 +143,7 @@
     <div id="site-footer"></div>
   </div>
 
+  <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
   <script src="../js/scroll-effects.js"></script>
@@ -152,7 +152,6 @@
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     new Swiper('.testimonials-swiper', {
       slidesPerView: 1,
@@ -165,7 +164,6 @@
         1100: { slidesPerView: 3 }
       }
     });
-    AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
   </script>
 </body>
 </html>

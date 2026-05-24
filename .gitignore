@@ -3,5 +3,7 @@ node_modules/
 Thumbs.db
 *.url
 .claude/
-
 .vercel
+builds/
+builds2/
+desktop-app/
