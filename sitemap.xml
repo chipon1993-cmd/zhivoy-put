@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://4-alpha-woad.vercel.app/</loc>
+    <loc>https://atlas-life.vercel.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/triptych.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/triptych.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/atlas.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/atlas.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/triggers.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/triggers.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/navigator.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/navigator.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/roadmap.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/roadmap.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://4-alpha-woad.vercel.app/pages/contact.html</loc>
+    <loc>https://atlas-life.vercel.app/pages/contact.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -7,10 +7,13 @@
   <meta property="og:title" content="Живой путь — личная карта жизни" />
   <meta property="og:description" content="Персональный атлас жизни: навигация по состояниям, триггерам, переходам и внутреннему движению." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://4-alpha-woad.vercel.app/" />
+  <meta property="og:url" content="https://atlas-life.vercel.app/" />
   <meta property="og:locale" content="ru_RU" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>Живой путь — личная карта жизни</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#f2c96d" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
@@ -487,6 +490,11 @@
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
     AOS.init({ duration: 800, easing: 'ease-out-cubic', once: true, offset: 80 });
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
   </script>
 </body>
 </html>

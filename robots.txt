@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://4-alpha-woad.vercel.app/sitemap.xml
+Sitemap: https://atlas-life.vercel.app/sitemap.xml
