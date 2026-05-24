@@ -26,7 +26,7 @@
         <a href="${root}pages/roadmap.html">Система</a>
         <a href="${root}pages/contact.html">Связаться</a>
         <span id="auth-nav-slot"></span>
-        <a href="${root}pages/navigator.html" class="nav-cta">Начать</a>
+        <a href="${root}pages/dashboard.html" class="nav-cta">Начать</a>
       </nav>
     </header>`;
 

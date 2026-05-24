@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
   <link rel="stylesheet" href="../css/navigator.css" />
+  <link rel="stylesheet" href="../css/app-shell.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
 </head>
 <body>
@@ -110,6 +111,8 @@
     <div class="practice-view-body" id="practice-view-body"></div>
   </div>
 
+  <div id="app-tab-bar"></div>
+
   <script src="../js/scroll-perf.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/starfield.js"></script>
@@ -118,6 +121,22 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
+  <script src="../js/app-shell.js"></script>
   <script src="../js/navigator-engine.js"></script>
+  <script>
+    // Handle hash-based practice opening (from dashboard/programs links)
+    (function() {
+      var hash = window.location.hash.slice(1);
+      if (hash && typeof window.openPractice === 'function') {
+        window.openPractice(hash);
+      }
+      window.addEventListener('hashchange', function() {
+        var h = window.location.hash.slice(1);
+        if (h && typeof window.openPractice === 'function') {
+          window.openPractice(h);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
