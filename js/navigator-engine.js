@@ -86,8 +86,15 @@
   var practices = {
     'box-breathing': {
       title: 'Бокс-дыхание',
-      description: 'Техника дыхания по квадрату: 4 секунды вдох, 4 секунды задержка, 4 секунды выдох, 4 секунды задержка.',
-      instructions: '8 циклов. Следуйте за кругом — он расширяется на вдохе и сжимается на выдохе. Дышите ровно и спокойно.',
+      icon: '🫁',
+      description: 'Техника дыхания по квадрату: 4 секунды вдох, 4 секунды задержка, 4 секунды выдох, 4 секунды задержка. Одна из самых эффективных техник для мгновенного снижения стресса.',
+      instructions: [
+        'Сядьте удобно, спина прямая',
+        'Следуйте за кругом на экране',
+        'Вдыхайте через нос на расширении',
+        'Выдыхайте через рот на сжатии',
+        '8 полных циклов'
+      ],
       type: 'breathing',
       phases: [
         { name: 'Вдох', duration: 4 },
@@ -99,9 +106,16 @@
     },
     'holotropic': {
       title: 'Холотропное дыхание',
-      description: 'Интенсивная дыхательная практика с поэтапным ускорением и замедлением.',
-      instructions: 'Дышите глубоко и ритмично. Следуйте за темпом круга на экране.',
-      warning: '⚠️ Противопоказания: беременность, эпилепсия, сердечно-сосудистые заболевания, глаукома. При головокружении — замедлитесь.',
+      icon: '🌀',
+      description: 'Интенсивная дыхательная практика с поэтапным ускорением. Помогает высвободить подавленные эмоции и достичь изменённого состояния сознания.',
+      instructions: [
+        'Лягте или сядьте максимально удобно',
+        'Дышите глубоко — полный вдох и полный выдох',
+        'Следуйте за темпом на экране',
+        'При головокружении — замедлитесь',
+        '5 фаз с разной интенсивностью'
+      ],
+      warning: '⚠️ Противопоказания: беременность, эпилепсия, сердечно-сосудистые заболевания, глаукома. При сильном головокружении — прекратите практику.',
       type: 'holotropic',
       phases: [
         { name: 'Разогрев', duration: 120, speed: 1.0 },
@@ -113,39 +127,61 @@
     },
     'focus': {
       title: 'Фокус на точке',
-      description: 'Смотрите на точку не отрываясь в течение 3 минут. Тренировка устойчивого внимания.',
-      instructions: 'Расслабьте взгляд. Если мысли уходят — мягко верните внимание к точке. Старайтесь не моргать слишком часто.',
+      icon: '🔴',
+      description: 'Тренировка устойчивого внимания через удержание взгляда на одной точке. Укрепляет концентрацию и снижает ментальный шум.',
+      instructions: [
+        'Расположите экран на расстоянии вытянутой руки',
+        'Расслабьте лицо и плечи',
+        'Смотрите мягко на точку, не напрягая глаза',
+        'Если мысли уходят — мягко верните внимание',
+        'Старайтесь не моргать слишком часто'
+      ],
       type: 'focus',
       duration: 180
     },
     'meditation': {
       title: 'Медитация',
-      description: 'Управляемая медитация: осознание тела, фокус на дыхании, открытое внимание, мягкое завершение.',
-      instructions: 'Сядьте удобно. Следуйте подсказкам на экране. Не боритесь с мыслями — просто замечайте их.',
+      icon: '🧘',
+      description: 'Управляемая медитация из 4 фаз: погружение в тело, фокус на дыхании, открытое внимание ко всему, мягкое завершение.',
+      instructions: [
+        'Сядьте удобно, закройте глаза',
+        'Следуйте подсказкам на экране',
+        'Не боритесь с мыслями — просто замечайте',
+        'Каждая фаза плавно переходит в следующую',
+        '4 фазы, ~7 минут'
+      ],
       type: 'meditation',
       phases: [
-        { name: 'Погружение', duration: 60, hint: 'Закройте глаза, расслабьте тело' },
-        { name: 'Фокус', duration: 180, hint: 'Наблюдайте за дыханием' },
-        { name: 'Открытое внимание', duration: 120, hint: 'Замечайте звуки, ощущения' },
-        { name: 'Завершение', duration: 60, hint: 'Медленно возвращайтесь' }
+        { name: 'Погружение', duration: 60, hint: 'Почувствуйте тело. Расслабьте лоб, челюсть, плечи.' },
+        { name: 'Фокус на дыхании', duration: 180, hint: 'Наблюдайте за вдохом и выдохом. Не меняйте ритм.' },
+        { name: 'Открытое внимание', duration: 120, hint: 'Замечайте всё: звуки, ощущения, пространство.' },
+        { name: 'Завершение', duration: 60, hint: 'Медленно возвращайтесь. Пошевелите пальцами.' }
       ]
     },
     'checkin': {
       title: 'Ежедневный чекин',
-      description: 'Запишите своё состояние и настроение.',
+      icon: '📝',
+      description: 'Запишите своё текущее состояние.',
       type: 'checkin'
     },
     'grounding': {
       title: 'Заземление 5-4-3-2-1',
-      description: 'Техника возвращения в настоящий момент через 5 органов чувств.',
-      instructions: 'Называйте предметы и ощущения вокруг вас шаг за шагом. Не торопитесь.',
+      icon: '🌍',
+      description: 'Техника быстрого возвращения в «здесь и сейчас» через 5 органов чувств. Помогает при тревоге и диссоциации.',
+      instructions: [
+        'Оглянитесь вокруг',
+        'На каждом шаге называйте предметы/ощущения',
+        'Можете записать или просто проговорить',
+        'Не торопитесь — качество важнее скорости',
+        '5 шагов от зрения к вкусу'
+      ],
       type: 'grounding',
       steps: [
-        { count: 5, sense: 'Зрение', prompt: 'Назовите 5 вещей, которые вы видите' },
-        { count: 4, sense: 'Осязание', prompt: 'Назовите 4 вещи, которые можете потрогать' },
-        { count: 3, sense: 'Слух', prompt: 'Назовите 3 звука, которые слышите' },
-        { count: 2, sense: 'Обоняние', prompt: 'Назовите 2 запаха, которые чувствуете' },
-        { count: 1, sense: 'Вкус', prompt: 'Назовите 1 вкус, который ощущаете' }
+        { count: 5, sense: 'Зрение', prompt: 'Назовите 5 вещей, которые вы видите', icon: '👁️' },
+        { count: 4, sense: 'Осязание', prompt: 'Назовите 4 вещи, которые можете потрогать', icon: '✋' },
+        { count: 3, sense: 'Слух', prompt: 'Назовите 3 звука, которые слышите', icon: '👂' },
+        { count: 2, sense: 'Обоняние', prompt: 'Назовите 2 запаха вокруг вас', icon: '👃' },
+        { count: 1, sense: 'Вкус', prompt: 'Назовите 1 вкус, который ощущаете', icon: '👅' }
       ]
     }
   };
@@ -264,17 +300,11 @@
     return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
   }
 
-  function el(tag, className, innerHTML) {
+  function h(tag, className, innerHTML) {
     var node = document.createElement(tag);
     if (className) node.className = className;
     if (innerHTML !== undefined) node.innerHTML = innerHTML;
     return node;
-  }
-
-  function escapeHtml(str) {
-    var div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
   }
 
   function getDayWord(n) {
@@ -294,22 +324,43 @@
     var body = getBody();
     body.innerHTML = '';
 
-    var container = el('div', 'practice-intro');
+    var container = h('div', 'practice-intro');
 
-    var desc = el('p', 'practice-description', practice.description);
+    // Icon
+    var icon = h('div', 'practice-intro-icon', practice.icon);
+    container.appendChild(icon);
+
+    // Title
+    var title = h('h3', '', practice.title);
+    container.appendChild(title);
+
+    // Description
+    var desc = h('p', 'practice-intro-description', practice.description);
     container.appendChild(desc);
 
+    // Warning (if exists)
     if (practice.warning) {
-      var warn = el('div', 'practice-warning', practice.warning);
+      var warn = h('div', 'practice-warning', practice.warning);
       container.appendChild(warn);
     }
 
-    if (practice.instructions) {
-      var instr = el('p', 'practice-instructions', practice.instructions);
-      container.appendChild(instr);
+    // Instructions block
+    if (practice.instructions && practice.instructions.length) {
+      var instrBlock = h('div', 'practice-instructions');
+      var instrTitle = h('h4', '', 'Инструкция');
+      instrBlock.appendChild(instrTitle);
+
+      var ol = h('ol', '');
+      practice.instructions.forEach(function(step) {
+        var li = h('li', '', step);
+        ol.appendChild(li);
+      });
+      instrBlock.appendChild(ol);
+      container.appendChild(instrBlock);
     }
 
-    var btn = el('button', 'practice-start-btn', 'Начать');
+    // Start button
+    var btn = h('button', 'practice-start-btn', 'Начать практику');
     btn.addEventListener('click', onStart);
     container.appendChild(btn);
 
@@ -322,25 +373,36 @@
 
     logPractice(practiceId, durationSec);
 
-    var container = el('div', 'practice-complete');
+    var container = h('div', 'practice-complete');
 
-    var msg = el('h3', 'practice-complete-title', 'Практика завершена');
-    container.appendChild(msg);
+    // Success icon
+    var icon = h('div', 'practice-complete-icon', '✨');
+    container.appendChild(icon);
 
-    var timeMsg = el('p', 'practice-complete-time', 'Длительность: ' + formatTime(durationSec));
-    container.appendChild(timeMsg);
+    // Title
+    var title = h('h3', '', 'Практика завершена');
+    container.appendChild(title);
 
+    // Duration info
+    var info = h('p', '', 'Длительность: <strong>' + formatTime(durationSec) + '</strong>');
+    container.appendChild(info);
+
+    // Streak
     var data = loadData();
-    var streakMsg = el('p', 'practice-complete-streak', 'Серия: ' + data.streak + ' ' + getDayWord(data.streak));
-    container.appendChild(streakMsg);
+    var streakEl = h('div', 'practice-complete-streak', '<span class="streak-fire">🔥</span> Серия: ' + data.streak + ' ' + getDayWord(data.streak));
+    container.appendChild(streakEl);
 
+    // Extra content (like clarity scale)
     if (extraContent) {
       container.appendChild(extraContent);
     }
 
-    var btn = el('button', 'practice-back-btn', 'Назад');
-    btn.addEventListener('click', function() { window.closePractice(); });
-    container.appendChild(btn);
+    // Controls
+    var controls = h('div', 'practice-controls');
+    var backBtn = h('button', 'practice-btn practice-btn-primary', 'Готово');
+    backBtn.addEventListener('click', function() { window.closePractice(); });
+    controls.appendChild(backBtn);
+    container.appendChild(controls);
 
     body.appendChild(container);
   }
@@ -355,21 +417,36 @@
     state.running = true;
     state.startTime = Date.now();
 
-    var container = el('div', 'breathing-container');
+    var container = h('div', 'practice-active');
 
-    var circleWrap = el('div', 'breathing-circle-wrap');
-    var circle = el('div', 'breathing-circle');
-    circleWrap.appendChild(circle);
-    container.appendChild(circleWrap);
+    // Timer display
+    var timerDisplay = h('div', 'practice-timer-display', '02:08');
+    container.appendChild(timerDisplay);
 
-    var phaseText = el('div', 'breathing-phase-text');
+    // Phase text
+    var phaseText = h('div', 'practice-phase-text', 'Вдох');
     container.appendChild(phaseText);
 
-    var timerText = el('div', 'breathing-timer');
-    container.appendChild(timerText);
+    // Cycle counter as hint
+    var phaseHint = h('div', 'practice-phase-hint', 'Цикл 1 из 8');
+    container.appendChild(phaseHint);
 
-    var cycleText = el('div', 'breathing-cycle');
-    container.appendChild(cycleText);
+    // Breathing circle
+    var circle = h('div', 'breath-circle');
+    var circleText = h('div', 'breath-circle-text', '4');
+    circle.appendChild(circleText);
+    container.appendChild(circle);
+
+    // Stop button
+    var controls = h('div', 'practice-controls');
+    var stopBtn = h('button', 'practice-btn practice-btn-secondary', 'Остановить');
+    stopBtn.addEventListener('click', function() {
+      state.running = false;
+      var dur = Math.round((Date.now() - state.startTime) / 1000);
+      renderCompletion('box-breathing', dur);
+    });
+    controls.appendChild(stopBtn);
+    container.appendChild(controls);
 
     body.appendChild(container);
 
@@ -378,26 +455,26 @@
     var currentCycle = 0;
     var currentPhase = 0;
     var phaseElapsed = 0;
+    var totalDuration = totalCycles * phases.reduce(function(s, p) { return s + p.duration; }, 0);
+    var totalElapsed = 0;
+
+    function getPhaseClass() {
+      var name = phases[currentPhase].name;
+      if (name === 'Вдох') return 'inhale';
+      if (name === 'Выдох') return 'exhale';
+      return 'hold';
+    }
 
     function updateDisplay() {
       var phase = phases[currentPhase];
       var remaining = phase.duration - phaseElapsed;
       phaseText.textContent = phase.name;
-      timerText.textContent = remaining + 'с';
-      cycleText.textContent = 'Цикл ' + (currentCycle + 1) + ' из ' + totalCycles;
+      phaseHint.textContent = 'Цикл ' + (currentCycle + 1) + ' из ' + totalCycles;
+      circleText.textContent = remaining;
+      timerDisplay.textContent = formatTime(totalDuration - totalElapsed);
 
-      // Circle animation based on phase
-      var progress = phaseElapsed / phase.duration;
-      if (phase.name === 'Вдох') {
-        circle.style.transform = 'scale(' + (0.5 + 0.5 * progress) + ')';
-        circle.style.opacity = '0.7';
-      } else if (phase.name === 'Выдох') {
-        circle.style.transform = 'scale(' + (1.0 - 0.5 * progress) + ')';
-        circle.style.opacity = '0.7';
-      } else {
-        // Hold phases
-        circle.style.opacity = '0.5';
-      }
+      // Update circle class
+      circle.className = 'breath-circle ' + getPhaseClass();
     }
 
     updateDisplay();
@@ -406,6 +483,7 @@
       if (!state.running) return;
 
       phaseElapsed++;
+      totalElapsed++;
       var phase = phases[currentPhase];
 
       if (phaseElapsed >= phase.duration) {
@@ -437,23 +515,41 @@
     state.running = true;
     state.startTime = Date.now();
 
-    var container = el('div', 'breathing-container');
+    var container = h('div', 'practice-active');
 
-    var circleWrap = el('div', 'breathing-circle-wrap');
-    var circle = el('div', 'breathing-circle holotropic');
-    circleWrap.appendChild(circle);
-    container.appendChild(circleWrap);
+    // Timer display
+    var timerDisplay = h('div', 'practice-timer-display', '12:00');
+    container.appendChild(timerDisplay);
 
-    var phaseText = el('div', 'breathing-phase-text');
+    // Phase
+    var phaseText = h('div', 'practice-phase-text', 'Разогрев');
     container.appendChild(phaseText);
 
-    var timerText = el('div', 'breathing-timer');
-    container.appendChild(timerText);
+    var phaseHint = h('div', 'practice-phase-hint', 'Дышите глубоко и ровно');
+    container.appendChild(phaseHint);
 
-    var progressBar = el('div', 'breathing-progress');
-    var progressFill = el('div', 'breathing-progress-fill');
-    progressBar.appendChild(progressFill);
-    container.appendChild(progressBar);
+    // Breathing circle (holotropic style)
+    var circle = h('div', 'breath-circle holotropic-circle');
+    var circleText = h('div', 'breath-circle-text', '~');
+    circle.appendChild(circleText);
+    container.appendChild(circle);
+
+    // Progress bar
+    var progressWrap = h('div', 'practice-progress-bar');
+    var progressFill = h('div', 'practice-progress-fill');
+    progressWrap.appendChild(progressFill);
+    container.appendChild(progressWrap);
+
+    // Stop button
+    var controls = h('div', 'practice-controls');
+    var stopBtn = h('button', 'practice-btn practice-btn-secondary', 'Остановить');
+    stopBtn.addEventListener('click', function() {
+      state.running = false;
+      var dur = Math.round((Date.now() - state.startTime) / 1000);
+      renderCompletion('holotropic', dur);
+    });
+    controls.appendChild(stopBtn);
+    container.appendChild(controls);
 
     body.appendChild(container);
 
@@ -463,40 +559,45 @@
     var totalDuration = phases.reduce(function(sum, p) { return sum + p.duration; }, 0);
     var totalElapsed = 0;
 
-    // Breath animation state
+    var phaseHints = {
+      'Разогрев': 'Дышите глубоко и ровно',
+      'Ускорение': 'Увеличивайте темп',
+      'Пик': 'Максимальная интенсивность',
+      'Замедление': 'Плавно снижайте темп',
+      'Интеграция': 'Свободное дыхание, наблюдайте'
+    };
+
+    // Breath animation
     var expanding = true;
-    var breathTimer = null;
-
-    function getBreathInterval(speed) {
-      // Base full breath cycle is 4s (2s in, 2s out), speed multiplies
-      return Math.round(2000 / speed);
-    }
-
     function animateBreath() {
       if (!state.running) return;
       var phase = phases[currentPhaseIdx];
-      var interval = getBreathInterval(phase.speed);
+      var interval = Math.round(2000 / phase.speed);
 
       expanding = !expanding;
-      circle.style.transition = 'transform ' + (interval / 1000) + 's ease-in-out, opacity ' + (interval / 1000) + 's ease-in-out';
-      circle.style.transform = expanding ? 'scale(1.0)' : 'scale(0.45)';
-      circle.style.opacity = expanding ? '0.8' : '0.5';
-
-      breathTimer = addTimeout(animateBreath, interval);
+      circle.style.transition = 'transform ' + (interval / 1000) + 's ease-in-out';
+      if (expanding) {
+        circle.classList.add('inhale');
+        circle.classList.remove('exhale');
+      } else {
+        circle.classList.add('exhale');
+        circle.classList.remove('inhale');
+      }
+      addTimeout(animateBreath, interval);
     }
+    animateBreath();
 
     function updateDisplay() {
       var phase = phases[currentPhaseIdx];
-      var remaining = phase.duration - phaseElapsed;
+      var totalRemaining = totalDuration - totalElapsed;
       phaseText.textContent = phase.name;
-      timerText.textContent = formatTime(remaining);
-
+      phaseHint.textContent = phaseHints[phase.name] || '';
+      timerDisplay.textContent = formatTime(totalRemaining);
       var pct = Math.min(100, (totalElapsed / totalDuration) * 100);
       progressFill.style.width = pct + '%';
     }
 
     updateDisplay();
-    animateBreath();
 
     var ticker = addInterval(function() {
       if (!state.running) return;
@@ -530,47 +631,74 @@
     state.running = true;
     state.startTime = Date.now();
 
-    var container = el('div', 'focus-container');
+    var container = h('div', 'practice-active');
 
-    var dot = el('div', 'focus-dot');
-    container.appendChild(dot);
+    // Timer
+    var timerDisplay = h('div', 'practice-timer-display', formatTime(practice.duration));
+    container.appendChild(timerDisplay);
 
-    var timerText = el('div', 'focus-timer', formatTime(practice.duration));
-    container.appendChild(timerText);
+    // Phase text
+    var phaseText = h('div', 'practice-phase-text', 'Удерживайте взгляд');
+    container.appendChild(phaseText);
+
+    var phaseHint = h('div', 'practice-phase-hint', 'Мягко смотрите на точку, не напрягаясь');
+    container.appendChild(phaseHint);
+
+    // Focus dot container with rings
+    var dotContainer = h('div', 'focus-dot-container');
+    var dot = h('div', 'focus-dot');
+    dotContainer.appendChild(dot);
+    container.appendChild(dotContainer);
+
+    // Stop button
+    var controls = h('div', 'practice-controls');
+    var stopBtn = h('button', 'practice-btn practice-btn-secondary', 'Остановить');
+    stopBtn.addEventListener('click', function() {
+      state.running = false;
+      var dur = Math.round((Date.now() - state.startTime) / 1000);
+      renderCompletion('focus', dur);
+    });
+    controls.appendChild(stopBtn);
+    container.appendChild(controls);
 
     body.appendChild(container);
 
     var remaining = practice.duration;
-
-    // Subtle glow animation
-    var glowPhase = 0;
-    function animateGlow() {
-      if (!state.running) return;
-      glowPhase += 0.02;
-      var glow = 8 + 4 * Math.sin(glowPhase);
-      dot.style.boxShadow = '0 0 ' + glow + 'px ' + (glow / 2) + 'px rgba(255, 255, 255, 0.6)';
-      addAnimFrame(animateGlow);
-    }
-    addAnimFrame(animateGlow);
+    var messages = [
+      { at: 150, text: 'Расслабьте лоб и челюсть' },
+      { at: 120, text: 'Дышите ровно' },
+      { at: 90, text: 'Отпустите мысли' },
+      { at: 60, text: 'Вы делаете отлично' },
+      { at: 30, text: 'Последние 30 секунд' }
+    ];
 
     var ticker = addInterval(function() {
       if (!state.running) return;
       remaining--;
-      timerText.textContent = formatTime(remaining);
+      timerDisplay.textContent = formatTime(remaining);
+
+      // Update hint based on time
+      for (var i = 0; i < messages.length; i++) {
+        if (remaining === messages[i].at) {
+          phaseHint.textContent = messages[i].text;
+          break;
+        }
+      }
 
       if (remaining <= 0) {
         state.running = false;
         clearInterval(ticker);
         var dur = Math.round((Date.now() - state.startTime) / 1000);
 
-        var extra = el('div', 'focus-complete-extra');
-        var prompt = el('p', 'focus-clarity-prompt', 'Насколько чист ваш ум прямо сейчас?');
+        // Clarity scale as extra content
+        var extra = h('div', 'focus-clarity-section');
+        var prompt = h('p', 'focus-clarity-prompt', 'Насколько чист ваш ум сейчас?');
         extra.appendChild(prompt);
 
-        var scale = el('div', 'focus-clarity-scale');
+        var scale = h('div', 'focus-clarity-scale');
         for (var i = 1; i <= 5; i++) {
           (function(val) {
-            var btn = el('button', 'clarity-btn', String(val));
+            var btn = h('button', 'clarity-btn', String(val));
             btn.addEventListener('click', function() {
               var allBtns = scale.querySelectorAll('.clarity-btn');
               for (var k = 0; k < allBtns.length; k++) { allBtns[k].classList.remove('selected'); }
@@ -581,7 +709,7 @@
         }
         extra.appendChild(scale);
 
-        var labels = el('div', 'focus-clarity-labels');
+        var labels = h('div', 'focus-clarity-labels');
         labels.innerHTML = '<span>Шумно</span><span>Кристально</span>';
         extra.appendChild(labels);
 
@@ -600,52 +728,54 @@
     state.running = true;
     state.startTime = Date.now();
 
-    var container = el('div', 'meditation-container');
+    var container = h('div', 'practice-active');
 
-    var ringsWrap = el('div', 'meditation-rings');
-    for (var i = 0; i < 3; i++) {
-      var ring = el('div', 'meditation-ring ring-' + i);
-      ringsWrap.appendChild(ring);
-    }
-    container.appendChild(ringsWrap);
+    // Timer
+    var timerDisplay = h('div', 'practice-timer-display', '07:00');
+    container.appendChild(timerDisplay);
 
-    var phaseText = el('div', 'meditation-phase');
+    // Phase
+    var phaseText = h('div', 'practice-phase-text', 'Погружение');
     container.appendChild(phaseText);
 
-    var hintText = el('div', 'meditation-hint');
-    container.appendChild(hintText);
+    var phaseHint = h('div', 'practice-phase-hint', practice.phases[0].hint);
+    container.appendChild(phaseHint);
 
-    var timerText = el('div', 'meditation-timer');
-    container.appendChild(timerText);
+    // Meditation visual (rings)
+    var visual = h('div', 'meditation-visual');
+    for (var i = 0; i < 4; i++) {
+      var ring = h('div', 'meditation-ring');
+      visual.appendChild(ring);
+    }
+    var center = h('div', 'meditation-ring-center');
+    visual.appendChild(center);
+    container.appendChild(visual);
+
+    // Stop button
+    var controls = h('div', 'practice-controls');
+    var stopBtn = h('button', 'practice-btn practice-btn-secondary', 'Остановить');
+    stopBtn.addEventListener('click', function() {
+      state.running = false;
+      var dur = Math.round((Date.now() - state.startTime) / 1000);
+      renderCompletion('meditation', dur);
+    });
+    controls.appendChild(stopBtn);
+    container.appendChild(controls);
 
     body.appendChild(container);
 
     var phases = practice.phases;
     var currentPhaseIdx = 0;
     var phaseElapsed = 0;
-
-    // Pulse animation
-    var pulseT = 0;
-    function pulseRings() {
-      if (!state.running) return;
-      pulseT++;
-      var rings = ringsWrap.querySelectorAll('.meditation-ring');
-      for (var idx = 0; idx < rings.length; idx++) {
-        var scale = 1 + 0.08 * Math.sin((pulseT + idx * 25) * 0.04);
-        var opacity = 0.3 + 0.2 * Math.sin((pulseT + idx * 35) * 0.03);
-        rings[idx].style.transform = 'scale(' + scale + ')';
-        rings[idx].style.opacity = opacity;
-      }
-      addAnimFrame(pulseRings);
-    }
-    addAnimFrame(pulseRings);
+    var totalDuration = phases.reduce(function(sum, p) { return sum + p.duration; }, 0);
+    var totalElapsed = 0;
 
     function updateDisplay() {
       var phase = phases[currentPhaseIdx];
-      var remaining = phase.duration - phaseElapsed;
+      var totalRemaining = totalDuration - totalElapsed;
       phaseText.textContent = phase.name;
-      hintText.textContent = phase.hint;
-      timerText.textContent = formatTime(remaining);
+      phaseHint.textContent = phase.hint;
+      timerDisplay.textContent = formatTime(totalRemaining);
     }
 
     updateDisplay();
@@ -654,6 +784,7 @@
       if (!state.running) return;
 
       phaseElapsed++;
+      totalElapsed++;
       var phase = phases[currentPhaseIdx];
 
       if (phaseElapsed >= phase.duration) {
@@ -679,19 +810,27 @@
     var body = getBody();
     body.innerHTML = '';
 
-    var container = el('div', 'checkin-container');
+    var container = h('div', 'checkin-section');
     var selectedMood = null;
 
-    // Mood label
-    var moodLabel = el('p', 'checkin-label', 'Как вы себя чувствуете?');
-    container.appendChild(moodLabel);
+    // Header
+    var header = h('div', 'checkin-header');
+    var headerIcon = h('div', 'checkin-header-icon', '📝');
+    header.appendChild(headerIcon);
+    var headerTitle = h('h3', 'checkin-title', 'Как вы сейчас?');
+    header.appendChild(headerTitle);
+    var headerSub = h('p', 'checkin-subtitle', 'Выберите настроение и запишите мысли');
+    header.appendChild(headerSub);
+    container.appendChild(header);
 
     // Mood grid
-    var moodGrid = el('div', 'checkin-mood-grid');
-    moodGrid.id = 'checkin-mood-grid';
+    var moodLabel = h('div', 'checkin-section-label', 'Настроение');
+    container.appendChild(moodLabel);
+
+    var moodGrid = h('div', 'mood-grid');
 
     moods.forEach(function(mood) {
-      var btn = el('button', 'mood-btn',
+      var btn = h('button', 'mood-btn',
         '<span class="mood-emoji">' + mood.emoji + '</span>' +
         '<span class="mood-label">' + mood.label + '</span>'
       );
@@ -701,31 +840,33 @@
         for (var k = 0; k < allBtns.length; k++) { allBtns[k].classList.remove('selected'); }
         btn.classList.add('selected');
         selectedMood = mood.id;
-        moodLabel.textContent = 'Как вы себя чувствуете?';
-        moodLabel.style.color = '';
       });
       moodGrid.appendChild(btn);
     });
     container.appendChild(moodGrid);
 
     // Text area
-    var textLabel = el('p', 'checkin-label checkin-text-label', 'Что на уме? (необязательно)');
+    var textLabel = h('div', 'checkin-section-label', 'Что на уме? <span style="opacity:0.5">(необязательно)</span>');
     container.appendChild(textLabel);
 
     var textarea = document.createElement('textarea');
-    textarea.id = 'checkin-text';
     textarea.className = 'checkin-textarea';
-    textarea.placeholder = 'Напишите что угодно...';
+    textarea.placeholder = 'Напишите что угодно — мысли, чувства, события дня...';
     textarea.rows = 4;
     container.appendChild(textarea);
 
+    // Reflection box (hidden initially)
+    var reflectionBox = h('div', 'reflection-box');
+    container.appendChild(reflectionBox);
+
     // Submit button
-    var submitBtn = el('button', 'checkin-submit-btn', 'Сохранить');
-    submitBtn.id = 'checkin-submit';
+    var controls = h('div', 'practice-controls');
+    var submitBtn = h('button', 'practice-btn practice-btn-primary', 'Сохранить');
     submitBtn.addEventListener('click', function() {
       if (!selectedMood) {
-        moodLabel.textContent = 'Пожалуйста, выберите настроение ↑';
-        moodLabel.style.color = '#ff6b6b';
+        // Shake the mood grid
+        moodGrid.style.animation = 'shake 0.4s ease';
+        setTimeout(function() { moodGrid.style.animation = ''; }, 400);
         return;
       }
 
@@ -739,34 +880,51 @@
       });
       saveData(data);
 
-      // Show result screen
+      // Show reflection
+      var insight = getReflection(text);
+
+      // Render completion with insight
       body.innerHTML = '';
-      var result = el('div', 'checkin-result');
+      var result = h('div', 'practice-complete');
 
-      var savedTitle = el('h3', 'checkin-saved-title', 'Записано');
-      result.appendChild(savedTitle);
+      var doneIcon = h('div', 'practice-complete-icon', '✅');
+      result.appendChild(doneIcon);
 
+      var doneTitle = h('h3', '', 'Записано');
+      result.appendChild(doneTitle);
+
+      // Mood display
       var moodInfo = moods.filter(function(m) { return m.id === selectedMood; })[0];
       if (moodInfo) {
-        var moodDisplay = el('div', 'checkin-saved-mood', moodInfo.emoji + ' ' + moodInfo.label);
+        var moodDisplay = h('p', '', moodInfo.emoji + ' ' + moodInfo.label);
         result.appendChild(moodDisplay);
       }
 
-      var reflection = getReflection(text);
-      var insight = el('p', 'checkin-insight', reflection);
-      result.appendChild(insight);
+      // Insight
+      var insightBox = h('div', 'reflection-box visible');
+      insightBox.innerHTML = '<strong>Наблюдение:</strong> ' + insight;
+      result.appendChild(insightBox);
 
-      var streakInfo = el('p', 'checkin-streak', 'Серия: ' + data.streak + ' ' + getDayWord(data.streak));
-      result.appendChild(streakInfo);
+      // Streak
+      var streakEl = h('div', 'practice-complete-streak', '<span class="streak-fire">🔥</span> Серия: ' + data.streak + ' ' + getDayWord(data.streak));
+      result.appendChild(streakEl);
 
-      var backBtn = el('button', 'practice-back-btn', 'Назад');
+      // Back button
+      var backControls = h('div', 'practice-controls');
+      var backBtn = h('button', 'practice-btn practice-btn-primary', 'Готово');
       backBtn.addEventListener('click', function() { window.closePractice(); });
-      result.appendChild(backBtn);
+      backControls.appendChild(backBtn);
+      result.appendChild(backControls);
 
       body.appendChild(result);
     });
-    container.appendChild(submitBtn);
+    controls.appendChild(submitBtn);
 
+    var cancelBtn = h('button', 'practice-btn practice-btn-secondary', 'Отмена');
+    cancelBtn.addEventListener('click', function() { window.closePractice(); });
+    controls.appendChild(cancelBtn);
+
+    container.appendChild(controls);
     body.appendChild(container);
   }
 
@@ -787,68 +945,61 @@
       body.innerHTML = '';
       var step = steps[currentStep];
 
-      var container = el('div', 'grounding-container');
+      var container = h('div', 'practice-active grounding-active');
 
-      // Progress indicator
-      var progress = el('div', 'grounding-progress');
+      // Progress dots
+      var progress = h('div', 'grounding-progress');
       for (var p = 0; p < steps.length; p++) {
-        var dot = el('span', 'grounding-progress-dot' + (p < currentStep ? ' done' : '') + (p === currentStep ? ' active' : ''));
+        var dotClass = 'grounding-dot';
+        if (p < currentStep) dotClass += ' done';
+        if (p === currentStep) dotClass += ' active';
+        var dot = h('span', dotClass);
         progress.appendChild(dot);
       }
       container.appendChild(progress);
 
-      // Step number
-      var stepNum = el('div', 'grounding-step-num', String(step.count));
-      container.appendChild(stepNum);
+      // Big number
+      var numEl = h('div', 'grounding-number', String(step.count));
+      container.appendChild(numEl);
 
-      // Sense name
-      var sense = el('h3', 'grounding-sense', step.sense);
-      container.appendChild(sense);
+      // Sense icon + name
+      var senseRow = h('div', 'grounding-sense', step.icon + ' ' + step.sense);
+      container.appendChild(senseRow);
 
       // Prompt
-      var prompt = el('p', 'grounding-prompt', step.prompt);
+      var prompt = h('p', 'grounding-prompt', step.prompt);
       container.appendChild(prompt);
 
       // Input fields
-      var inputs = el('div', 'grounding-inputs');
+      var inputs = h('div', 'grounding-inputs');
       for (var i = 0; i < step.count; i++) {
         var input = document.createElement('input');
         input.type = 'text';
         input.className = 'grounding-input';
-        input.placeholder = (i + 1) + '.';
+        input.placeholder = (i + 1) + '. ...';
+        // Auto-advance on Enter
+        (function(idx) {
+          input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+              var nextInput = inputs.querySelectorAll('.grounding-input')[idx + 1];
+              if (nextInput) nextInput.focus();
+              else nextBtn.focus();
+            }
+          });
+        })(i);
         inputs.appendChild(input);
       }
       container.appendChild(inputs);
 
       // Next/Finish button
       var isLast = currentStep >= steps.length - 1;
-      var nextBtn = el('button', 'grounding-next-btn', isLast ? 'Завершить' : 'Далее →');
+      var nextBtn = h('button', 'practice-btn practice-btn-primary', isLast ? 'Завершить' : 'Далее →');
       nextBtn.addEventListener('click', function() {
         currentStep++;
         if (currentStep >= steps.length) {
-          // Complete
           state.running = false;
           var dur = Math.round((Date.now() - state.startTime) / 1000);
-          logPractice('grounding', dur);
-
-          body.innerHTML = '';
-          var complete = el('div', 'grounding-complete');
-
-          var title = el('h3', 'grounding-complete-title', 'Вы здесь. В настоящем.');
-          complete.appendChild(title);
-
-          var sub = el('p', 'grounding-complete-sub', 'Практика завершена за ' + formatTime(dur));
-          complete.appendChild(sub);
-
-          var data = loadData();
-          var streakInfo = el('p', 'grounding-complete-streak', 'Серия: ' + data.streak + ' ' + getDayWord(data.streak));
-          complete.appendChild(streakInfo);
-
-          var backBtn = el('button', 'practice-back-btn', 'Назад');
-          backBtn.addEventListener('click', function() { window.closePractice(); });
-          complete.appendChild(backBtn);
-
-          body.appendChild(complete);
+          renderGroundingComplete(dur);
         } else {
           renderStep();
         }
@@ -860,8 +1011,36 @@
       // Focus first input
       var firstInput = container.querySelector('.grounding-input');
       if (firstInput) {
-        setTimeout(function() { firstInput.focus(); }, 100);
+        setTimeout(function() { firstInput.focus(); }, 150);
       }
+    }
+
+    function renderGroundingComplete(dur) {
+      body.innerHTML = '';
+      logPractice('grounding', dur);
+
+      var container = h('div', 'practice-complete');
+
+      var icon = h('div', 'practice-complete-icon', '🌍');
+      container.appendChild(icon);
+
+      var title = h('h3', '', 'Вы здесь. В настоящем.');
+      container.appendChild(title);
+
+      var info = h('p', '', 'Завершено за <strong>' + formatTime(dur) + '</strong>');
+      container.appendChild(info);
+
+      var data = loadData();
+      var streakEl = h('div', 'practice-complete-streak', '<span class="streak-fire">🔥</span> Серия: ' + data.streak + ' ' + getDayWord(data.streak));
+      container.appendChild(streakEl);
+
+      var controls = h('div', 'practice-controls');
+      var backBtn = h('button', 'practice-btn practice-btn-primary', 'Готово');
+      backBtn.addEventListener('click', function() { window.closePractice(); });
+      controls.appendChild(backBtn);
+      container.appendChild(controls);
+
+      body.appendChild(container);
     }
 
     renderStep();
@@ -909,14 +1088,12 @@
   // ═══════════════════════════════════════════════════════════════
 
   function init() {
-    // Expose global API
     window.openPractice = openPractice;
     window.closePractice = closePractice;
 
-    // Load data and display streak
     var data = loadData();
 
-    // Validate streak continuity on load
+    // Validate streak continuity
     var today = getTodayStr();
     var yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
@@ -940,12 +1117,6 @@
       })(cards[i]);
     }
 
-    // Close button inside practice view (if exists)
-    var closeBtn = document.querySelector('#practice-view .practice-close-btn');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closePractice);
-    }
-
     // Escape key closes practice
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
@@ -956,7 +1127,7 @@
       }
     });
 
-    // Sync from Supabase on load
+    // Sync from Supabase
     if (window.SupabaseClient && typeof window.SupabaseClient.get === 'function') {
       try {
         var result = window.SupabaseClient.get(STORAGE_KEY);
@@ -964,7 +1135,6 @@
           result.then(function(remoteData) {
             if (remoteData && remoteData.entries && Array.isArray(remoteData.entries)) {
               var local = loadData();
-              // Use whichever dataset is richer
               if (remoteData.entries.length > local.entries.length ||
                   (remoteData.practiceLog && remoteData.practiceLog.length > (local.practiceLog || []).length)) {
                 saveData(remoteData);
@@ -976,7 +1146,6 @@
     }
   }
 
-  // Boot
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
