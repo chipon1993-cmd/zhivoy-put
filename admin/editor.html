@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Конструктор страниц — Живой путь</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- GrapesJS core -->
+  <link rel="stylesheet" href="https://unpkg.com/grapesjs@0.21.13/dist/css/grapes.min.css" />
+
+  <!-- Dark theme overrides -->
+  <link rel="stylesheet" href="css/grapes-theme.css" />
+</head>
+<body>
+
+  <!-- Top toolbar -->
+  <div class="ge-topbar">
+    <div class="ge-topbar-left">
+      <a href="index.html" class="ge-back" title="Назад в админку">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <div class="ge-brand">
+        <span class="ge-mark">&#10022;</span> Конструктор
+      </div>
+      <select id="page-selector" class="ge-select" title="Выбрать страницу">
+        <option value="">-- Выбрать страницу --</option>
+        <option value="index">Главная (index.html)</option>
+        <option value="triptych">Путь (triptych.html)</option>
+        <option value="atlas">Атлас (atlas.html)</option>
+        <option value="triggers">Триггеры (triggers.html)</option>
+        <option value="navigator">Навигатор (navigator.html)</option>
+        <option value="roadmap">Развитие (roadmap.html)</option>
+        <option value="_new">+ Новая страница</option>
+      </select>
+    </div>
+    <div class="ge-topbar-center">
+      <!-- Device buttons -->
+      <div class="ge-devices">
+        <button class="ge-device-btn active" data-device="Desktop" title="Десктоп">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </button>
+        <button class="ge-device-btn" data-device="Tablet" title="Планшет">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+        </button>
+        <button class="ge-device-btn" data-device="Mobile" title="Телефон">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="ge-topbar-right">
+      <button class="ge-btn" id="btn-undo" title="Отменить (Ctrl+Z)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h10a5 5 0 015 5v2M3 10l5-5M3 10l5 5"/></svg>
+      </button>
+      <button class="ge-btn" id="btn-redo" title="Повторить (Ctrl+Y)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10H11a5 5 0 00-5 5v2M21 10l-5-5M21 10l-5 5"/></svg>
+      </button>
+      <button class="ge-btn" id="btn-code" title="Показать код">{ }</button>
+      <button class="ge-btn" id="btn-clear" title="Очистить холст">&#128465;</button>
+      <button class="ge-btn primary" id="btn-save-page">&#128190; Сохранить</button>
+      <button class="ge-btn publish" id="btn-publish-page" title="Опубликовать на GitHub">&#128640; Опубликовать</button>
+    </div>
+  </div>
+
+  <!-- GrapesJS editor container -->
+  <div id="gjs"></div>
+
+  <!-- GrapesJS core -->
+  <script src="https://unpkg.com/grapesjs@0.21.13/dist/grapes.min.js"></script>
+
+  <!-- GrapesJS plugins -->
+  <script src="https://unpkg.com/grapesjs-blocks-basic@1.0.2/dist/index.js"></script>
+  <script src="https://unpkg.com/grapesjs-preset-webpage@1.0.3/dist/index.js"></script>
+  <script src="https://unpkg.com/grapesjs-plugin-forms@2.0.6/dist/index.js"></script>
+
+  <!-- GitHub sync (reuse from admin) -->
+  <script src="js/github-sync.js"></script>
+
+  <!-- Editor config & custom blocks -->
+  <script src="js/grapes-config.js"></script>
+
+</body>
+</html>

@@ -123,14 +123,34 @@ body {
 }
 
 .sidebar-footer a {
+  display: block;
   color: var(--gold);
   font-size: 13px;
   text-decoration: none;
   font-weight: 600;
+  padding: 4px 0;
 }
 
 .sidebar-footer a:hover {
   text-decoration: underline;
+}
+
+.sidebar-builder-link {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px !important;
+  margin-bottom: 10px;
+  background: rgba(242,201,109,0.06);
+  border: 1px solid rgba(242,201,109,0.15);
+  border-radius: var(--admin-radius-sm);
+  transition: all 0.2s;
+}
+
+.sidebar-builder-link:hover {
+  background: rgba(242,201,109,0.12) !important;
+  border-color: rgba(242,201,109,0.3);
+  text-decoration: none !important;
 }
 
 /* ---- Main Area ---- */

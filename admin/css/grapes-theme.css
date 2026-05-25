@@ -1,0 +1,508 @@
+/* ============================================
+   GrapesJS — Dark Theme for Живой путь
+   Matches admin panel design language
+   ============================================ */
+
+/* ---- Reset & Base ---- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0a0c12;
+  color: #f0ebe1;
+  overflow: hidden;
+}
+
+/* ---- Top Toolbar ---- */
+.ge-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 16px;
+  background: #0f1219;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 100;
+  position: relative;
+}
+
+.ge-topbar-left,
+.ge-topbar-center,
+.ge-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ge-back {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  color: #a8a196;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.ge-back:hover {
+  background: rgba(255,255,255,0.06);
+  color: #f2c96d;
+}
+
+.ge-brand {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.ge-mark {
+  color: #f2c96d;
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.ge-select {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  color: #f0ebe1;
+  font-size: 13px;
+  font-family: inherit;
+  padding: 6px 12px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ge-select:hover,
+.ge-select:focus {
+  border-color: rgba(242,201,109,0.4);
+}
+.ge-select option {
+  background: #0f1219;
+  color: #f0ebe1;
+}
+
+/* ---- Device Buttons ---- */
+.ge-devices {
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.ge-device-btn {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #a8a196;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ge-device-btn:hover {
+  color: #f0ebe1;
+  background: rgba(255,255,255,0.06);
+}
+.ge-device-btn.active {
+  background: rgba(242,201,109,0.12);
+  color: #f2c96d;
+}
+
+/* ---- Toolbar Buttons ---- */
+.ge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  color: #f0ebe1;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.ge-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+.ge-btn.primary {
+  background: rgba(242,201,109,0.12);
+  border-color: rgba(242,201,109,0.25);
+  color: #f2c96d;
+}
+.ge-btn.primary:hover {
+  background: rgba(242,201,109,0.2);
+}
+.ge-btn.publish {
+  background: rgba(143,240,182,0.10);
+  border-color: rgba(143,240,182,0.25);
+  color: #8ff0b6;
+}
+.ge-btn.publish:hover {
+  background: rgba(143,240,182,0.18);
+}
+
+/* ============================================
+   GrapesJS Overrides — Dark Theme
+   ============================================ */
+
+/* Main editor area */
+.gjs-one-bg {
+  background-color: #0a0c12 !important;
+}
+.gjs-two-color {
+  color: #f0ebe1 !important;
+}
+.gjs-three-bg {
+  background-color: #14171f !important;
+}
+.gjs-four-color,
+.gjs-four-color-h:hover {
+  color: #f2c96d !important;
+}
+
+/* Editor frame */
+#gjs {
+  height: calc(100vh - 52px);
+  overflow: hidden;
+}
+
+/* Canvas */
+.gjs-cv-canvas {
+  background-color: #0a0c12 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Panels */
+.gjs-pn-panel {
+  background-color: #0f1219 !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+
+.gjs-pn-views-container,
+.gjs-pn-views {
+  background-color: #0f1219 !important;
+}
+
+/* Right panel (style manager, layers, blocks) */
+.gjs-pn-views-container {
+  border-left: 1px solid rgba(255,255,255,0.08) !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+/* Block categories */
+.gjs-block-category {
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.gjs-block-category .gjs-title {
+  background-color: #14171f !important;
+  color: #a8a196 !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+/* Blocks */
+.gjs-block {
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 8px !important;
+  color: #a8a196 !important;
+  min-height: 60px !important;
+  transition: all 0.2s !important;
+  margin: 4px !important;
+  font-size: 11px !important;
+}
+.gjs-block:hover {
+  background: rgba(242,201,109,0.06) !important;
+  border-color: rgba(242,201,109,0.2) !important;
+  color: #f2c96d !important;
+}
+.gjs-block svg {
+  fill: #a8a196 !important;
+}
+.gjs-block:hover svg {
+  fill: #f2c96d !important;
+}
+
+/* Block labels */
+.gjs-block-label {
+  color: #a8a196 !important;
+  font-size: 11px !important;
+}
+
+/* Traits / Properties */
+.gjs-trt-trait {
+  border-bottom: 1px solid rgba(255,255,255,0.04) !important;
+}
+.gjs-trt-trait .gjs-label-wrp {
+  color: #a8a196 !important;
+}
+
+/* Input fields */
+.gjs-field,
+.gjs-field input,
+.gjs-field textarea,
+.gjs-field select {
+  background-color: rgba(255,255,255,0.05) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+  color: #f0ebe1 !important;
+  border-radius: 6px !important;
+}
+.gjs-field input:focus,
+.gjs-field textarea:focus,
+.gjs-field select:focus {
+  border-color: rgba(242,201,109,0.4) !important;
+}
+
+/* Color picker */
+.gjs-field-color .gjs-checker-bg,
+.gjs-field-color .gjs-field-colorp {
+  border-radius: 4px !important;
+}
+
+/* Layers panel */
+.gjs-layer {
+  background: transparent !important;
+  color: #a8a196 !important;
+  font-size: 12px !important;
+}
+.gjs-layer:hover {
+  background: rgba(255,255,255,0.03) !important;
+}
+.gjs-layer.gjs-selected {
+  background: rgba(242,201,109,0.08) !important;
+  color: #f2c96d !important;
+}
+
+/* Style manager sectors */
+.gjs-sm-sector {
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.gjs-sm-sector .gjs-sm-sector-title {
+  background: #14171f !important;
+  color: #a8a196 !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.gjs-sm-sector .gjs-sm-sector-title:hover {
+  color: #f0ebe1 !important;
+}
+
+.gjs-sm-property .gjs-sm-label {
+  color: #a8a196 !important;
+  font-size: 11px !important;
+}
+
+/* Radio / select buttons in style manager */
+.gjs-sm-property .gjs-sm-btn {
+  border-color: rgba(255,255,255,0.10) !important;
+  color: #a8a196 !important;
+}
+.gjs-sm-property .gjs-sm-btn.gjs-sm-active {
+  background: rgba(242,201,109,0.12) !important;
+  color: #f2c96d !important;
+  border-color: rgba(242,201,109,0.3) !important;
+}
+
+/* Toolbar (element hover toolbar) */
+.gjs-toolbar {
+  background: rgba(10,12,18,0.92) !important;
+  border: 1px solid rgba(242,201,109,0.25) !important;
+  border-radius: 6px !important;
+}
+.gjs-toolbar-item {
+  color: #f2c96d !important;
+}
+
+/* Badge (component type label) */
+.gjs-badge {
+  background: rgba(242,201,109,0.9) !important;
+  color: #0a0c12 !important;
+  font-weight: 700 !important;
+  font-size: 10px !important;
+  border-radius: 4px !important;
+}
+
+/* Selection highlight */
+.gjs-selected {
+  outline: 2px solid rgba(242,201,109,0.6) !important;
+  outline-offset: -2px;
+}
+
+/* Highlighter (hover) */
+.gjs-highlighter {
+  outline: 2px dashed rgba(242,201,109,0.3) !important;
+}
+
+/* Resizer */
+.gjs-resizer-h {
+  border-color: #f2c96d !important;
+}
+
+/* Tab buttons (Blocks, Styles, Layers, etc.) */
+.gjs-pn-btn {
+  color: #a8a196 !important;
+  border-radius: 6px !important;
+  transition: all 0.2s !important;
+}
+.gjs-pn-btn:hover {
+  color: #f0ebe1 !important;
+}
+.gjs-pn-btn.gjs-pn-active {
+  color: #f2c96d !important;
+  box-shadow: 0 -2px 0 #f2c96d inset !important;
+}
+
+/* Modal */
+.gjs-mdl-dialog {
+  background: #14171f !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 16px !important;
+  color: #f0ebe1 !important;
+}
+.gjs-mdl-header {
+  border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  color: #f0ebe1 !important;
+}
+.gjs-mdl-title {
+  font-weight: 700 !important;
+}
+.gjs-mdl-btn-close {
+  color: #a8a196 !important;
+}
+
+/* Code editor modal */
+.gjs-cm-editor {
+  background: #0a0c12 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 8px !important;
+}
+.gjs-cm-editor#gjs-cm-htmlmixed .CodeMirror,
+.gjs-cm-editor#gjs-cm-css .CodeMirror {
+  background: #0a0c12 !important;
+  color: #f0ebe1 !important;
+}
+
+/* Context menu */
+.gjs-ctx-menu {
+  background: #14171f !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5) !important;
+}
+
+/* Notifications / toast */
+.gjs-noti-msg {
+  background: rgba(242,201,109,0.12) !important;
+  color: #f2c96d !important;
+  border: 1px solid rgba(242,201,109,0.25) !important;
+  border-radius: 8px !important;
+}
+
+/* ---- Scrollbar ---- */
+.gjs-pn-views-container::-webkit-scrollbar,
+.gjs-blocks-c::-webkit-scrollbar {
+  width: 5px;
+}
+.gjs-pn-views-container::-webkit-scrollbar-track,
+.gjs-blocks-c::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gjs-pn-views-container::-webkit-scrollbar-thumb,
+.gjs-blocks-c::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+
+/* ---- Toast notification (custom) ---- */
+.ge-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #14171f;
+  border: 1px solid rgba(143,240,182,0.3);
+  color: #8ff0b6;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+}
+.ge-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+.ge-toast.error {
+  border-color: rgba(255,137,137,0.3);
+  color: #ff8989;
+}
+
+/* ---- Loading overlay ---- */
+.ge-loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,12,18,0.85);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.ge-loading-inner {
+  text-align: center;
+}
+.ge-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(242,201,109,0.15);
+  border-top-color: #f2c96d;
+  border-radius: 50%;
+  animation: ge-spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+.ge-loading-text {
+  color: #a8a196;
+  font-size: 14px;
+  font-weight: 500;
+}
+@keyframes ge-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .ge-topbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .ge-topbar-left,
+  .ge-topbar-center,
+  .ge-topbar-right {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
