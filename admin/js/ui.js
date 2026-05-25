@@ -9,6 +9,18 @@
 (function () {
   'use strict';
 
+  /* ─── Inject Pickr-wrap CSS ────────────────────────────────────────── */
+
+  if (!document.getElementById('adminui-pickr-css')) {
+    var styleTag = document.createElement('style');
+    styleTag.id = 'adminui-pickr-css';
+    styleTag.textContent =
+      '.pickr-wrap { display: flex; align-items: center; gap: 10px; }' +
+      '.pickr-trigger { width: 36px; height: 36px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.12); cursor: pointer; }' +
+      '.color-hex { font-size: 13px; font-family: monospace; color: rgba(255,255,255,0.7); }';
+    document.head.appendChild(styleTag);
+  }
+
   /* ─── Google Fonts Catalogue ───────────────────────────────────────── */
 
   const FONT_GROUPS = [
@@ -135,21 +147,91 @@
           break;
 
         case 'color':
-          var colorWrap = el('div', 'color-input-wrap');
-          inputEl = el('input', 'form-input form-color', {
-            id: opts.id,
-            type: 'color'
-          });
-          inputEl.value = value;
-          var colorText = el('span', 'color-value', { textContent: value });
-          colorWrap.appendChild(inputEl);
-          colorWrap.appendChild(colorText);
-          inputEl.addEventListener('input', function () {
-            colorText.textContent = inputEl.value;
-          });
-          group.appendChild(colorWrap);
-          // Skip normal append — we already added colorWrap
-          inputEl._wrapper = colorWrap;
+          if (typeof Pickr !== 'undefined') {
+            // Pickr integration
+            var pickrWrap = el('div', 'pickr-wrap');
+            var pickrTrigger = el('button', 'pickr-trigger');
+            pickrTrigger.style.backgroundColor = value || '#000000';
+            var hexDisplay = el('span', 'color-hex', { textContent: value || '#000000' });
+            // Hidden input for auto-bind compatibility
+            inputEl = el('input', 'form-input form-color', {
+              id: opts.id,
+              type: 'hidden'
+            });
+            inputEl.value = value;
+
+            pickrWrap.appendChild(pickrTrigger);
+            pickrWrap.appendChild(hexDisplay);
+            pickrWrap.appendChild(inputEl);
+            group.appendChild(pickrWrap);
+
+            // Initialize Pickr after DOM append
+            (function (trigger, hiddenInput, hexSpan, fieldId, fieldOpts) {
+              setTimeout(function () {
+                var pickrInstance = Pickr.create({
+                  el: trigger,
+                  theme: 'nano',
+                  default: hiddenInput.value || '#000000',
+                  components: {
+                    preview: true,
+                    opacity: true,
+                    hue: true,
+                    interaction: {
+                      hex: true,
+                      input: true,
+                      save: true,
+                      clear: true
+                    }
+                  }
+                });
+
+                pickrInstance.on('save', function (color) {
+                  var hex = color ? color.toHEXA().toString() : '';
+                  hiddenInput.value = hex;
+                  hexSpan.textContent = hex;
+                  trigger.style.backgroundColor = hex || 'transparent';
+                  if (window.AdminStore) {
+                    window.AdminStore.set(fieldId, hex);
+                  }
+                  if (fieldOpts.onChange) {
+                    fieldOpts.onChange(hex);
+                  }
+                  pickrInstance.hide();
+                });
+
+                pickrInstance.on('clear', function () {
+                  hiddenInput.value = '';
+                  hexSpan.textContent = '';
+                  trigger.style.backgroundColor = 'transparent';
+                  if (window.AdminStore) {
+                    window.AdminStore.set(fieldId, '');
+                  }
+                  if (fieldOpts.onChange) {
+                    fieldOpts.onChange('');
+                  }
+                  pickrInstance.hide();
+                });
+              }, 0);
+            })(pickrTrigger, inputEl, hexDisplay, opts.id, opts);
+
+            inputEl._wrapper = pickrWrap;
+          } else {
+            // Fallback to native color input
+            var colorWrap = el('div', 'color-input-wrap');
+            inputEl = el('input', 'form-input form-color', {
+              id: opts.id,
+              type: 'color'
+            });
+            inputEl.value = value;
+            var colorText = el('span', 'color-value', { textContent: value });
+            colorWrap.appendChild(inputEl);
+            colorWrap.appendChild(colorText);
+            inputEl.addEventListener('input', function () {
+              colorText.textContent = inputEl.value;
+            });
+            group.appendChild(colorWrap);
+            inputEl._wrapper = colorWrap;
+          }
           break;
 
         case 'select':

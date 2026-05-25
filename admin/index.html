@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="css/admin-components.css" />
   <link rel="stylesheet" href="css/admin-utils.css" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+  <!-- Pickr color picker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
 </head>
 <body>
 
@@ -49,6 +51,25 @@
   <!-- Quill.js -->
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
+  <!-- SortableJS — drag-drop lists -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1/Sortable.min.js"></script>
+
+  <!-- Pickr — professional color picker -->
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+
+  <!-- Chart.js — admin analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+
+  <!-- Editor.js — block content editor -->
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1"></script>
+
+  <!-- Monaco Editor loader (lazy — activated in code panel) -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.min.js"></script>
+
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
@@ -72,6 +93,8 @@
   <script src="js/panels/panel-theme.js"></script>
   <script src="js/panels/panel-preview.js"></script>
   <script src="js/panels/panel-messages.js"></script>
+  <script src="js/panels/panel-dashboard.js"></script>
+  <script src="js/panels/panel-code.js"></script>
 
   <!-- Boot -->
   <script>
