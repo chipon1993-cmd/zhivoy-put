@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
   <meta name="theme-color" content="#f2c96d" />
-  <title>Путь: До / Во время / После — Живой путь</title>
+  <title>Путь — Живой путь</title>
+  <meta name="description" content="Шесть слоёв практики. Три состояния движения. Система возвращения к себе." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
@@ -16,6 +17,7 @@
   <link rel="stylesheet" href="../css/components.css" />
   <link rel="stylesheet" href="../css/header.css" />
   <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/path.css" />
   <link rel="stylesheet" href="../css/responsive.css" />
 </head>
 <body>
@@ -29,107 +31,303 @@
 
     <main>
 
-      <!-- ═══════════ STATS ═══════════ -->
-      <div class="stats-bar reveal">
-        <div class="glass stat">
-          <div class="stat-num" data-count="7">0</div>
-          <div class="stat-label">территорий жизни</div>
+      <!-- ═══════════ HERO ═══════════ -->
+      <section class="path-hero">
+        <div class="path-hero-glow"></div>
+        <div class="path-hero-symbol reveal">✦</div>
+        <h1 class="path-hero-title reveal">Путь</h1>
+        <p class="path-hero-sub reveal">Шесть слоёв практики. Три состояния движения. Одна точка — ты.</p>
+        <div class="scroll-cue">
+          <span>вниз</span>
+          <div class="scroll-cue-line"></div>
         </div>
-        <div class="glass stat">
-          <div class="stat-num" data-count="3">0</div>
-          <div class="stat-label">состояния пути</div>
+      </section>
+
+      <!-- ═══════════ MANIFESTO ═══════════ -->
+      <section class="path-section">
+        <div class="path-section-header reveal">
+          <div class="path-section-label">Философия</div>
+          <h2>Зачем это</h2>
         </div>
-        <div class="glass stat">
-          <div class="stat-num" data-count="4">0</div>
-          <div class="stat-label">типа триггеров</div>
+
+        <div class="manifesto-grid">
+          <div class="manifesto-item reveal">
+            <span class="manifesto-num">01</span>
+            <p class="manifesto-text">Это не приложение для продуктивности. Это пространство, где ты учишься видеть — прежде чем действовать.</p>
+          </div>
+          <div class="manifesto-item reveal">
+            <span class="manifesto-num">02</span>
+            <p class="manifesto-text">Каждая практика начинается с вопроса «зачем». Не задание — возвращение выбора между стимулом и реакцией.</p>
+          </div>
+          <div class="manifesto-item reveal">
+            <span class="manifesto-num">03</span>
+            <p class="manifesto-text">Прогресс здесь — не линия вверх. Это спираль: каждый возврат к началу — глубже предыдущего.</p>
+          </div>
         </div>
-        <div class="glass stat">
-          <div class="stat-num" data-count="1">0</div>
-          <div class="stat-label">живой следующий шаг</div>
+      </section>
+
+      <!-- ═══════════ JOURNEY (THREE PHASES) ═══════════ -->
+      <section class="path-section">
+        <div class="path-section-header reveal">
+          <div class="path-section-label">Три состояния</div>
+          <h2>Откуда и куда</h2>
+          <p>Не резкий скачок — путь от тумана к присутствию. Через выбор, движение и внутреннюю сборку.</p>
         </div>
+
+        <div class="journey-track">
+          <div class="journey-line"></div>
+
+          <!-- Phase I: Fog -->
+          <div class="journey-node reveal" data-phase="fog">
+            <div class="journey-node-marker"><span>🌫️</span></div>
+            <div class="journey-node-content">
+              <div class="journey-phase-label">Фаза I</div>
+              <h3>Туман</h3>
+              <p>Реактивность. Привычные петли. Жизнь на автопилоте. Ощущение тяжести, где каждый день — повторение вчерашнего. Но ты здесь — и это уже начало.</p>
+              <div class="journey-tags">
+                <span>реактивность</span>
+                <span>ступор</span>
+                <span>привычные петли</span>
+                <span>автопилот</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase II: Movement -->
+          <div class="journey-node reveal" data-phase="movement">
+            <div class="journey-node-marker"><span>🔥</span></div>
+            <div class="journey-node-content">
+              <div class="journey-phase-label">Фаза II</div>
+              <h3>Движение</h3>
+              <p>Пауза появляется. Ты начинаешь видеть свои механизмы: что запускает реакцию, где точка выбора, как среда формирует тебя. Среда меняется — ты меняешься вместе с ней.</p>
+              <div class="journey-tags">
+                <span>осознанность</span>
+                <span>пауза</span>
+                <span>выбор</span>
+                <span>среда</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Phase III: Clarity -->
+          <div class="journey-node reveal" data-phase="clarity">
+            <div class="journey-node-marker"><span>☀️</span></div>
+            <div class="journey-node-content">
+              <div class="journey-phase-label">Фаза III</div>
+              <h3>Ясность</h3>
+              <p>Не совершенство — зрелость. Способность удерживать сложность, не упрощая. Внутренняя опора появляется. Карта есть. Компас работает. Путь — живой.</p>
+              <div class="journey-tags">
+                <span>проактивность</span>
+                <span>зрелость</span>
+                <span>внутренняя опора</span>
+                <span>ясность</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════ QUOTE ═══════════ -->
+      <div class="path-quote reveal">
+        <blockquote>
+          Зрелость — это не отсутствие тумана. Это способность идти, когда не видно дороги.
+          <span class="path-quote-source">Среда, проактивность и зрелость</span>
+        </blockquote>
       </div>
 
-      <!-- ═══════════ TRIPTYCH ═══════════ -->
-      <section id="triptych">
-        <div class="section-head reveal">
-          <div>
-            <div class="section-label">Три состояния</div>
-            <h2>До · Во время · После</h2>
-          </div>
-          <p>Одна жизнь, три состояния. Не резкий скачок, а путь от тумана к присутствию: через выбор, движение и внутреннюю сборку.</p>
+      <!-- ═══════════ SIX LAYERS (SKILL TREE) ═══════════ -->
+      <section class="path-section path-layers">
+        <div class="path-section-header reveal">
+          <div class="path-section-label">Шесть слоёв</div>
+          <h2>Система практики</h2>
+          <p>Каждый слой — ступень глубже. Не обязательно идти по порядку, но порядок имеет смысл.</p>
         </div>
 
-        <div class="triptych">
-          <article class="glass stage st-before reveal">
-            <div>
-              <div class="stage-num">01</div>
-              <h3>ДО</h3>
-              <p class="stage-desc">Тяжесть, ступор, прошлое, страх и ощущение, что жизнь как будто висит огромным списком без живого смысла.</p>
-              <div class="tags">
-                <span class="tag">страх</span>
-                <span class="tag">сомнения</span>
-                <span class="tag">туман</span>
-                <span class="tag">ступор</span>
-                <span class="tag">прошлое</span>
-              </div>
-            </div>
-            <div class="figure-area">
-              <div class="stage-glow"></div>
-              <div class="chain-icon">⛓</div>
-              <div class="human-fig">
-                <div class="h-head"></div>
-                <div class="h-body"></div>
-                <div class="h-legs"><span></span><span></span></div>
-              </div>
-            </div>
-          </article>
+        <div class="layers-grid">
 
-          <article class="glass stage st-during reveal">
-            <div>
-              <div class="stage-num">02</div>
-              <h3>ВО ВРЕМЯ</h3>
-              <p class="stage-desc">Ты не «исправляешь себя». Ты учишься видеть свой механизм: состояния, триггеры, петли, опоры и живой следующий шаг.</p>
-              <div class="tags">
-                <span class="tag">выбор</span>
-                <span class="tag">путь</span>
-                <span class="tag">голос</span>
-                <span class="tag">дисциплина</span>
-                <span class="tag">рост</span>
-              </div>
+          <!-- Layer 1: Body -->
+          <a href="navigator.html#grounding" class="layer-card reveal" data-layer="1">
+            <div class="layer-header">
+              <span class="layer-num">01</span>
+              <div class="layer-icon">🌍</div>
             </div>
-            <div class="figure-area">
-              <div class="stage-glow"></div>
-              <div class="human-fig">
-                <div class="h-head"></div>
-                <div class="h-body"></div>
-                <div class="h-legs"><span></span><span></span></div>
-              </div>
+            <h3 class="layer-name">Тело</h3>
+            <p class="layer-question">Тело знает раньше слова</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
             </div>
-          </article>
+            <div class="layer-practice">
+              <span>Заземление 5-4-3-2-1</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
 
-          <article class="glass stage st-after reveal">
-            <div>
-              <div class="stage-num">03</div>
-              <h3>ПОСЛЕ</h3>
-              <p class="stage-desc">Больше ясности, опоры и своего голоса. Жизнь не становится лёгкой навсегда, но появляется карта, по которой можно возвращаться.</p>
-              <div class="tags">
-                <span class="tag">свобода</span>
-                <span class="tag">мастерство</span>
-                <span class="tag">смысл</span>
-                <span class="tag">опора</span>
-                <span class="tag">служение</span>
-              </div>
+          <!-- Layer 2: Pause -->
+          <a href="navigator.html#box-breathing" class="layer-card reveal" data-layer="2">
+            <div class="layer-header">
+              <span class="layer-num">02</span>
+              <div class="layer-icon">🫁</div>
             </div>
-            <div class="figure-area">
-              <div class="stage-glow"></div>
-              <div class="human-fig">
-                <div class="h-head"></div>
-                <div class="h-body"></div>
-                <div class="h-legs"><span></span><span></span></div>
-              </div>
+            <h3 class="layer-name">Пауза</h3>
+            <p class="layer-question">Пространство между стимулом и ответом</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
             </div>
-          </article>
+            <div class="layer-practice">
+              <span>Бокс-дыхание 4-4-4-4</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
+
+          <!-- Layer 3: Naming -->
+          <a href="navigator.html#checkin" class="layer-card reveal" data-layer="3">
+            <div class="layer-header">
+              <span class="layer-num">03</span>
+              <div class="layer-icon">📝</div>
+            </div>
+            <h3 class="layer-name">Называние</h3>
+            <p class="layer-question">Назови то, что чувствуешь</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+            </div>
+            <div class="layer-practice">
+              <span>Ежедневный чекин</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
+
+          <!-- Layer 4: Slowing -->
+          <a href="navigator.html#focus" class="layer-card reveal" data-layer="4">
+            <div class="layer-header">
+              <span class="layer-num">04</span>
+              <div class="layer-icon">🔴</div>
+            </div>
+            <h3 class="layer-name">Замедление</h3>
+            <p class="layer-question">Сделай следующее действие медленнее</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot"></div>
+              <div class="layer-depth-dot"></div>
+            </div>
+            <div class="layer-practice">
+              <span>Фокус на точке</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
+
+          <!-- Layer 5: Complexity -->
+          <a href="navigator.html#meditation" class="layer-card reveal" data-layer="5">
+            <div class="layer-header">
+              <span class="layer-num">05</span>
+              <div class="layer-icon">🧘</div>
+            </div>
+            <h3 class="layer-name">Сложность</h3>
+            <p class="layer-question">Удержание сложности без упрощения</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot"></div>
+            </div>
+            <div class="layer-practice">
+              <span>Медитация</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
+
+          <!-- Layer 6: Depth -->
+          <a href="navigator.html#holotropic" class="layer-card reveal" data-layer="6">
+            <div class="layer-header">
+              <span class="layer-num">06</span>
+              <div class="layer-icon">🌀</div>
+            </div>
+            <h3 class="layer-name">Глубина</h3>
+            <p class="layer-question">Тело несёт память глубже слов</p>
+            <div class="layer-depth">
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+              <div class="layer-depth-dot filled"></div>
+            </div>
+            <div class="layer-practice">
+              <span>Холотропное дыхание</span>
+              <span class="layer-practice-arrow">&#8594;</span>
+            </div>
+          </a>
+
         </div>
+      </section>
+
+      <!-- ═══════════ FEATURES (GAME MODES) ═══════════ -->
+      <section class="path-section">
+        <div class="path-section-header reveal">
+          <div class="path-section-label">Инструменты</div>
+          <h2>Что тебя ждёт</h2>
+          <p>Четыре пространства для практики, наблюдения и возвращения к себе.</p>
+        </div>
+
+        <div class="features-grid">
+
+          <a href="navigator.html" class="feature-card reveal">
+            <div class="feature-icon-wrap">🧘</div>
+            <h3>Практики</h3>
+            <p>Шесть слоёв: от тела до глубины. Каждая практика — пауза, в которой рождается выбор. Таймеры, инструкции, рефлексия после каждой сессии.</p>
+            <span class="feature-link">Открыть практики &#8594;</span>
+          </a>
+
+          <a href="programs.html" class="feature-card reveal">
+            <div class="feature-icon-wrap">🌀</div>
+            <h3>Спирали</h3>
+            <p>Программы из нескольких практик. Проходи как квест, возвращайся к началу когда готов — каждый виток спирали глубже предыдущего.</p>
+            <span class="feature-link">Открыть спирали &#8594;</span>
+          </a>
+
+          <a href="mirror.html" class="feature-card reveal">
+            <div class="feature-icon-wrap">🪞</div>
+            <h3>Зеркало</h3>
+            <p>Погода твоих состояний. Карта слоёв за неделю. Вопрос дня для рефлексии. Не оценка — отражение того, что происходит.</p>
+            <span class="feature-link">Открыть зеркало &#8594;</span>
+          </a>
+
+          <a href="stats.html" class="feature-card reveal">
+            <div class="feature-icon-wrap">📊</div>
+            <h3>Наблюдение</h3>
+            <p>Статистика без оценки. Серия дней, частота практик, баланс слоёв на гексагональной диаграмме. Видеть — уже практика.</p>
+            <span class="feature-link">Открыть наблюдение &#8594;</span>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- ═══════════ CTA ═══════════ -->
+      <section class="path-cta reveal">
+        <div class="path-cta-glow"></div>
+        <div class="path-cta-symbol">✦</div>
+        <h2>Путь начинается с паузы</h2>
+        <p>Не нужно быть готовым. Нужно начать.</p>
+        <a href="dashboard.html" class="btn primary">Войти в практику</a>
       </section>
 
     </main>
@@ -145,6 +343,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
-  <script src="../js/counters.js"></script>
 </body>
 </html>
