@@ -548,6 +548,7 @@
 .layer-card:hover {
   border-color: var(--lc);
   transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.05);
   box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 30px color-mix(in srgb, var(--lc) 15%, transparent);
 }
 
@@ -581,14 +582,19 @@
   display: grid;
   place-items: center;
   font-size: 24px;
+  background: rgba(255,255,255,0.04);
   background: color-mix(in srgb, var(--lc) 8%, transparent);
+  border: 1px solid rgba(255,255,255,0.08);
   border: 1px solid color-mix(in srgb, var(--lc) 18%, transparent);
   transition: all 0.3s ease;
 }
 
 .layer-card:hover .layer-icon {
+  background: rgba(255,255,255,0.06);
   background: color-mix(in srgb, var(--lc) 14%, transparent);
+  border-color: rgba(255,255,255,0.12);
   border-color: color-mix(in srgb, var(--lc) 30%, transparent);
+  box-shadow: 0 0 20px rgba(255,255,255,0.05);
   box-shadow: 0 0 20px color-mix(in srgb, var(--lc) 15%, transparent);
 }
 
@@ -624,6 +630,7 @@
 
 .layer-depth-dot.filled {
   background: var(--lc);
+  box-shadow: 0 0 6px rgba(255,255,255,0.15);
   box-shadow: 0 0 6px color-mix(in srgb, var(--lc) 40%, transparent);
 }
 
@@ -687,6 +694,7 @@
   width: 250px;
   height: 250px;
   border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
   background: radial-gradient(circle, color-mix(in srgb, var(--fc) 8%, transparent), transparent 70%);
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -694,6 +702,7 @@
 }
 
 .feature-card:hover {
+  border-color: rgba(255,255,255,0.10);
   border-color: color-mix(in srgb, var(--fc) 25%, transparent);
   transform: translateY(-4px);
 }
@@ -710,7 +719,9 @@
   place-items: center;
   font-size: 28px;
   margin-bottom: 20px;
+  background: rgba(255,255,255,0.04);
   background: color-mix(in srgb, var(--fc) 8%, transparent);
+  border: 1px solid rgba(255,255,255,0.06);
   border: 1px solid color-mix(in srgb, var(--fc) 15%, transparent);
   position: relative;
   z-index: 1;

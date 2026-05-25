@@ -267,7 +267,7 @@
   // ─── Init ─────────────────────────────────────────────────────────────────
 
   // Ensure default admin exists on first load
-  ensureDefaultAdmin();
+  ensureDefaultAdmin().catch(function(e) { console.warn('Auth: default admin bootstrap error:', e); });
 
   // When components are injected (via components.js), update the auth UI
   document.addEventListener('components-loaded', function () {

@@ -143,9 +143,14 @@
     })
     .then(function (data) {
       if (!data || !data.content) return null;
-      // Decode base64
-      var decoded = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-      return JSON.parse(decoded);
+      try {
+        // Decode base64
+        var decoded = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+        return JSON.parse(decoded);
+      } catch (e) {
+        console.error('[GitHubSync] Failed to parse pulled data:', e);
+        return null;
+      }
     });
   }
 

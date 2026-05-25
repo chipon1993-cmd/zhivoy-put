@@ -26,7 +26,7 @@
   margin-bottom: 2.5rem;
 }
 .practices-header h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   color: var(--text);
   margin-bottom: 0.5rem;
@@ -247,7 +247,7 @@
   font-size: 1.8rem;
   color: var(--text);
   margin-bottom: 0.75rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-weight: 700;
 }
 .practice-intro-why {
@@ -696,7 +696,7 @@
   font-size: 1.6rem;
   color: var(--text);
   margin-bottom: 0.4rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-weight: 700;
 }
 .checkin-subtitle {
@@ -846,7 +846,7 @@
   font-size: 1.8rem;
   color: var(--gold);
   margin-bottom: 0.5rem;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-heading);
   font-weight: 700;
 }
 .practice-complete p {

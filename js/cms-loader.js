@@ -82,7 +82,7 @@
 
       /* ═══ MENU OVERRIDES (apply on every page) ═══ */
       const menuData = localStorage.getItem('cms_menu');
-      if (menuData) {
+      if (menuData) { try {
         const items = JSON.parse(menuData);
         const nav = document.getElementById('mainNav');
         if (nav && items.length) {
@@ -111,7 +111,7 @@
             nav.appendChild(ctaLink);
           }
         }
-      }
+      } catch(e) { console.warn('CMS menu parse error:', e); } }
 
       /* ═══ FOOTER OVERRIDES (apply on every page) ═══ */
       if (c['footer-text']) setText('footer p', c['footer-text']);
@@ -120,21 +120,23 @@
       /* ═══ PAGE-SPECIFIC CONTENT ═══ */
 
       if (currentPage === 'index.html' || currentPage === '') {
-        // Landing page — minimal, mostly visual
+        // Landing page
+        if (c['hero-title-1']) setText('.landing-title', c['hero-title-1']);
+        if (c['hero-desc']) setText('.landing-tagline', c['hero-desc']);
       }
 
       if (currentPage === 'triptych.html') {
-        if (c['trip-title']) setText('.section-head h2', c['trip-title']);
-        if (c['trip-desc']) setText('.section-head p', c['trip-desc']);
-
-        const stages = document.querySelectorAll('.stage');
+        // Path page — journey phases (rebuilt structure)
+        const journeyNodes = document.querySelectorAll('.journey-node');
         [1,2,3].forEach((n, i) => {
-          if (!stages[i]) return;
-          if (c['trip-'+n+'-title']) stages[i].querySelector('h3').textContent = c['trip-'+n+'-title'];
-          if (c['trip-'+n+'-desc']) { const d = stages[i].querySelector('.stage-desc'); if (d) d.textContent = c['trip-'+n+'-desc']; }
+          if (!journeyNodes[i]) return;
+          const content = journeyNodes[i].querySelector('.journey-node-content');
+          if (!content) return;
+          if (c['trip-'+n+'-title']) { const h3 = content.querySelector('h3'); if (h3) h3.textContent = c['trip-'+n+'-title']; }
+          if (c['trip-'+n+'-desc']) { const p = content.querySelector('p'); if (p) p.textContent = c['trip-'+n+'-desc']; }
           if (c['trip-'+n+'-tags']) {
-            const tagsEl = stages[i].querySelector('.tags');
-            if (tagsEl) tagsEl.innerHTML = c['trip-'+n+'-tags'].split(',').map(t => '<span class="tag">' + t.trim() + '</span>').join('');
+            const tagsEl = content.querySelector('.journey-tags');
+            if (tagsEl) tagsEl.innerHTML = c['trip-'+n+'-tags'].split(',').map(t => '<span>' + t.trim() + '</span>').join('');
           }
         });
       }
@@ -144,7 +146,7 @@
         if (c['atlas-desc']) setText('.section-head p', c['atlas-desc']);
 
         const terrData = localStorage.getItem('cms_territories');
-        if (terrData) {
+        if (terrData) { try {
           const terrs = JSON.parse(terrData);
           const atlas = document.querySelector('.atlas');
           if (atlas && terrs.length) {
@@ -157,7 +159,7 @@
               atlas.appendChild(div);
             });
           }
-        }
+        } catch(e) { console.warn('CMS territories parse error:', e); } }
       }
 
       if (currentPage === 'triggers.html') {
@@ -165,7 +167,7 @@
         if (c['trig-desc']) setText('.section-head p', c['trig-desc']);
 
         const trigData = localStorage.getItem('cms_triggers');
-        if (trigData) {
+        if (trigData) { try {
           const trigs = JSON.parse(trigData);
           const container = document.querySelector('.cards-3');
           if (container && trigs.length) {
@@ -177,17 +179,16 @@
               container.appendChild(article);
             });
           }
-        }
+        } catch(e) { console.warn('CMS triggers parse error:', e); } }
       }
 
       if (currentPage === 'navigator.html') {
-        if (c['nav-title']) setText('.section-head h2', c['nav-title']);
-        if (c['nav-desc']) setText('.section-head p', c['nav-desc']);
-        if (c['nav-input-title']) setText('.agent-panel h3', c['nav-input-title']);
+        if (c['nav-title']) setText('.practices-header h2', c['nav-title']);
+        if (c['nav-desc']) setText('.practices-header p', c['nav-desc']);
         if (c['nav-placeholder']) { const ta = document.getElementById('stateInput'); if (ta) ta.placeholder = c['nav-placeholder']; }
 
         const prinData = localStorage.getItem('cms_principles');
-        if (prinData) {
+        if (prinData) { try {
           const prins = JSON.parse(prinData);
           const list = document.querySelector('.principles-list');
           if (list && prins.length) {
@@ -199,7 +200,7 @@
               list.appendChild(div);
             });
           }
-        }
+        } catch(e) { console.warn('CMS principles parse error:', e); } }
       }
 
       if (currentPage === 'roadmap.html') {
@@ -207,7 +208,7 @@
         if (c['road-desc']) setText('.section-head p', c['road-desc']);
 
         const roadData = localStorage.getItem('cms_roadmap');
-        if (roadData) {
+        if (roadData) { try {
           const steps = JSON.parse(roadData);
           const timeline = document.querySelector('.timeline');
           if (timeline && steps.length) {
@@ -219,7 +220,7 @@
               timeline.appendChild(div);
             });
           }
-        }
+        } catch(e) { console.warn('CMS roadmap parse error:', e); } }
 
         if (c['cta-line1'] || c['cta-line2']) {
           const ctaH = document.querySelector('.cta-section h2');
@@ -232,8 +233,10 @@
   }
 
   function loadLocal() {
-    var raw = localStorage.getItem('cms_content');
-    return raw ? JSON.parse(raw) : {};
+    try {
+      var raw = localStorage.getItem('cms_content');
+      return raw ? JSON.parse(raw) : {};
+    } catch(e) { console.warn('CMS loadLocal parse error:', e); return {}; }
   }
 
   /** Load published CMS data from /data/cms-data.json */

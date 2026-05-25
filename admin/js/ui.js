@@ -299,6 +299,7 @@
           group.appendChild(editorWrap);
 
           setTimeout(function () {
+            if (typeof Quill === 'undefined') { console.warn('AdminUI: Quill not loaded, richtext fallback'); return; }
             var quill = new Quill('#' + editorId, {
               theme: 'snow',
               modules: {

@@ -30,6 +30,18 @@
   /* Matches the selectors used in cms-loader.js so inline edits sync   */
 
   var CMS_MAP = {
+    'index.html': [
+      { key: 'hero-title-1', sel: '.landing-title',   label: 'Заголовок' },
+      { key: 'hero-desc',    sel: '.landing-tagline',  label: 'Подзаголовок' }
+    ],
+    'triptych.html': [
+      { key: 'trip-1-title', sel: '.journey-node[data-phase="fog"] h3',      label: 'Фаза 1' },
+      { key: 'trip-1-desc',  sel: '.journey-node[data-phase="fog"] p',       label: 'Описание фазы 1' },
+      { key: 'trip-2-title', sel: '.journey-node[data-phase="movement"] h3', label: 'Фаза 2' },
+      { key: 'trip-2-desc',  sel: '.journey-node[data-phase="movement"] p',  label: 'Описание фазы 2' },
+      { key: 'trip-3-title', sel: '.journey-node[data-phase="clarity"] h3',  label: 'Фаза 3' },
+      { key: 'trip-3-desc',  sel: '.journey-node[data-phase="clarity"] p',   label: 'Описание фазы 3' }
+    ],
     'atlas.html': [
       { key: 'atlas-title', sel: '.section-head h2', label: 'Заголовок' },
       { key: 'atlas-desc',  sel: '.section-head p',  label: 'Описание' }
@@ -39,9 +51,8 @@
       { key: 'trig-desc',  sel: '.section-head p',  label: 'Описание' }
     ],
     'navigator.html': [
-      { key: 'nav-title',       sel: '.section-head h2', label: 'Заголовок' },
-      { key: 'nav-desc',        sel: '.section-head p',  label: 'Описание' },
-      { key: 'nav-input-title', sel: '.agent-panel h3',  label: 'Заголовок панели' }
+      { key: 'nav-title', sel: '.practices-header h2', label: 'Заголовок' },
+      { key: 'nav-desc',  sel: '.practices-header p',  label: 'Описание' }
     ],
     'roadmap.html': [
       { key: 'road-title', sel: '.section-head h2', label: 'Заголовок' },
@@ -365,14 +376,15 @@
 
     var els = doc.querySelectorAll('[data-ve]');
     els.forEach(function (el) {
+      /* Always remove first to prevent stacking */
+      el.removeEventListener('input', onInlineInput);
+      el.removeEventListener('blur', onInlineBlur);
       if (editMode) {
         el.contentEditable = 'true';
         el.addEventListener('input', onInlineInput);
         el.addEventListener('blur', onInlineBlur);
       } else {
         el.contentEditable = 'inherit';
-        el.removeEventListener('input', onInlineInput);
-        el.removeEventListener('blur', onInlineBlur);
       }
     });
   }

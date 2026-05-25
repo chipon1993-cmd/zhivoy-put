@@ -745,7 +745,7 @@ h1 .accent {
   gap: 14px;
 }
 
-.weather-card {
+.side-panel .weather-card {
   padding: 22px;
   border-radius: 22px;
   background: rgba(0,0,0,0.22);
@@ -753,18 +753,18 @@ h1 .accent {
   transition: border-color 0.3s var(--ease);
 }
 
-.weather-card:hover {
+.side-panel .weather-card:hover {
   border-color: rgba(242,201,109,0.20);
 }
 
-.weather-card h3 {
+.side-panel .weather-card h3 {
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.03em;
   margin-bottom: 10px;
 }
 
-.weather-card p {
+.side-panel .weather-card p {
   color: var(--muted);
   line-height: 1.65;
   font-size: 14px;
