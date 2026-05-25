@@ -236,9 +236,41 @@
     return raw ? JSON.parse(raw) : {};
   }
 
-  function applyOnReady() {
-    applyContent(loadLocal(), 'local');
+  /** Load published CMS data from /data/cms-data.json */
+  function loadPublished() {
+    var base = window.location.pathname.includes('/pages/') ? '../' : '';
+    return fetch(base + 'data/cms-data.json?_t=' + Date.now())
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
 
+  /** Apply list data (menu, territories, etc.) from published JSON */
+  function applyListData(data) {
+    if (!data) return;
+    ['cms_menu', 'cms_territories', 'cms_triggers', 'cms_principles', 'cms_roadmap'].forEach(function (key) {
+      var section = key.replace('cms_', '');
+      if (data[section] && data[section].length) {
+        localStorage.setItem(key, JSON.stringify(data[section]));
+      }
+    });
+  }
+
+  function applyOnReady() {
+    // 1. Apply local data first (instant)
+    var localContent = loadLocal();
+    applyContent(localContent, 'local');
+
+    // 2. Try published JSON file (authoritative for all visitors)
+    loadPublished().then(function (published) {
+      if (published && published.content && Object.keys(published.content).length > 0) {
+        // Cache in localStorage
+        localStorage.setItem('cms_content', JSON.stringify(published.content));
+        applyContent(published.content, 'published');
+        applyListData(published);
+      }
+    });
+
+    // 3. Also check Supabase for real-time updates
     if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
       window.SupabaseClient.get('cms_content').then(function (cloudContent) {
         if (cloudContent && Object.keys(cloudContent).length > 0) {
