@@ -19,12 +19,24 @@
         Живой путь
       </a>
       <nav id="mainNav">
-        <a href="${root}pages/triptych.html">Путь</a>
-        <a href="${root}pages/atlas.html">Карта</a>
-        <a href="${root}pages/mirror.html">Зеркало</a>
-        <a href="${root}pages/navigator.html">Практики</a>
-        <a href="${root}pages/programs.html">Спирали</a>
-        <a href="${root}pages/contact.html">Связаться</a>
+        <div class="nav-dropdown">
+          <a href="${root}pages/triptych.html" class="nav-dropdown-trigger">О проекте <span class="nav-arrow">▾</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="${root}pages/triptych.html"><span class="nav-item-icon">✦</span> Путь</a>
+            <a href="${root}pages/atlas.html"><span class="nav-item-icon">🗺️</span> Карта жизни</a>
+            <a href="${root}pages/contact.html"><span class="nav-item-icon">💬</span> Связаться</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="${root}pages/dashboard.html" class="nav-dropdown-trigger">Практика <span class="nav-arrow">▾</span></a>
+          <div class="nav-dropdown-menu nav-dropdown-wide">
+            <a href="${root}pages/dashboard.html"><span class="nav-item-icon">🏠</span> Главная</a>
+            <a href="${root}pages/navigator.html"><span class="nav-item-icon">🧘</span> Практики</a>
+            <a href="${root}pages/mirror.html"><span class="nav-item-icon">🪞</span> Зеркало</a>
+            <a href="${root}pages/programs.html"><span class="nav-item-icon">🌀</span> Спирали</a>
+            <a href="${root}pages/stats.html"><span class="nav-item-icon">📊</span> Наблюдение</a>
+          </div>
+        </div>
         <span id="auth-nav-slot"></span>
         <a href="${root}pages/dashboard.html" class="nav-cta">Начать</a>
       </nav>
@@ -52,8 +64,16 @@
   const currentPage = path.split('/').pop() || 'index.html';
   document.querySelectorAll('#mainNav a').forEach(function (a) {
     var href = a.getAttribute('href') || '';
-    if (href.includes(currentPage) && !a.classList.contains('nav-cta')) {
+    if (href.includes(currentPage) && !a.classList.contains('nav-cta') && !a.classList.contains('nav-dropdown-trigger')) {
       a.classList.add('active');
+    }
+  });
+  // Also highlight parent dropdown trigger if child is active
+  document.querySelectorAll('.nav-dropdown-menu a.active').forEach(function(a) {
+    var parent = a.closest('.nav-dropdown');
+    if (parent) {
+      var trigger = parent.querySelector('.nav-dropdown-trigger');
+      if (trigger) trigger.classList.add('active');
     }
   });
 

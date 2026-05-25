@@ -86,6 +86,100 @@ nav a.active {
   color: var(--gold);
 }
 
+/* ═══ NAV DROPDOWNS ═══ */
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.nav-arrow {
+  font-size: 10px;
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-dropdown:hover .nav-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 180px;
+  padding: 10px 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(12,14,22,0.96);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-dropdown-menu a:hover {
+  background: rgba(242,201,109,0.08);
+  color: var(--text);
+}
+
+.nav-dropdown-menu a.active {
+  color: var(--gold);
+  background: rgba(242,201,109,0.06);
+}
+
+.nav-item-icon {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-dropdown-wide {
+  min-width: 200px;
+}
+
 /* ═══ NAV CTA ═══ */
 
 .nav-cta {
@@ -99,4 +193,27 @@ nav a.active {
 .nav-cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 12px 40px rgba(242,201,109,0.35) !important;
+}
+
+/* ═══ MOBILE NAV ═══ */
+
+@media (max-width: 768px) {
+  .nav-dropdown-menu {
+    position: fixed;
+    top: auto;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+    transform: translateX(0) translateY(10px);
+    min-width: unset;
+    border-radius: 20px;
+    padding: 12px;
+  }
+  .nav-dropdown:hover .nav-dropdown-menu {
+    transform: translateX(0) translateY(0);
+  }
+  .nav-dropdown-menu::before {
+    display: none;
+  }
+  .nav-arrow { display: none; }
 }
