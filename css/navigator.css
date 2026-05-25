@@ -97,7 +97,15 @@
   font-size: 17px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+}
+.practice-card-why {
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(242,201,109,0.6);
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
 }
 .practice-card-desc {
   font-size: 13px;
@@ -241,6 +249,14 @@
   margin-bottom: 0.75rem;
   font-family: 'Playfair Display', serif;
   font-weight: 700;
+}
+.practice-intro-why {
+  font-size: 14px;
+  font-style: italic;
+  color: rgba(242,201,109,0.7);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 .practice-intro-description {
   font-size: 15px;

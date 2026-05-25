@@ -29,10 +29,44 @@
 
   function getGreeting() {
     var h = new Date().getHours();
-    if (h < 6) return 'Доброй ночи';
-    if (h < 12) return 'Доброе утро';
-    if (h < 18) return 'Добрый день';
-    return 'Добрый вечер';
+    var greeting = '';
+    if (h < 6) greeting = 'Доброй ночи';
+    else if (h < 12) greeting = 'Доброе утро';
+    else if (h < 18) greeting = 'Добрый день';
+    else greeting = 'Добрый вечер';
+    return greeting;
+  }
+
+  function getPhilosophy(data) {
+    var streak = data.streak || 0;
+    var today = getTodayStr();
+    var hasCheckin = (data.entries || []).some(function(e) {
+      return e.date && e.date.slice(0, 10) === today;
+    });
+    var todayPractices = (data.practiceLog || []).filter(function(p) {
+      return p.date && p.date.slice(0, 10) === today;
+    });
+
+    // Context-sensitive philosophical messages
+    if (streak === 0 && todayPractices.length === 0) {
+      return 'Возвращение — это и есть зрелость. Начни с одного шага.';
+    }
+    if (streak === 1) {
+      return 'Первый день. Дом строится маленькими действиями.';
+    }
+    if (streak > 0 && streak < 7) {
+      return streak + ' ' + getDayWord(streak) + ' подряд. Дом не истончается.';
+    }
+    if (streak >= 7 && streak < 21) {
+      return 'Спираль крутится. Ты уже не тот, что ' + streak + ' дней назад.';
+    }
+    if (streak >= 21) {
+      return 'Полный виток спирали. Тело помнит путь.';
+    }
+    if (!hasCheckin) {
+      return 'Тело уже проснулось. Что оно знает сегодня?';
+    }
+    return 'Каждое маленькое действие — это твой дом.';
   }
 
   function getRecommendation(data) {
@@ -44,49 +78,46 @@
       return p.date && p.date.slice(0, 10) === today;
     });
 
-    // If no checkin today
     if (todayEntries.length === 0) {
       return {
         icon: '📝',
-        title: 'Начните с чекина',
-        desc: 'Отметьте настроение — система отразит ваше состояние',
+        title: 'Ежедневный чекин',
+        desc: 'Назови то, что чувствуешь — это первый шаг к паузе',
         practice: 'checkin'
       };
     }
 
-    // Based on last mood
     var lastMood = todayEntries[todayEntries.length - 1].mood;
     if (lastMood === 'anxious' || lastMood === 'heavy') {
       return {
-        icon: '🫁',
-        title: 'Бокс-дыхание',
-        desc: 'Подходит для текущего состояния — снижает тревогу за 3 минуты',
-        practice: 'box-breathing'
+        icon: '🌍',
+        title: 'Заземление',
+        desc: 'Тело знает раньше слова. Вернись в него через 5 чувств',
+        practice: 'grounding'
       };
     }
     if (lastMood === 'fog') {
       return {
-        icon: '🔴',
-        title: 'Фокус на точке',
-        desc: 'Поможет прояснить ум и вернуть ясность',
-        practice: 'focus'
+        icon: '🫁',
+        title: 'Бокс-дыхание',
+        desc: 'Между стимулом и реакцией есть пауза. Дыхание — путь к ней',
+        practice: 'box-breathing'
       };
     }
     if (lastMood === 'calm' || lastMood === 'spark') {
       return {
         icon: '🧘',
         title: 'Медитация',
-        desc: 'Хорошее состояние для углубления практики',
+        desc: 'Удержание сложности без упрощения. Хорошее время для глубины',
         practice: 'meditation'
       };
     }
 
-    // Default
     if (todayPractices.length === 0) {
       return {
         icon: '🌍',
         title: 'Заземление',
-        desc: 'Быстрая практика присутствия через 5 органов чувств',
+        desc: 'Тело — первый дом. Вернись в настоящий момент',
         practice: 'grounding'
       };
     }
@@ -94,7 +125,7 @@
     return {
       icon: '🧘',
       title: 'Медитация',
-      desc: 'Завершите день управляемой медитацией',
+      desc: 'Наблюдение без редактирования. Позволь всему быть',
       practice: 'meditation'
     };
   }
@@ -209,7 +240,7 @@
     // Greeting
     html += '<div class="app-header">';
     html += '<h1>' + getGreeting() + '</h1>';
-    html += '<p>Ваше пространство для практики</p>';
+    html += '<p class="philosophy-text">' + getPhilosophy(data) + '</p>';
     html += '</div>';
 
     // Today's stats row
@@ -222,7 +253,7 @@
     // Recommendation
     html += '<div class="app-section-title">Рекомендация</div>';
     html += '<div class="recommendation-card" onclick="location.href=\'navigator.html\'" data-practice="' + recommendation.practice + '">';
-    html += '<div class="recommendation-label">Подходит сейчас</div>';
+    html += '<div class="recommendation-label">Тело подсказывает</div>';
     html += '<div class="recommendation-content">';
     html += '<div class="recommendation-icon">' + recommendation.icon + '</div>';
     html += '<div class="recommendation-info">';
@@ -241,7 +272,7 @@
     html += '<div class="quick-actions">';
     html += '<a href="navigator.html" class="quick-action"><span class="quick-action-icon">📝</span><span class="quick-action-text">Чекин</span></a>';
     html += '<a href="navigator.html" class="quick-action"><span class="quick-action-icon">🫁</span><span class="quick-action-text">Дыхание</span></a>';
-    html += '<a href="programs.html" class="quick-action"><span class="quick-action-icon">📋</span><span class="quick-action-text">Программы</span></a>';
+    html += '<a href="programs.html" class="quick-action"><span class="quick-action-icon">🌀</span><span class="quick-action-text">Спирали</span></a>';
     html += '<a href="stats.html" class="quick-action"><span class="quick-action-icon">📊</span><span class="quick-action-text">Статистика</span></a>';
     html += '</div>';
 
@@ -260,7 +291,7 @@
 
   // Dashboard page styles
   var style = document.createElement('style');
-  style.textContent = '.dashboard-page { max-width: 600px; margin: 0 auto; padding: 1rem 1.5rem 2rem; }';
+  style.textContent = '.dashboard-page { max-width: 600px; margin: 0 auto; padding: 1rem 1.5rem 2rem; } .philosophy-text { font-style: italic; color: rgba(242,201,109,0.7); font-size: 13px; }';
   document.head.appendChild(style);
 
   if (document.readyState === 'loading') {

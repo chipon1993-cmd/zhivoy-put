@@ -12,9 +12,10 @@
     {
       id: 'breath-7',
       title: '7 дней дыхания',
-      subtitle: 'Базовый курс',
+      subtitle: 'Спираль паузы',
       icon: '🫁',
       theme: 'breath',
+      why: 'Между стимулом и реакцией есть пространство. Дыхание — путь в это пространство.',
       description: 'Освойте дыхательные техники от простого к сложному. Каждый день — новая вариация.',
       days: [
         { title: 'Знакомство с дыханием', desc: 'Бокс-дыхание 4-4-4-4, 4 цикла', practice: 'box-breathing', cycles: 4 },
@@ -29,9 +30,10 @@
     {
       id: 'calm-5',
       title: 'Антистресс за 5 дней',
-      subtitle: 'При тревоге',
+      subtitle: 'Спираль тела',
       icon: '🌊',
       theme: 'calm',
+      why: 'Тело знает раньше слова. От заземления к наблюдению — возвращение в первый дом.',
       description: 'Комплекс техник для снижения тревожности. От тела к уму.',
       days: [
         { title: 'Заземление', desc: 'Техника 5-4-3-2-1 для возвращения в тело', practice: 'grounding' },
@@ -44,9 +46,10 @@
     {
       id: 'focus-7',
       title: '7 дней фокуса',
-      subtitle: 'Концентрация',
+      subtitle: 'Спираль внимания',
       icon: '🎯',
       theme: 'focus',
+      why: 'Сделай следующее действие медленнее. От минуты к пяти — укрепление способности замедлиться.',
       description: 'Укрепите способность к концентрации. От 1 минуты до 5 минут устойчивого внимания.',
       days: [
         { title: '1 минута', desc: 'Удержание внимания на точке, 60 секунд', practice: 'focus' },
@@ -61,9 +64,10 @@
     {
       id: 'awareness-21',
       title: '21 день осознанности',
-      subtitle: 'Глубокий курс',
+      subtitle: 'Полная спираль',
       icon: '🔮',
       theme: 'awareness',
+      why: 'Тело → пауза → сложность → возвращение. Зрелость — это не пункт прибытия, а путь по спирали.',
       description: 'Полная программа: от базовых техник до интеграции в повседневную жизнь.',
       days: [
         { title: 'Намерение', desc: 'Чекин + постановка намерения', practice: 'checkin' },
@@ -139,8 +143,8 @@
     var html = '';
 
     html += '<div class="app-header">';
-    html += '<h1>Программы</h1>';
-    html += '<p>Структурированные курсы практик</p>';
+    html += '<h1>Спирали</h1>';
+    html += '<p>Каждый круг — глубже. Каждый возврат — осознаннее.</p>';
     html += '</div>';
 
     html += '<div class="programs-list">';
@@ -174,6 +178,7 @@
       html += '<div class="program-badge ' + badgeClass + '">' + badgeText + '</div>';
       html += '</div>';
       html += '<div class="program-desc">' + program.description + '</div>';
+      html += '<div class="program-why">' + program.why + '</div>';
 
       if (prog.active && completed > 0) {
         html += '<div class="program-progress"><div class="program-progress-fill" style="width:' + pct + '%"></div></div>';
@@ -226,12 +231,20 @@
     html += '<div class="program-detail-icon">' + program.icon + '</div>';
     html += '<div class="program-detail-title">' + program.title + '</div>';
     html += '<div class="program-detail-sub">' + program.description + '</div>';
+    html += '<div class="program-why">' + program.why + '</div>';
     html += '</div>';
 
     // Progress
     var pct = program.days.length > 0 ? Math.round((completedDays.length / program.days.length) * 100) : 0;
     html += '<div class="program-progress" style="margin-bottom:8px;"><div class="program-progress-fill" style="width:' + pct + '%"></div></div>';
     html += '<div class="program-progress-text" style="text-align:center;margin-bottom:2rem;">' + completedDays.length + ' из ' + program.days.length + ' дней выполнено</div>';
+
+    // Restart button (if fully completed — spiral concept)
+    if (completedDays.length >= program.days.length) {
+      html += '<div style="text-align:center;margin-bottom:2rem;">';
+      html += '<button class="practice-btn practice-btn-primary" id="restart-program">🔄 Пройти заново</button>';
+      html += '</div>';
+    }
 
     // Start button (if not started)
     if (!prog.active || completedDays.length === 0) {
@@ -283,6 +296,15 @@
       });
     }
 
+    // Restart program (spiral re-entry)
+    var restartBtn = document.getElementById('restart-program');
+    if (restartBtn) {
+      restartBtn.addEventListener('click', function() {
+        startProgram(program.id);
+        renderDetail();
+      });
+    }
+
     // Day click — go to practice
     container.querySelectorAll('.program-day:not(.locked)').forEach(function(dayEl) {
       dayEl.addEventListener('click', function() {
@@ -308,7 +330,8 @@
 
   // Page styles
   var style = document.createElement('style');
-  style.textContent = '.programs-page { max-width: 600px; margin: 0 auto; padding: 1rem 1.5rem 2rem; }';
+  style.textContent = '.programs-page { max-width: 600px; margin: 0 auto; padding: 1rem 1.5rem 2rem; }' +
+    '.program-why { font-size: 13px; color: rgba(242,201,109,0.7); font-style: italic; line-height: 1.6; padding: 10px 0; border-left: 2px solid rgba(242,201,109,0.2); padding-left: 14px; margin-bottom: 14px; }';
   document.head.appendChild(style);
 
   if (document.readyState === 'loading') {

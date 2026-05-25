@@ -197,6 +197,78 @@
       '</svg>';
   }
 
+  function renderLayerChart(freq) {
+    var layers = [
+      { practice: 'grounding', name: 'Тело' },
+      { practice: 'box-breathing', name: 'Пауза' },
+      { practice: 'checkin', name: 'Называние' },
+      { practice: 'focus', name: 'Замедление' },
+      { practice: 'meditation', name: 'Сложность' },
+      { practice: 'holotropic', name: 'Глубина' }
+    ];
+
+    var cx = 150, cy = 130, radius = 90;
+    var n = layers.length;
+    var maxVal = 1;
+    layers.forEach(function(l) {
+      var v = freq[l.practice] || 0;
+      if (v > maxVal) maxVal = v;
+    });
+
+    // Draw hex grid (3 levels)
+    var gridLines = '';
+    [0.33, 0.66, 1.0].forEach(function(scale) {
+      var points = [];
+      for (var i = 0; i < n; i++) {
+        var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+        points.push((cx + radius * scale * Math.cos(angle)).toFixed(1) + ',' + (cy + radius * scale * Math.sin(angle)).toFixed(1));
+      }
+      gridLines += '<polygon points="' + points.join(' ') + '" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>';
+    });
+
+    // Axis lines
+    var axes = '';
+    for (var i = 0; i < n; i++) {
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      var x2 = cx + radius * Math.cos(angle);
+      var y2 = cy + radius * Math.sin(angle);
+      axes += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x2.toFixed(1) + '" y2="' + y2.toFixed(1) + '" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>';
+    }
+
+    // Data polygon
+    var dataPoints = [];
+    layers.forEach(function(l, i) {
+      var val = (freq[l.practice] || 0) / maxVal;
+      val = Math.max(val, 0.08); // minimum visibility
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      var x = cx + radius * val * Math.cos(angle);
+      var y = cy + radius * val * Math.sin(angle);
+      dataPoints.push(x.toFixed(1) + ',' + y.toFixed(1));
+    });
+
+    // Labels
+    var labels = '';
+    layers.forEach(function(l, i) {
+      var angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      var lx = cx + (radius + 25) * Math.cos(angle);
+      var ly = cy + (radius + 25) * Math.sin(angle);
+      var count = freq[l.practice] || 0;
+      var anchor = 'middle';
+      if (Math.cos(angle) < -0.3) anchor = 'end';
+      if (Math.cos(angle) > 0.3) anchor = 'start';
+      labels += '<text x="' + lx.toFixed(1) + '" y="' + (ly + 4).toFixed(1) + '" text-anchor="' + anchor + '" fill="rgba(255,255,255,0.5)" font-size="11">' + l.name + '</text>';
+      if (count > 0) {
+        labels += '<text x="' + lx.toFixed(1) + '" y="' + (ly + 17).toFixed(1) + '" text-anchor="' + anchor + '" fill="rgba(242,201,109,0.6)" font-size="10">' + count + '</text>';
+      }
+    });
+
+    return '<svg viewBox="0 0 300 270" style="width:100%;max-width:300px;margin:0 auto;display:block;">' +
+      gridLines + axes +
+      '<polygon points="' + dataPoints.join(' ') + '" fill="rgba(242,201,109,0.12)" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>' +
+      labels +
+      '</svg>';
+  }
+
   function renderPracticeBars(freq) {
     var keys = Object.keys(practiceNames);
     var maxVal = 1;
@@ -231,8 +303,8 @@
 
     // Header
     html += '<div class="app-header">';
-    html += '<h1>Статистика</h1>';
-    html += '<p>Ваш прогресс и паттерны</p>';
+    html += '<h1>Наблюдение</h1>';
+    html += '<p>Не оценка — отражение. Что происходит в твоей практике.</p>';
     html += '</div>';
 
     // Overview stats
@@ -255,10 +327,18 @@
     html += '<div class="mood-chart">' + renderMoodChart(moodHistory) + '</div>';
     html += '</div>';
 
+    // Layer chart (Spiral layers)
+    html += '<div class="chart-card">';
+    html += '<div class="chart-card-header">';
+    html += '<div class="chart-card-title">Слои практики</div>';
+    html += '</div>';
+    html += '<div style="padding:10px 0;">' + renderLayerChart(stats.frequency) + '</div>';
+    html += '</div>';
+
     // Practice frequency
     html += '<div class="chart-card">';
     html += '<div class="chart-card-header">';
-    html += '<div class="chart-card-title">Частота практик</div>';
+    html += '<div class="chart-card-title">Практики за период</div>';
     html += '</div>';
     html += renderPracticeBars(stats.frequency);
     html += '</div>';
@@ -267,10 +347,10 @@
     html += '<div class="app-section-title">Наблюдения</div>';
     html += '<div class="chart-card">';
     if (stats.mostPracticed && practiceNames[stats.mostPracticed]) {
-      html += '<p style="font-size:14px;color:var(--text);margin-bottom:8px;">' + practiceNames[stats.mostPracticed].icon + ' Любимая практика: <strong>' + practiceNames[stats.mostPracticed].name + '</strong></p>';
+      html += '<p style="font-size:14px;color:var(--text);margin-bottom:8px;">' + practiceNames[stats.mostPracticed].icon + ' Чаще всего: <strong>' + practiceNames[stats.mostPracticed].name + '</strong></p>';
     }
     if (stats.bestStreak > 0) {
-      html += '<p style="font-size:14px;color:var(--muted);">🏆 Лучшая серия: ' + stats.bestStreak + ' ' + getDayWord(stats.bestStreak) + '</p>';
+      html += '<p style="font-size:14px;color:var(--muted);">🔄 Самая длинная серия: ' + stats.bestStreak + ' ' + getDayWord(stats.bestStreak) + '</p>';
     }
     if (stats.totalPractices === 0) {
       html += '<p style="font-size:14px;color:var(--muted);">Начните практиковать, и здесь появятся ваши данные</p>';

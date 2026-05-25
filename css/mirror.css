@@ -1,0 +1,292 @@
+/* ═══ MIRROR PAGE — Reflection & Self-Awareness ═══ */
+
+/* ─── Weather Card ─── */
+.weather-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem 2rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.weather-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.weather-card[data-weather="calm"]::before { background: #f2c96d; }
+.weather-card[data-weather="spark"]::before { background: #8FE0B6; }
+.weather-card[data-weather="fog"]::before { background: #81C7FF; }
+.weather-card[data-weather="anxious"]::before { background: #C864FF; }
+.weather-card[data-weather="heavy"]::before { background: #81C7FF; }
+.weather-card[data-weather="none"]::before { background: rgba(255,255,255,0.3); }
+
+.weather-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 0.8rem;
+  display: block;
+  animation: weatherFloat 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+@keyframes weatherFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.weather-label {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+  position: relative;
+  z-index: 1;
+}
+.weather-sublabel {
+  font-size: 13px;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Layer Grid (Weekly Practice Map) ─── */
+.layer-grid-card {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  margin-bottom: 1.5rem;
+}
+
+.layer-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.layer-grid-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.layer-grid-day-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  text-transform: lowercase;
+  margin-bottom: 4px;
+}
+.layer-grid-day-label.today {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.layer-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-height: 80px;
+  justify-content: flex-end;
+}
+
+.layer-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.layer-dot:hover {
+  transform: scale(1.3);
+}
+
+.layer-grid-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1.5rem 0;
+  color: var(--muted);
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* Layer legend */
+.layer-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+.layer-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.layer-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Question Card ─── */
+.question-card {
+  padding: 28px 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(242,201,109,0.12);
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(135deg, rgba(242,201,109,0.04), rgba(242,201,109,0.01));
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.question-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(242,201,109,0.08);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.question-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.question-text {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+/* ─── Timeline Card ─── */
+.timeline-card {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline-spiral {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  opacity: 0.06;
+  animation: spiralSpin 30s linear infinite;
+  pointer-events: none;
+}
+@keyframes spiralSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.timeline-number {
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 40px rgba(242,201,109,0.15);
+}
+.timeline-unit {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.2rem;
+}
+.timeline-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Section titles (reuse app-section-title pattern) ─── */
+.mirror-section-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+/* ─── Animations ─── */
+.mirror-fade-in {
+  animation: mirrorFadeIn 0.6s ease both;
+}
+.mirror-fade-in:nth-child(1) { animation-delay: 0s; }
+.mirror-fade-in:nth-child(2) { animation-delay: 0.1s; }
+.mirror-fade-in:nth-child(3) { animation-delay: 0.2s; }
+.mirror-fade-in:nth-child(4) { animation-delay: 0.3s; }
+.mirror-fade-in:nth-child(5) { animation-delay: 0.4s; }
+.mirror-fade-in:nth-child(6) { animation-delay: 0.5s; }
+.mirror-fade-in:nth-child(7) { animation-delay: 0.6s; }
+.mirror-fade-in:nth-child(8) { animation-delay: 0.7s; }
+
+@keyframes mirrorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 480px) {
+  .weather-emoji { font-size: 3rem; }
+  .layer-dot { width: 11px; height: 11px; }
+  .layer-dots { gap: 4px; min-height: 60px; }
+  .layer-grid { gap: 4px; }
+  .layer-legend { gap: 8px; }
+  .question-card { padding: 22px 18px; }
+  .timeline-number { font-size: 3rem; }
+}

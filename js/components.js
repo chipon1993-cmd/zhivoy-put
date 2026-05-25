@@ -21,9 +21,9 @@
       <nav id="mainNav">
         <a href="${root}pages/triptych.html">Путь</a>
         <a href="${root}pages/atlas.html">Карта</a>
-        <a href="${root}pages/triggers.html">Триггеры</a>
-        <a href="${root}pages/navigator.html">Навигатор</a>
-        <a href="${root}pages/roadmap.html">Система</a>
+        <a href="${root}pages/mirror.html">Зеркало</a>
+        <a href="${root}pages/navigator.html">Практики</a>
+        <a href="${root}pages/programs.html">Спирали</a>
         <a href="${root}pages/contact.html">Связаться</a>
         <span id="auth-nav-slot"></span>
         <a href="${root}pages/dashboard.html" class="nav-cta">Начать</a>

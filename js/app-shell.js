@@ -14,13 +14,15 @@
   var tabs = [
     { id: 'dashboard', icon: '🏠', label: 'Главная', href: root + 'pages/dashboard.html' },
     { id: 'navigator', icon: '🧘', label: 'Практики', href: root + 'pages/navigator.html' },
-    { id: 'programs', icon: '📋', label: 'Программы', href: root + 'pages/programs.html' },
-    { id: 'stats', icon: '📊', label: 'Статистика', href: root + 'pages/stats.html' }
+    { id: 'mirror', icon: '🪞', label: 'Зеркало', href: root + 'pages/mirror.html' },
+    { id: 'programs', icon: '🌀', label: 'Спирали', href: root + 'pages/programs.html' },
+    { id: 'stats', icon: '📊', label: 'Наблюдение', href: root + 'pages/stats.html' }
   ];
 
   var pageToTab = {
     'dashboard.html': 'dashboard',
     'navigator.html': 'navigator',
+    'mirror.html': 'mirror',
     'programs.html': 'programs',
     'stats.html': 'stats'
   };
