@@ -31,7 +31,19 @@
     'roadmap':   { file: '../pages/roadmap.html',   name: 'Развитие' }
   };
 
+  /* Existing hand-crafted pages — NEVER overwrite these.
+     They contain complex inline scripts, animations, SEO tags and
+     page-specific JS/CSS that GrapesJS cannot faithfully round-trip.
+     Loading them is allowed (as a reference/template), but publishing
+     always creates a NEW file to protect the originals. */
+  var PROTECTED_PAGES = ['index', 'triptych', 'atlas', 'triggers', 'navigator', 'roadmap'];
+
+  function isProtected(pageId) {
+    return PROTECTED_PAGES.indexOf(pageId) !== -1;
+  }
+
   var currentPageId = null;
+  var cloneMode = false;   // true when an existing page is loaded as a template
   var editor = null;
 
   /* ─── Initialize GrapesJS ───────────────────────────────── */
@@ -404,12 +416,19 @@
     var pageInfo = PAGE_MAP[pageId];
     if (!pageInfo) return;
 
+    /* Existing pages are loaded as a TEMPLATE only (clone mode).
+       The editor cannot faithfully preserve their inline scripts,
+       animations, SEO tags and page-specific JS, so publishing must
+       create a new file rather than overwrite the original. */
+    cloneMode = isProtected(pageId);
+
     /* Check for saved version first */
     var saved = getSavedPage(pageId);
     if (saved) {
       currentPageId = pageId;
       editor.loadProjectData(saved);
       showToast('Загружена сохранённая версия: ' + pageInfo.name);
+      if (cloneMode) showCloneWarning(pageInfo.name);
       return;
     }
 
@@ -430,12 +449,31 @@
         }
         hideLoading();
         showToast('Загружена: ' + pageInfo.name);
+        if (cloneMode) showCloneWarning(pageInfo.name);
       })
       .catch(function (err) {
         hideLoading();
         showToast('Ошибка: ' + err.message, true);
         console.error('[PageBuilder] Load error:', err);
       });
+  }
+
+  /* Warn the user that an existing page is loaded as a template */
+  function showCloneWarning(name) {
+    var modal = editor.Modal;
+    modal.setTitle('⚠️ Режим шаблона');
+    modal.setContent(
+      '<div style="padding:8px 4px;font-family:Inter,sans-serif;line-height:1.6;color:#f0ebe1;">' +
+      '<p style="margin:0 0 12px;">Страница <b>«' + escapeHtml(name) + '»</b> открыта как <b>шаблон</b> для просмотра и копирования.</p>' +
+      '<p style="margin:0 0 12px;color:#a8a196;font-size:13px;">Оригинал содержит сложную анимацию, скрипты и SEO-теги, которые конструктор не может сохранить без потерь. Поэтому:</p>' +
+      '<ul style="margin:0 0 12px;padding-left:20px;color:#a8a196;font-size:13px;">' +
+      '<li>Редактировать и экспериментировать можно свободно.</li>' +
+      '<li>При публикации создастся <b>новая страница</b> — оригинал не пострадает.</li>' +
+      '</ul>' +
+      '<p style="margin:0;color:#8ff0b6;font-size:13px;">✓ Твои оригинальные страницы в безопасности.</p>' +
+      '</div>'
+    );
+    modal.open();
   }
 
   /* ─── Extract body content from full HTML ───────────────── */
@@ -483,13 +521,18 @@
 
     name = name.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
     var pageId = 'custom-' + name;
+    cloneMode = false;  // new pages are fully owned by the builder
 
-    /* Add to dropdown */
+    /* Add to dropdown — append at the end (after the templates optgroup) */
     var sel = document.getElementById('page-selector');
-    var option = document.createElement('option');
-    option.value = pageId;
-    option.textContent = name + ' (новая)';
-    sel.insertBefore(option, sel.querySelector('option[value="_new"]'));
+    /* Avoid duplicate options if a page with this id already exists */
+    var existingOpt = sel.querySelector('option[value="' + pageId + '"]');
+    if (!existingOpt) {
+      var option = document.createElement('option');
+      option.value = pageId;
+      option.textContent = name + ' (новая)';
+      sel.appendChild(option);
+    }
     sel.value = pageId;
 
     /* Set up editor with blank template */
@@ -558,28 +601,50 @@
       return;
     }
 
+    /* ── SAFETY: never overwrite hand-crafted pages ──
+       If the user loaded an existing page (clone mode), force publishing
+       to a NEW file so the original is never destroyed. */
+    var pageName, filePath, isCustom;
+
+    if (cloneMode || isProtected(currentPageId)) {
+      var suggested = currentPageId + '-copy';
+      var newName = prompt(
+        'Это копия существующей страницы.\n' +
+        'Оригинал НЕ будет изменён.\n\n' +
+        'Введите имя новой страницы (латиницей):',
+        suggested
+      );
+      if (!newName) {
+        showToast('Публикация отменена', true);
+        return;
+      }
+      pageName = newName.toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-');
+      filePath = 'pages/' + pageName + '.html';
+      isCustom = true;
+      /* Switch the editor to own this new custom page going forward */
+      currentPageId = 'custom-' + pageName;
+      cloneMode = false;
+    } else {
+      /* A page created from scratch in the builder (custom-*) */
+      isCustom = !PAGE_MAP[currentPageId];
+      pageName = isCustom ? currentPageId.replace('custom-', '') : currentPageId;
+      filePath = (currentPageId === 'index') ? 'index.html' : 'pages/' + pageName + '.html';
+    }
+
+    /* Hard block: refuse to ever write the root index.html or a protected path */
+    var protectedPaths = ['index.html', 'pages/triptych.html', 'pages/atlas.html',
+      'pages/triggers.html', 'pages/navigator.html', 'pages/roadmap.html'];
+    if (protectedPaths.indexOf(filePath) !== -1) {
+      showToast('Защита: нельзя перезаписать оригинальную страницу «' + filePath + '»', true);
+      return;
+    }
+
     /* Save first */
     savePage();
 
     var html = editor.getHtml();
     var css = editor.getCss();
-
-    /* Build a full page */
-    var pageInfo = PAGE_MAP[currentPageId];
-    var isCustom = !pageInfo;
-    var pageName = isCustom ? currentPageId.replace('custom-', '') : currentPageId;
-
     var fullHtml = buildFullPage(pageName, html, css);
-
-    /* Determine file path in repo */
-    var filePath;
-    if (currentPageId === 'index') {
-      filePath = 'index.html';
-    } else if (isCustom) {
-      filePath = 'pages/' + pageName + '.html';
-    } else {
-      filePath = 'pages/' + currentPageId + '.html';
-    }
 
     showLoading('Публикация...');
 
@@ -601,7 +666,7 @@
     })
     .then(function (existing) {
       var body = {
-        message: 'Update ' + filePath + ' via page builder',
+        message: 'Add/update ' + filePath + ' via page builder',
         content: btoa(unescape(encodeURIComponent(fullHtml))),
         branch: 'master'
       };
@@ -627,7 +692,7 @@
     })
     .then(function () {
       hideLoading();
-      showToast('Опубликовано! Vercel развернёт через ~30 сек.');
+      showToast('Опубликовано как ' + filePath + '! Vercel развернёт через ~30 сек.');
     })
     .catch(function (err) {
       hideLoading();
@@ -639,8 +704,9 @@
   /* ─── Build Full HTML Page ──────────────────────────────── */
 
   function buildFullPage(pageName, bodyHtml, customCss) {
-    var isIndex = (currentPageId === 'index');
-    var cssPrefix = isIndex ? '' : '../';
+    /* Builder only ever publishes NEW pages, which always live in pages/,
+       so assets are one level up. */
+    var cssPrefix = '../';
 
     return '<!DOCTYPE html>\n' +
       '<html lang="ru">\n' +
@@ -672,9 +738,13 @@
       bodyHtml + '\n' +
       '  </div>\n\n' +
       '  <div id="site-footer"></div>\n\n' +
+      '  <script src="' + cssPrefix + 'js/scroll-perf.js"><\/script>\n' +
       '  <script src="' + cssPrefix + 'js/components.js"><\/script>\n' +
       '  <script src="' + cssPrefix + 'js/starfield.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/reveal.js"><\/script>\n' +
+      '  <script src="' + cssPrefix + 'js/scroll-effects.js"><\/script>\n' +
+      '  <script src="' + cssPrefix + 'js/auth.js"><\/script>\n' +
+      '  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"><\/script>\n' +
+      '  <script src="' + cssPrefix + 'js/supabase-config.js"><\/script>\n' +
       '  <script src="' + cssPrefix + 'js/cms-loader.js"><\/script>\n' +
       '</body>\n' +
       '</html>';

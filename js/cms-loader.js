@@ -2,6 +2,8 @@
 
 (function() {
   function applyContent(c, source) {
+    try {
+      if (!c) return;
 
       const setText = (sel, val) => { const el = document.querySelector(sel); if (el && val !== undefined) el.textContent = val; };
 
@@ -259,29 +261,42 @@
   }
 
   function applyOnReady() {
-    // 1. Apply local data first (instant)
-    var localContent = loadLocal();
-    applyContent(localContent, 'local');
+    /* Deterministic load order — sources applied in a CHAIN, not a race,
+       so a slow source can never clobber a fresher one.
 
-    // 2. Try published JSON file (authoritative for all visitors)
-    loadPublished().then(function (published) {
-      if (published && published.content && Object.keys(published.content).length > 0) {
-        // Cache in localStorage
-        localStorage.setItem('cms_content', JSON.stringify(published.content));
-        applyContent(published.content, 'published');
-        applyListData(published);
-      }
-    });
+       Priority (lowest → highest):
+         1. localStorage   — instant cache, may be stale
+         2. published JSON — what's deployed (data/cms-data.json)
+         3. Supabase       — live edits not yet published (most recent)
 
-    // 3. Also check Supabase for real-time updates
-    if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
-      window.SupabaseClient.get('cms_content').then(function (cloudContent) {
-        if (cloudContent && Object.keys(cloudContent).length > 0) {
-          localStorage.setItem('cms_content', JSON.stringify(cloudContent));
-          applyContent(cloudContent, 'cloud');
+       Each step only overrides the previous if it actually has data. */
+
+    // 1. Apply local cache first (instant paint)
+    applyContent(loadLocal(), 'local');
+
+    // 2. Published JSON (authoritative baseline for all visitors)
+    loadPublished()
+      .then(function (published) {
+        if (published && published.content && Object.keys(published.content).length > 0) {
+          localStorage.setItem('cms_content', JSON.stringify(published.content));
+          applyContent(published.content, 'published');
+          applyListData(published);
         }
-      });
-    }
+        return published;
+      })
+      .then(function () {
+        // 3. AFTER JSON resolves, check Supabase for newer live edits.
+        //    Chained so Supabase (live) always wins over published JSON.
+        if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
+          return window.SupabaseClient.get('cms_content').then(function (cloudContent) {
+            if (cloudContent && Object.keys(cloudContent).length > 0) {
+              localStorage.setItem('cms_content', JSON.stringify(cloudContent));
+              applyContent(cloudContent, 'cloud');
+            }
+          });
+        }
+      })
+      .catch(function (e) { console.warn('CMS load chain error:', e); });
   }
 
   if (document.readyState === 'loading') {

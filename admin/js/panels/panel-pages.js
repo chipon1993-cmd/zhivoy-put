@@ -141,10 +141,11 @@
         // Download as file
         downloadFile(filename, html);
 
-        // Save to store
+        // Save to store (write to top-level data.pages, not data.content)
         var pages = AdminStore.data.pages || [];
         pages.push({ name: pageName, filename: filename, template: template });
-        AdminStore.set('pages', pages);
+        AdminStore.data.pages = pages;
+        AdminStore.save();
 
         AdminUI.toast('Страница создана и скачана', 'success');
         renderPagesList(listEl);
@@ -235,6 +236,7 @@
       var pages = AdminStore.data.pages;
       pages.splice(index, 1);
       AdminStore.data.pages = pages;
+      AdminStore.save();
       renderPagesList(listEl);
     });
   }
