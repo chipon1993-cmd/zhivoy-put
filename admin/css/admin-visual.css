@@ -1,0 +1,176 @@
+/* ============================================
+   Admin Panel — Visual Editor (Split Screen)
+   WordPress Customizer-like preview + editing
+   ============================================ */
+
+/* ─── Normal mode — panels take full space ──── */
+#panels-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--admin-gap-lg);
+}
+
+/* ─── Visual mode activated ──────────────────── */
+body.visual-mode .content {
+  display: flex;
+  overflow: hidden;
+}
+
+body.visual-mode #panels-container {
+  width: 420px;
+  min-width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+/* ─── Preview Area ───────────────────────────── */
+.visual-preview {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  background: var(--bg3);
+  min-width: 0;
+}
+
+body.visual-mode .visual-preview {
+  display: flex;
+}
+
+/* ─── Preview Toolbar ────────────────────────── */
+.visual-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.visual-toolbar .device-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.visual-toolbar .vt-btn {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--admin-font);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all var(--admin-transition);
+  white-space: nowrap;
+}
+
+.visual-toolbar .vt-btn:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.1);
+}
+
+.visual-toolbar .vt-btn.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border-color: rgba(242,201,109,0.3);
+}
+
+.visual-toolbar .page-info {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* ─── Iframe Container ───────────────────────── */
+.visual-frame-wrap {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background:
+    repeating-conic-gradient(
+      rgba(255,255,255,0.015) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 20px 20px;
+}
+
+.visual-frame-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  transition: max-width 0.3s ease;
+  background: var(--bg, #05070d);
+}
+
+/* ─── Toggle Button (topbar) ─────────────────── */
+.visual-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--admin-font);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: var(--admin-radius-sm);
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
+  transition: all var(--admin-transition);
+}
+
+.visual-toggle:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text);
+}
+
+.visual-toggle.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+  border-color: rgba(242,201,109,0.3);
+}
+
+.visual-toggle-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: all var(--admin-transition);
+}
+
+.visual-toggle.active .visual-toggle-dot {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242,201,109,0.6);
+}
+
+/* ─── Responsive ─────────────────────────────── */
+@media (max-width: 1100px) {
+  body.visual-mode #panels-container {
+    width: 340px;
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 900px) {
+  body.visual-mode .content {
+    flex-direction: column;
+  }
+
+  body.visual-mode #panels-container {
+    width: 100%;
+    min-width: auto;
+    max-height: 50vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  body.visual-mode .visual-preview {
+    flex: 1;
+    min-height: 250px;
+  }
+}

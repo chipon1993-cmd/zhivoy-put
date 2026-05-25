@@ -118,6 +118,7 @@
       if (opts.key && !opts.id) opts.id = opts.key;
 
       var group = el('div', 'form-group');
+      if (opts.id) group.id = 'field-' + opts.id;
       var value = opts.value !== undefined ? opts.value : (window.AdminStore ? window.AdminStore.get(opts.id) : '');
       if (value === undefined) value = '';
 

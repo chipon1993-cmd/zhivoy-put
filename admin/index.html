@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/admin-forms.css" />
   <link rel="stylesheet" href="css/admin-components.css" />
   <link rel="stylesheet" href="css/admin-utils.css" />
+  <link rel="stylesheet" href="css/admin-visual.css" />
   <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
   <!-- Pickr color picker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
@@ -42,7 +43,9 @@
         <button class="btn-sm primary" id="btn-save">💾 Сохранить</button>
       </div>
     </div>
-    <div class="content" id="panels-container"></div>
+    <div class="content" id="content-area">
+      <div id="panels-container"></div>
+    </div>
   </div>
 
   <!-- Toast notification -->
@@ -79,6 +82,7 @@
   <script src="js/ui.js"></script>
   <script src="js/utils/drag-sort.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/visual-editor.js"></script>
 
   <!-- Panel modules -->
   <script src="js/panels/panel-hero.js"></script>
@@ -99,6 +103,7 @@
   <!-- Boot -->
   <script>
     AdminRouter.init();
+    VisualEditor.init();
     AdminStore.loadFromCloud();
   </script>
 

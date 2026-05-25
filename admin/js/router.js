@@ -89,6 +89,11 @@
       // Close mobile sidebar
       const sidebar = document.querySelector('.sidebar');
       if (sidebar) sidebar.classList.remove('open');
+
+      // Notify Visual Editor of navigation
+      if (window.VisualEditor && window.VisualEditor.navigate) {
+        window.VisualEditor.navigate(route);
+      }
     },
 
     /* ----------------------------------------------------------

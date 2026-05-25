@@ -165,8 +165,8 @@ body {
 /* Content Area */
 .content {
   flex: 1;
-  overflow-y: auto;
-  padding: var(--admin-gap-lg);
+  overflow: hidden;
+  display: flex;
 }
 
 /* Panels (tab content) */
