@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Живой путь — Панель управления</title>
   <base href="/admin/" />
+
+  <!-- ─── Auth guard ───────────────────────────────────────────────
+       Client-side gate: redirect to login if the visitor is not an admin.
+       NOTE: this is a convenience lock, not real security. On a static
+       site anyone can read the JS. For true protection, enable Vercel
+       Deployment Protection (password) on the /admin path. -->
+  <script src="../js/auth.js"></script>
+  <script>
+    if (!window.ZhivoyAuth || !window.ZhivoyAuth.isAdmin()) {
+      window.location.replace('../pages/login.html?redirect=admin');
+    }
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/admin-vars.css" />
   <link rel="stylesheet" href="css/admin-layout.css" />
@@ -63,13 +76,6 @@
 
   <!-- Chart.js — admin analytics -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
-
-  <!-- Editor.js — block content editor -->
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@1"></script>
 
   <!-- Monaco Editor loader (lazy — activated in code panel) -->
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.min.js"></script>

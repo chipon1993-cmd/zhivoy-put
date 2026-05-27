@@ -69,7 +69,14 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
   <script>
-    emailjs.init('-c5OIUiJ6yBHCU7Uz');
+    // Guard: if the EmailJS CDN failed to load, don't crash the whole script
+    // (which would silently kill the form's submit handler).
+    var emailjsReady = (typeof emailjs !== 'undefined');
+    if (emailjsReady) {
+      emailjs.init('-c5OIUiJ6yBHCU7Uz');
+    } else {
+      console.warn('EmailJS не загрузился — письма отправляться не будут, но форма не сломается.');
+    }
 
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -91,12 +98,14 @@
         date: new Date().toISOString()
       };
 
-      var emailPromise = emailjs.send('service_fs4gmqo', 'template_8s177db', {
-        from_name: name,
-        from_email: email,
-        subject: subject,
-        message: message
-      });
+      var emailPromise = emailjsReady
+        ? emailjs.send('service_fs4gmqo', 'template_8s177db', {
+            from_name: name,
+            from_email: email,
+            subject: subject,
+            message: message
+          })
+        : Promise.resolve(true);  // email skipped; message still saved to Supabase
 
       var supabasePromise = Promise.resolve(true);
       if (window.SupabaseClient && window.SupabaseClient.isConnected()) {

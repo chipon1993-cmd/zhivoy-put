@@ -64,7 +64,14 @@
 
       ZhivoyAuth.login(email, password).then(function(result) {
         if (result.success) {
-          window.location.href = '../index.html';
+          // Honor a ?redirect= target (e.g. the admin guard sends users here)
+          var params = new URLSearchParams(window.location.search);
+          var redirect = params.get('redirect');
+          if (redirect === 'admin' && result /* admin check below */) {
+            window.location.href = '../admin/';
+          } else {
+            window.location.href = '../index.html';
+          }
         } else {
           errorEl.textContent = result.error;
           errorEl.style.display = 'block';

@@ -1,6 +1,17 @@
 /* ═══ CMS Loader — reads Supabase/localStorage data, applies to current page ═══ */
 
 (function() {
+  /* Escape user/CMS-supplied text before putting it into innerHTML, so a
+     malicious value (e.g. <img onerror=...>) can't run scripts on visitors. */
+  function esc(val) {
+    return String(val == null ? '' : val)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function applyContent(c, source) {
     try {
       if (!c) return;
@@ -109,7 +120,15 @@
           if (authSlot) nav.appendChild(authSlot);
           if (ctaLink) {
             if (c['menu-cta-text']) ctaLink.textContent = c['menu-cta-text'];
-            if (c['menu-cta-href']) ctaLink.href = c['menu-cta-href'];
+            if (c['menu-cta-href']) {
+              // Apply the same path adjustment as menu items so a relative
+              // href like "pages/navigator.html" doesn't become
+              // "/pages/pages/navigator.html" when viewed from a subfolder.
+              let ctaHref = c['menu-cta-href'];
+              if (ctaHref.startsWith('#')) ctaHref = rootPrefix + 'pages/' + ctaHref.slice(1) + '.html';
+              else if (!ctaHref.startsWith('http') && !ctaHref.startsWith('/')) ctaHref = rootPrefix + ctaHref;
+              ctaLink.href = ctaHref;
+            }
             nav.appendChild(ctaLink);
           }
         }
@@ -138,7 +157,7 @@
           if (c['trip-'+n+'-desc']) { const p = content.querySelector('p'); if (p) p.textContent = c['trip-'+n+'-desc']; }
           if (c['trip-'+n+'-tags']) {
             const tagsEl = content.querySelector('.journey-tags');
-            if (tagsEl) tagsEl.innerHTML = c['trip-'+n+'-tags'].split(',').map(t => '<span>' + t.trim() + '</span>').join('');
+            if (tagsEl) tagsEl.innerHTML = c['trip-'+n+'-tags'].split(',').map(t => '<span>' + esc(t.trim()) + '</span>').join('');
           }
         });
       }
@@ -157,7 +176,7 @@
             terrs.forEach((t, i) => {
               const div = document.createElement('div');
               div.className = 'territory ' + (posClasses[i] || '');
-              div.innerHTML = '<div class="t-icon">' + t.icon + '</div><strong>' + t.name + '</strong><p>' + t.desc + '</p>';
+              div.innerHTML = '<div class="t-icon">' + esc(t.icon) + '</div><strong>' + esc(t.name) + '</strong><p>' + esc(t.desc) + '</p>';
               atlas.appendChild(div);
             });
           }
@@ -177,7 +196,7 @@
             trigs.forEach(t => {
               const article = document.createElement('article');
               article.className = 'glass info-card reveal visible';
-              article.innerHTML = '<div class="card-icon">' + t.icon + '</div><h3>' + t.title + '</h3><ul>' + t.items.map(item => '<li>' + item + '</li>').join('') + '</ul>';
+              article.innerHTML = '<div class="card-icon">' + esc(t.icon) + '</div><h3>' + esc(t.title) + '</h3><ul>' + (t.items || []).map(item => '<li>' + esc(item) + '</li>').join('') + '</ul>';
               container.appendChild(article);
             });
           }
@@ -198,7 +217,7 @@
             prins.forEach(p => {
               const div = document.createElement('div');
               div.className = 'principle';
-              div.innerHTML = '<strong>' + p.title + '</strong><span>' + p.desc + '</span>';
+              div.innerHTML = '<strong>' + esc(p.title) + '</strong><span>' + esc(p.desc) + '</span>';
               list.appendChild(div);
             });
           }
@@ -218,7 +237,7 @@
             steps.forEach((s, i) => {
               const div = document.createElement('div');
               div.className = 'step reveal visible';
-              div.innerHTML = '<div class="step-num">' + String(i+1).padStart(2,'0') + '</div><h3>' + s.title + '</h3><p>' + s.desc + '</p>';
+              div.innerHTML = '<div class="step-num">' + String(i+1).padStart(2,'0') + '</div><h3>' + esc(s.title) + '</h3><p>' + esc(s.desc) + '</p>';
               timeline.appendChild(div);
             });
           }
@@ -226,7 +245,7 @@
 
         if (c['cta-line1'] || c['cta-line2']) {
           const ctaH = document.querySelector('.cta-section h2');
-          if (ctaH) ctaH.innerHTML = (c['cta-line1'] || 'Это не контроль над собой.') + '<br>Это <span class="accent">' + (c['cta-line2'] || 'возвращение к себе') + '</span>.';
+          if (ctaH) ctaH.innerHTML = esc(c['cta-line1'] || 'Это не контроль над собой.') + '<br>Это <span class="accent">' + esc(c['cta-line2'] || 'возвращение к себе') + '</span>.';
         }
         if (c['cta-desc']) setText('.cta-section p', c['cta-desc']);
       }
@@ -279,8 +298,10 @@
       .then(function (published) {
         if (published && published.content && Object.keys(published.content).length > 0) {
           localStorage.setItem('cms_content', JSON.stringify(published.content));
-          applyContent(published.content, 'published');
+          // Store list arrays FIRST so applyContent (which reads them from
+          // localStorage) renders them on the very first visit, not the next.
           applyListData(published);
+          applyContent(published.content, 'published');
         }
         return published;
       })
@@ -299,9 +320,23 @@
       .catch(function (e) { console.warn('CMS load chain error:', e); });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('components-loaded', applyOnReady);
-  } else {
+  /* Robust boot — components.js fires 'components-loaded' synchronously,
+     usually BEFORE this script is even parsed, so a plain event listener
+     would miss it and the CMS would never apply. We therefore:
+       1. run immediately if the flag is already set, else
+       2. listen for the event (normal case when this loads first), and
+       3. keep a window.load safety net in case the event never fires. */
+  var booted = false;
+  function boot() {
+    if (booted) return;
+    booted = true;
     applyOnReady();
+  }
+
+  if (window.__componentsLoaded) {
+    boot();
+  } else {
+    document.addEventListener('components-loaded', boot);
+    window.addEventListener('load', boot);   // safety net
   }
 })();

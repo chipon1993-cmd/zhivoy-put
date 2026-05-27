@@ -69,7 +69,7 @@
             value: territory.desc || ''
           });
           descField.querySelector('textarea').addEventListener('input', (e) => {
-            AdminStore.data.territories[i].description = e.target.value;
+            AdminStore.data.territories[i].desc = e.target.value;
           });
 
           const cardTitle = (territory.icon || '📍') + ' ' + (territory.name || 'Территория ' + (i + 1));
@@ -88,7 +88,7 @@
         addBtn.textContent = '+ Добавить территорию';
         addBtn.addEventListener('click', () => {
           if (!AdminStore.data.territories) AdminStore.data.territories = [];
-          AdminStore.data.territories.push({ icon: '', name: '', description: '' });
+          AdminStore.data.territories.push({ icon: '', name: '', desc: '' });
           renderTerritories();
         });
         territoriesWrap.appendChild(addBtn);

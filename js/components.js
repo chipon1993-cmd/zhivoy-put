@@ -229,5 +229,9 @@
   }
 
   // ─── Fire event so auth.js and other scripts know components are ready ────
+  // Also set a global flag, because this IIFE runs SYNCHRONOUSLY and the event
+  // fires before later <script> tags (like cms-loader.js) are even parsed.
+  // Scripts that load after this can check the flag instead of missing the event.
+  window.__componentsLoaded = true;
   document.dispatchEvent(new CustomEvent('components-loaded'));
 })();
