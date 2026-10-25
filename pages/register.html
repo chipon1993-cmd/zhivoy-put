@@ -40,7 +40,7 @@
             </div>
             <div class="form-field">
               <label for="reg-password">Пароль</label>
-              <input type="password" id="reg-password" required minlength="6" placeholder="Минимум 6 символов" />
+              <input type="password" id="reg-password" required minlength="12" placeholder="Минимум 6 символов" />
             </div>
             <div class="form-field">
               <label for="reg-password2">Подтвердите пароль</label>
@@ -80,7 +80,8 @@
 
       ZhivoyAuth.register(email, name, password).then(function(result) {
         if (result.success) {
-          window.location.href = '../index.html';
+          errorEl.textContent = 'Проверьте почту и подтвердите email, затем войдите в аккаунт.';
+          errorEl.style.display = 'block';
         } else {
           errorEl.textContent = result.error;
           errorEl.style.display = 'block';
@@ -88,7 +89,6 @@
       });
     });
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
 </body>
 </html>

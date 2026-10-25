@@ -6,17 +6,8 @@
   <title>Живой путь — Панель управления</title>
   <base href="/admin/" />
 
-  <!-- ─── Auth guard ───────────────────────────────────────────────
-       Client-side gate: redirect to login if the visitor is not an admin.
-       NOTE: this is a convenience lock, not real security. On a static
-       site anyone can read the JS. For true protection, enable Vercel
-       Deployment Protection (password) on the /admin path. -->
-  <script src="../js/auth.js"></script>
-  <script>
-    if (!window.ZhivoyAuth || !window.ZhivoyAuth.isAdmin()) {
-      window.location.replace('../pages/login.html?redirect=admin');
-    }
-  </script>
+  <!-- All admin routes and assets are authorized by api/admin.js before delivery. -->
+  <script src="/js/auth.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/admin-vars.css" />
@@ -53,6 +44,7 @@
     <div class="topbar">
       <h1 id="topbarTitle">Загрузка...</h1>
       <div class="topbar-actions">
+        <button class="btn-sm" id="btn-logout">Выйти</button>
         <button class="btn-sm" id="btn-reset">↺ Сбросить</button>
         <button class="btn-sm primary" id="btn-save">💾 Сохранить</button>
       </div>
@@ -81,10 +73,10 @@
   <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.min.js"></script>
 
   <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
 
   <!-- Core modules -->
+  <script src="js/purify.min.js"></script>
   <script src="js/store.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/utils/drag-sort.js"></script>
@@ -111,6 +103,10 @@
 
   <!-- Boot -->
   <script>
+    document.getElementById('btn-logout').addEventListener('click', function () {
+      ZhivoyAuth.logout().then(function () { location.href = '/pages/login.html'; })
+        .catch(function (err) { AdminUI.toast(err.message); });
+    });
     AdminRouter.init();
     VisualEditor.init();
     AdminStore.loadFromCloud();

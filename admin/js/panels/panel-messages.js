@@ -62,11 +62,10 @@
                   onClick: function () {
                     AdminUI.confirm('Удалить это сообщение?').then(function (yes) {
                       if (!yes) return;
-                      var remaining = msgs.filter(function (m) { return m !== msg; });
-                      window.SupabaseClient.set('contact_messages', remaining).then(function () {
+                      window.SupabaseClient.deleteMessage(msg.id).then(function () {
                         AdminUI.toast('Сообщение удалено');
                         AdminRouter.navigate('messages');
-                      });
+                      }).catch(function (err) { AdminUI.toast(err.message); });
                     });
                   }
                 }
@@ -75,7 +74,7 @@
 
             listEl.appendChild(card);
           });
-        });
+        }).catch(function (err) { listEl.textContent = err.message; });
       } else {
         listEl.innerHTML = '';
         var noConn = document.createElement('div');

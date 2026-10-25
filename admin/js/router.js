@@ -171,7 +171,6 @@
       if (saveBtn) {
         saveBtn.addEventListener('click', () => {
           AdminStore.save();
-          AdminUI.toast('✓ Все изменения сохранены');
         });
       }
 
@@ -203,7 +202,6 @@
         if ((e.ctrlKey || e.metaKey) && e.key === 's') {
           e.preventDefault();
           AdminStore.save();
-          AdminUI.toast('✓ Все изменения сохранены');
         }
       });
     }

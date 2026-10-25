@@ -1,6 +1,12 @@
 /* ═══ CMS Loader — reads Supabase/localStorage data, applies to current page ═══ */
 
 (function() {
+  function safeHref(value) {
+    try {
+      var url = new URL(String(value), window.location.href);
+      return ['http:', 'https:'].includes(url.protocol) ? url.href : '#';
+    } catch (_) { return '#'; }
+  }
   /* Escape user/CMS-supplied text before putting it into innerHTML, so a
      malicious value (e.g. <img onerror=...>) can't run scripts on visitors. */
   function esc(val) {
@@ -112,7 +118,7 @@
             let href = m.href;
             if (href.startsWith('#')) href = rootPrefix + 'pages/' + href.slice(1) + '.html';
             else if (!href.startsWith('http') && !href.startsWith('/')) href = rootPrefix + href;
-            a.href = href;
+            a.href = safeHref(href);
             a.textContent = m.name;
             nav.appendChild(a);
           });
@@ -127,7 +133,7 @@
               let ctaHref = c['menu-cta-href'];
               if (ctaHref.startsWith('#')) ctaHref = rootPrefix + 'pages/' + ctaHref.slice(1) + '.html';
               else if (!ctaHref.startsWith('http') && !ctaHref.startsWith('/')) ctaHref = rootPrefix + ctaHref;
-              ctaLink.href = ctaHref;
+              ctaLink.href = safeHref(ctaHref);
             }
             nav.appendChild(ctaLink);
           }

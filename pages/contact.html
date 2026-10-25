@@ -61,7 +61,6 @@
   <script src="../js/components.js"></script>
   <script src="../js/scroll-effects.js"></script>
   <script src="../js/auth.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="../js/supabase-config.js"></script>
   <script src="../js/cms-loader.js"></script>
 
@@ -107,14 +106,7 @@
           })
         : Promise.resolve(true);  // email skipped; message still saved to Supabase
 
-      var supabasePromise = Promise.resolve(true);
-      if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
-        supabasePromise = window.SupabaseClient.get('contact_messages').then(function(existing) {
-          var messages = (existing && Array.isArray(existing)) ? existing : [];
-          messages.push(msgData);
-          return window.SupabaseClient.set('contact_messages', messages);
-        });
-      }
+      var supabasePromise = window.SupabaseClient.submitMessage(msgData);
 
       Promise.all([emailPromise, supabasePromise]).then(function() {
         status.style.display = 'block';
