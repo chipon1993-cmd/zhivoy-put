@@ -18,73 +18,18 @@
   function render(container) {
     container.innerHTML = '';
 
-    var isConfigured = GitHubSync.isConfigured();
-
-    /* ─── 1. Setup Card (GitHub Token) ─────────────────────────────── */
-
-    var tokenValue = GitHubSync.getToken();
-    var maskedToken = tokenValue ? ('•'.repeat(8) + tokenValue.slice(-4)) : '';
-
-    var tokenInput = AdminUI.field({
-      type: 'text',
-      id: '_github_token',
-      label: 'GitHub Personal Access Token',
-      value: maskedToken,
-      placeholder: 'ghp_xxxxxxxxxxxxxxxxxxxx',
-      hint: 'Создайте на github.com/settings/tokens → Fine-grained → repo: Contents (Read & Write)'
-    });
-
-    var statusDot = document.createElement('span');
-    statusDot.id = 'gh-status';
-    statusDot.style.cssText = 'display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;' +
-      'background:' + (isConfigured ? '#56d364' : '#f85149') + ';vertical-align:middle;';
-
     var statusText = document.createElement('span');
-    statusText.id = 'gh-status-text';
-    statusText.style.cssText = 'font-size:13px;color:var(--muted);';
-    statusText.textContent = isConfigured ? 'Токен настроен' : 'Токен не настроен';
-
-    var statusRow = document.createElement('div');
-    statusRow.style.cssText = 'display:flex;align-items:center;gap:4px;margin-bottom:12px;';
-    statusRow.appendChild(statusDot);
-    statusRow.appendChild(statusText);
-
-    var saveTokenBtn = document.createElement('button');
-    saveTokenBtn.className = 'btn btn-sm btn-secondary';
-    saveTokenBtn.textContent = '💾 Сохранить токен';
-    saveTokenBtn.style.marginRight = '8px';
-    saveTokenBtn.addEventListener('click', function () {
-      var input = tokenInput.querySelector('input');
-      if (!input) return;
-      var val = input.value.trim();
-      if (!val || val.indexOf('•') === 0) {
-        AdminUI.toast('Введите новый токен');
-        return;
-      }
-      GitHubSync.setToken(val);
-      input.value = '•'.repeat(8) + val.slice(-4);
-      // Verify
-      verifyConnection();
-    });
-
+    statusText.textContent = 'Проверка серверного подключения...';
+    var statusDot = document.createElement('span');
     var verifyBtn = document.createElement('button');
     verifyBtn.className = 'btn btn-sm btn-secondary';
-    verifyBtn.textContent = '🔍 Проверить';
+    verifyBtn.textContent = 'Проверить подключение';
     verifyBtn.addEventListener('click', verifyConnection);
-
-    var tokenActions = document.createElement('div');
-    tokenActions.style.cssText = 'display:flex;gap:8px;flex-wrap:wrap;';
-    tokenActions.appendChild(saveTokenBtn);
-    tokenActions.appendChild(verifyBtn);
-
-    container.appendChild(AdminUI.card('Подключение к GitHub', [
-      AdminUI.alert('info',
-        'Введите токен один раз. Он хранится только в вашем браузере и не попадает в репозиторий.'
-      ),
-      statusRow,
-      tokenInput,
-      tokenActions
+    container.appendChild(AdminUI.card('Серверная публикация', [
+      AdminUI.alert('info', 'Публикация выполняется сервером после проверки прав. Настройки подключения задаются в Vercel.'),
+      statusDot, statusText, verifyBtn
     ]));
+    verifyConnection();
 
     /* ─── 2. Publish Card ──────────────────────────────────────────── */
 
@@ -146,11 +91,12 @@
       statusText.textContent = 'Проверка...';
       statusDot.style.background = '#f2c96d';
 
-      GitHubSync.verifyToken().then(function (result) {
+      GitHubSync.verifyConnection().then(function (result) {
         if (result.ok) {
           statusDot.style.background = '#56d364';
           statusText.textContent = '✓ Подключено: ' + result.repo;
           AdminUI.toast('✓ GitHub подключён');
+          loadHistory();
         } else {
           statusDot.style.background = '#f85149';
           statusText.textContent = '✗ Ошибка: ' + result.error;
@@ -161,13 +107,11 @@
 
     function doPublish() {
       if (!GitHubSync.isConfigured()) {
-        AdminUI.toast('Сначала настройте GitHub токен');
+        AdminUI.toast('Проверьте серверное подключение к GitHub');
         return;
       }
 
       // Save to AdminStore first
-      AdminStore.save();
-
       publishBtn.disabled = true;
       publishBtn.textContent = '⏳ Публикация...';
       progressBar.style.display = 'block';
@@ -181,7 +125,10 @@
       if (bar) bar.style.width = '30%';
       if (status) status.textContent = 'Отправка на GitHub...';
 
-      GitHubSync.publish().then(function (result) {
+      AdminStore.save().then(function (saved) {
+        if (!saved) throw new Error('Облачное сохранение не подтверждено');
+        return GitHubSync.publish();
+      }).then(function (result) {
         if (bar) bar.style.width = '100%';
         if (status) status.textContent = '✓ Опубликовано! Vercel деплоит...';
         publishBtn.textContent = '✓ Опубликовано';
@@ -207,7 +154,7 @@
 
     function doPull() {
       if (!GitHubSync.isConfigured()) {
-        AdminUI.toast('Сначала настройте GitHub токен');
+        AdminUI.toast('Проверьте серверное подключение к GitHub');
         return;
       }
 
@@ -237,7 +184,8 @@
         if (data.pages) store.data.pages = data.pages;
         if (data.themes) store.data.themes = data.themes;
 
-        store.save();
+        return store.save().then(function (saved) {
+        if (!saved) throw new Error('Облачное сохранение не подтверждено');
         AdminUI.toast('✓ Данные загружены и применены');
         pullBtn.textContent = '✓ Загружено';
         pullBtn.disabled = false;
@@ -246,6 +194,7 @@
           pullBtn.textContent = '📥 Загрузить данные с GitHub';
           location.reload();
         }, 1500);
+        });
       }).catch(function (err) {
         AdminUI.toast('Ошибка: ' + err.message);
         pullBtn.textContent = '📥 Загрузить данные с GitHub';
@@ -255,7 +204,7 @@
 
     function loadHistory() {
       if (!GitHubSync.isConfigured()) {
-        historyList.innerHTML = '<span style="color:var(--muted);font-size:13px;">Настройте GitHub токен</span>';
+        historyList.innerHTML = '<span style="color:var(--muted);font-size:13px;">Серверное подключение проверяется</span>';
         return;
       }
 
@@ -290,7 +239,7 @@
           row.appendChild(date);
           historyList.appendChild(row);
         });
-      });
+      }).catch(function (err) { historyList.textContent = err.message; });
     }
   }
 

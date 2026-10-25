@@ -1,217 +1,50 @@
-/**
- * Authentication System — Живой путь
- * localStorage-based auth with SHA-256 hashing via Web Crypto API.
- *
- * Storage keys:
- *   zhivoyput_users   — Array of user objects
- *   zhivoyput_session — Current session object (7-day expiry)
- */
+/** Server-verified session. Browser state is presentation only. */
 (function () {
   'use strict';
-
-  var USERS_KEY = 'zhivoyput_users';
-  var SESSION_KEY = 'zhivoyput_session';
-  var SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-
-  // ─── Utilities ────────────────────────────────────────────────────────────
-
-  /**
-   * Hash a password string with SHA-256, returns hex.
-   */
-  async function hashPassword(password) {
-    var encoder = new TextEncoder();
-    var data = encoder.encode(password);
-    var buffer = await crypto.subtle.digest('SHA-256', data);
-    var bytes = new Uint8Array(buffer);
-    var hex = '';
-    for (var i = 0; i < bytes.length; i++) {
-      hex += bytes[i].toString(16).padStart(2, '0');
+  var current = null;
+  ['zhivoyput_users', 'zhivoyput_session', 'github_pat'].forEach(function (key) {
+    try { localStorage.removeItem(key); } catch (_) {}
+  });
+  async function request(path, options) {
+    options = options || {};
+    var response = await fetch(path, Object.assign({}, options, {
+      credentials: 'same-origin', cache: 'no-store',
+      headers: Object.assign({ 'Content-Type': 'application/json', 'X-Requested-With': 'zhivoy-put' }, options.headers || {})
+    }));
+    var result = await response.json();
+    if (!response.ok) {
+      if (response.status === 401) { current = null; updateAuthUI(); }
+      throw new Error(result.error || 'Ошибка сервера');
     }
-    return hex;
+    return result;
   }
-
-  /**
-   * Generate a random token for sessions.
-   */
-  function generateToken() {
-    var arr = new Uint8Array(32);
-    crypto.getRandomValues(arr);
-    var token = '';
-    for (var i = 0; i < arr.length; i++) {
-      token += arr[i].toString(16).padStart(2, '0');
-    }
-    return token;
-  }
-
-  /**
-   * Get all users from storage.
-   */
-  function getUsers() {
-    try {
-      var raw = localStorage.getItem(USERS_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  /**
-   * Save users array to storage.
-   */
-  function saveUsers(users) {
-    localStorage.setItem(USERS_KEY, JSON.stringify(users));
-  }
-
-  // ─── Default admin bootstrap ──────────────────────────────────────────────
-
-  async function ensureDefaultAdmin() {
-    var users = getUsers();
-    var adminExists = users.some(function (u) {
-      return u.email === 'admin@zhivoyput.ru';
-    });
-    if (!adminExists) {
-      var passwordHash = await hashPassword('admin123');
-      users.push({
-        email: 'admin@zhivoyput.ru',
-        name: 'Админ',
-        passwordHash: passwordHash,
-        isAdmin: true,
-        createdAt: new Date().toISOString()
-      });
-      saveUsers(users);
-    }
-  }
-
-  // ─── Public API ───────────────────────────────────────────────────────────
-
-  /**
-   * Register a new user.
-   * Returns {success: true} or {success: false, error: string}.
-   */
-  async function register(email, name, password) {
-    email = (email || '').trim().toLowerCase();
-    name = (name || '').trim();
-    password = password || '';
-
-    if (!email || !name || !password) {
-      return { success: false, error: 'Заполните все поля' };
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return { success: false, error: 'Некорректный email' };
-    }
-
-    if (password.length < 6) {
-      return { success: false, error: 'Пароль должен быть не менее 6 символов' };
-    }
-
-    var users = getUsers();
-    var exists = users.some(function (u) {
-      return u.email === email;
-    });
-    if (exists) {
-      return { success: false, error: 'Пользователь с таким email уже существует' };
-    }
-
-    var passwordHash = await hashPassword(password);
-    var user = {
-      email: email,
-      name: name,
-      passwordHash: passwordHash,
-      isAdmin: false,
-      createdAt: new Date().toISOString()
-    };
-
-    users.push(user);
-    saveUsers(users);
-
-    // Auto-login after registration
-    var session = {
-      email: user.email,
-      name: user.name,
-      isAdmin: user.isAdmin,
-      token: generateToken(),
-      expiresAt: new Date(Date.now() + SESSION_DURATION_MS).toISOString()
-    };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-
+  async function refresh() {
+    var result = await request('/api/auth');
+    current = result.session;
     updateAuthUI();
-    return { success: true };
+    return current;
   }
-
-  /**
-   * Login with email and password.
-   * Returns {success: true} or {success: false, error: string}.
-   */
+  async function action(payload) {
+    try { return await request('/api/auth', { method: 'POST', body: JSON.stringify(payload) }); }
+    catch (err) { return { success: false, error: err.message }; }
+  }
   async function login(email, password) {
-    email = (email || '').trim().toLowerCase();
-    password = password || '';
-
-    if (!email || !password) {
-      return { success: false, error: 'Введите email и пароль' };
+    var result = await action({ action: 'login', email: email, password: password });
+    if (result.success) {
+      try { await refresh(); } catch (err) { return { success: false, error: err.message }; }
     }
-
-    var users = getUsers();
-    var user = users.find(function (u) {
-      return u.email === email;
-    });
-
-    if (!user) {
-      return { success: false, error: 'Пользователь не найден' };
-    }
-
-    var passwordHash = await hashPassword(password);
-    if (passwordHash !== user.passwordHash) {
-      return { success: false, error: 'Неверный пароль' };
-    }
-
-    var session = {
-      email: user.email,
-      name: user.name,
-      isAdmin: user.isAdmin,
-      token: generateToken(),
-      expiresAt: new Date(Date.now() + SESSION_DURATION_MS).toISOString()
-    };
-    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-
-    updateAuthUI();
-    return { success: true };
+    return result;
   }
-
-  /**
-   * Logout — clear session.
-   */
-  function logout() {
-    localStorage.removeItem(SESSION_KEY);
-    updateAuthUI();
+  function register(email, name, password) {
+    return action({ action: 'register', email: email, name: name, password: password });
   }
-
-  /**
-   * Get current session or null if expired/absent.
-   */
-  function getSession() {
-    try {
-      var raw = localStorage.getItem(SESSION_KEY);
-      if (!raw) return null;
-      var session = JSON.parse(raw);
-      if (new Date(session.expiresAt) <= new Date()) {
-        localStorage.removeItem(SESSION_KEY);
-        return null;
-      }
-      return session;
-    } catch (e) {
-      return null;
-    }
+  async function logout() {
+    var result = await action({ action: 'logout' });
+    if (!result.success) throw new Error(result.error);
+    current = null; updateAuthUI();
   }
-
-  /**
-   * Check if current user has admin flag.
-   */
-  function isAdmin() {
-    var session = getSession();
-    return session ? !!session.isAdmin : false;
-  }
-
+  function getSession() { return current; }
+  function isAdmin() { return !!(current && current.isAdmin); }
   // ─── UI Update ────────────────────────────────────────────────────────────
 
   /**
@@ -244,8 +77,7 @@
       if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
           e.preventDefault();
-          logout();
-          window.location.reload();
+          logout().then(function () { window.location.reload(); }).catch(function (err) { alert(err.message); });
         });
       }
     } else {
@@ -264,29 +96,10 @@
     return div.innerHTML;
   }
 
-  // ─── Init ─────────────────────────────────────────────────────────────────
 
-  // Ensure default admin exists on first load
-  ensureDefaultAdmin().catch(function(e) { console.warn('Auth: default admin bootstrap error:', e); });
-
-  // When components are injected (via components.js), update the auth UI
-  document.addEventListener('components-loaded', function () {
-    updateAuthUI();
-  });
-
-  // If header already exists (e.g. inline header on index.html), run immediately
-  if (document.getElementById('auth-nav-slot')) {
-    updateAuthUI();
-  }
-
-  // ─── Expose global API ────────────────────────────────────────────────────
-  window.ZhivoyAuth = {
-    register: register,
-    login: login,
-    logout: logout,
-    getSession: getSession,
-    isAdmin: isAdmin,
-    hashPassword: hashPassword,
-    updateAuthUI: updateAuthUI
-  };
+  document.addEventListener('components-loaded', updateAuthUI);
+  window.ZhivoyAuth = { register: register, login: login, logout: logout,
+    getSession: getSession, isAdmin: isAdmin, updateAuthUI: updateAuthUI,
+    request: request, refresh: refresh };
+  window.ZhivoyAuth.ready = refresh().catch(function () { current = null; updateAuthUI(); return null; });
 })();

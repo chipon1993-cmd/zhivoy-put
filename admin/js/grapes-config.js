@@ -54,6 +54,7 @@
       height: '100%',
       width: 'auto',
       fromElement: false,
+      allowScripts: false,
 
       /* Storage — localStorage per page */
       storageManager: {
@@ -597,7 +598,7 @@
     }
 
     if (!window.GitHubSync || !window.GitHubSync.isConfigured()) {
-      showToast('GitHub токен не настроен. Настройте в админке > Публикация.', true);
+      showToast('Публикация недоступна. Проверьте серверное подключение в админке > Публикация.', true);
       return;
     }
 
@@ -644,52 +645,12 @@
 
     var html = editor.getHtml();
     var css = editor.getCss();
-    var fullHtml = buildFullPage(pageName, html, css);
+
 
     showLoading('Публикация...');
 
-    /* Push to GitHub via Contents API */
-    var token = GitHubSync.getToken();
-    var apiUrl = 'https://api.github.com/repos/chipon1993-cmd/zhivoy-put/contents/' + filePath;
-
-    /* First get SHA if file exists */
-    fetch(apiUrl, {
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Accept': 'application/vnd.github.v3+json'
-      }
-    })
-    .then(function (res) {
-      if (res.status === 404) return null;
-      if (!res.ok) throw new Error('GitHub API: ' + res.status);
-      return res.json();
-    })
-    .then(function (existing) {
-      var body = {
-        message: 'Add/update ' + filePath + ' via page builder',
-        content: btoa(unescape(encodeURIComponent(fullHtml))),
-        branch: 'master'
-      };
-      if (existing && existing.sha) body.sha = existing.sha;
-
-      return fetch(apiUrl, {
-        method: 'PUT',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      });
-    })
-    .then(function (res) {
-      if (!res.ok) {
-        return res.json().then(function (err) {
-          throw new Error(err.message || 'Ошибка публикации');
-        });
-      }
-      return res.json();
-    })
+    filePath = 'pages/generated/' + pageName + '.html';
+    GitHubSync.publishPage(pageName, pageName, html, css)
     .then(function () {
       hideLoading();
       showToast('Опубликовано как ' + filePath + '! Vercel развернёт через ~30 сек.');
@@ -699,55 +660,6 @@
       showToast('Ошибка: ' + err.message, true);
       console.error('[PageBuilder] Publish error:', err);
     });
-  }
-
-  /* ─── Build Full HTML Page ──────────────────────────────── */
-
-  function buildFullPage(pageName, bodyHtml, customCss) {
-    /* Builder only ever publishes NEW pages, which always live in pages/,
-       so assets are one level up. */
-    var cssPrefix = '../';
-
-    return '<!DOCTYPE html>\n' +
-      '<html lang="ru">\n' +
-      '<head>\n' +
-      '  <meta charset="UTF-8" />\n' +
-      '  <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n' +
-      '  <title>' + escapeHtml(pageName) + ' — Живой путь</title>\n' +
-      '  <link rel="icon" type="image/svg+xml" href="' + cssPrefix + 'favicon.svg" />\n' +
-      '  <link rel="preconnect" href="https://fonts.googleapis.com" />\n' +
-      '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />\n' +
-      '  <link href="' + GOOGLE_FONTS_URL + '" rel="stylesheet" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/variables.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/base.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/atmosphere.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/layout.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/components.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/header.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/footer.css" />\n' +
-      '  <link rel="stylesheet" href="' + cssPrefix + 'css/responsive.css" />\n' +
-      (customCss ? '  <style>\n' + customCss + '\n  </style>\n' : '') +
-      '</head>\n' +
-      '<body>\n' +
-      '  <div id="site-header"></div>\n' +
-      '  <canvas id="starfield"></canvas>\n' +
-      '  <div class="aurora"></div>\n' +
-      '  <div class="noise"></div>\n' +
-      '  <div class="grid-overlay"></div>\n\n' +
-      '  <div class="page">\n' +
-      bodyHtml + '\n' +
-      '  </div>\n\n' +
-      '  <div id="site-footer"></div>\n\n' +
-      '  <script src="' + cssPrefix + 'js/scroll-perf.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/components.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/starfield.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/scroll-effects.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/auth.js"><\/script>\n' +
-      '  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/supabase-config.js"><\/script>\n' +
-      '  <script src="' + cssPrefix + 'js/cms-loader.js"><\/script>\n' +
-      '</body>\n' +
-      '</html>';
   }
 
   /* ─── Helpers ───────────────────────────────────────────── */

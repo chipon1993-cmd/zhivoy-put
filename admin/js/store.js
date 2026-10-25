@@ -156,16 +156,21 @@
     /**
      * Persist all current data to localStorage + Supabase, and emit 'save' event.
      */
-    save: function () {
-      var self = this;
-      Object.keys(STORAGE_KEYS).forEach(function (section) {
-        var json = JSON.stringify(AdminStore.data[section]);
-        localStorage.setItem(STORAGE_KEYS[section], json);
-        if (window.SupabaseClient && window.SupabaseClient.isConnected()) {
-          window.SupabaseClient.set(STORAGE_KEYS[section], AdminStore.data[section]);
-        }
-      });
-      this.emit('save');
+    save: async function () {
+      try {
+        var payload = {};
+        Object.keys(STORAGE_KEYS).forEach(function (section) {
+          localStorage.setItem(STORAGE_KEYS[section], JSON.stringify(AdminStore.data[section]));
+          payload[STORAGE_KEYS[section]] = AdminStore.data[section];
+        });
+        await window.SupabaseClient.saveAll(payload);
+        this.emit('save');
+        if (window.AdminUI) AdminUI.toast('✓ Изменения сохранены в облаке');
+        return true;
+      } catch (err) {
+        if (window.AdminUI) AdminUI.toast('Черновик сохранён на устройстве. Облако: ' + err.message);
+        return false;
+      }
     },
 
     /**
@@ -233,7 +238,7 @@
     loadFromCloud: function () {
       if (!window.SupabaseClient || !window.SupabaseClient.isConnected()) return;
       var self = this;
-      window.SupabaseClient.getAll().then(function (cloudData) {
+      return window.SupabaseClient.getAll().then(function (cloudData) {
         if (!cloudData || Object.keys(cloudData).length === 0) return;
         var changed = false;
         Object.keys(STORAGE_KEYS).forEach(function (section) {
@@ -252,8 +257,9 @@
         });
         if (changed) {
           self.emit('cloud-loaded');
-          console.log('[AdminStore] Cloud data synced');
         }
+      }).catch(function (err) {
+        if (window.AdminUI) AdminUI.toast('Облако недоступно: ' + err.message);
       });
     }
   };

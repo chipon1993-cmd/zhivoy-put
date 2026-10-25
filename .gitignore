@@ -7,3 +7,7 @@ Thumbs.db
 builds/
 builds2/
 desktop-app/
+dist/
+.env
+.env.*
+!.env.example

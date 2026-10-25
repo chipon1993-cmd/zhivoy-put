@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Подтверждение email — Живой путь</title>
+</head>
+<body>
+  <main>
+    <h1>Подтвердите email</h1>
+    <p>После подтверждения вы сможете войти с вашим паролем.</p>
+    <button id="confirm" type="button">Подтвердить</button>
+    <p id="status" role="status"></p>
+    <a href="/pages/login.html">Перейти ко входу</a>
+  </main>
+  <script>
+    (function () {
+      var tokenHash = new URLSearchParams(location.search).get('token_hash');
+      history.replaceState(null, '', location.pathname);
+      var button = document.getElementById('confirm');
+      var status = document.getElementById('status');
+      button.disabled = !tokenHash;
+      if (!tokenHash) status.textContent = 'Откройте ссылку из письма.';
+      button.addEventListener('click', async function () {
+        button.disabled = true;
+        try {
+          var response = await fetch('/api/confirm', { method: 'POST', credentials: 'same-origin', cache: 'no-store',
+            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'zhivoy-put' },
+            body: JSON.stringify({ token_hash: tokenHash }) });
+          var result = await response.json();
+          if (!response.ok) throw new Error(result.error);
+          tokenHash = null;
+          status.textContent = 'Email подтверждён. Теперь войдите в аккаунт.';
+        } catch (err) {
+          status.textContent = err.message || 'Не удалось подтвердить email';
+          button.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

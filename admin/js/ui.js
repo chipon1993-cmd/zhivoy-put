@@ -294,7 +294,11 @@
           var editorId = 'quill-' + opts.id + '-' + Date.now();
           var editorDiv = el('div', 'richtext-editor');
           editorDiv.id = editorId;
-          editorDiv.innerHTML = value || '';
+          // Local drafts and previously stored CMS values are untrusted too.
+          editorDiv.innerHTML = window.DOMPurify ? DOMPurify.sanitize(value || '', {
+            ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'u', 's', 'ol', 'ul', 'li', 'a', 'blockquote'],
+            ALLOWED_ATTR: ['href', 'title']
+          }) : '';
           editorWrap.appendChild(editorDiv);
           group.appendChild(editorWrap);
 
@@ -493,7 +497,7 @@
         var handle = el('span', 'drag-handle', { innerHTML: '⠿' });
         item.appendChild(handle);
       } else if (opts.icon) {
-        var iconEl = el('span', 'list-item-icon', { innerHTML: opts.icon });
+        var iconEl = el('span', 'list-item-icon', { textContent: opts.icon });
         item.appendChild(iconEl);
       }
 

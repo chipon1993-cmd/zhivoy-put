@@ -4,14 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Конструктор страниц — Живой путь</title>
+  <base href="/admin/" />
 
-  <!-- ─── Auth guard (see admin/index.html note) ─── -->
-  <script src="../js/auth.js"></script>
-  <script>
-    if (!window.ZhivoyAuth || !window.ZhivoyAuth.isAdmin()) {
-      window.location.replace('../pages/login.html?redirect=admin');
-    }
-  </script>
+  <!-- All admin routes and assets are authorized by api/admin.js before delivery. -->
+  <script src="/js/auth.js"></script>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
@@ -88,6 +84,7 @@
   <script src="js/github-sync.js"></script>
 
   <!-- Editor config & custom blocks -->
+  <script src="js/purify.min.js"></script>
   <script src="js/grapes-config.js"></script>
 
 </body>
